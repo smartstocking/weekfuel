@@ -412,6 +412,12 @@ nav a{white-space:nowrap}
 .themebtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--ink);display:grid;place-items:center;cursor:pointer;flex:none}
 .themebtn:hover{border-color:var(--ink)}
 @media (max-width:880px){nav .themebtn{display:grid}}
+
+.abo{margin-top:4px}
+.abo .hint{font-size:13px;color:var(--muted);margin-top:4px}
+.abotoggle{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);background:var(--accent-soft);border-radius:12px;padding:12px 14px;cursor:pointer}
+.abotoggle b{color:var(--ink);font-weight:500}
+.abotoggle input{margin-top:3px;accent-color:var(--accent);width:16px;height:16px}
 </style>
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 </head>
@@ -458,7 +464,7 @@ nav a{white-space:nowrap}
       <div class="flatlay"><canvas id="heroCanvas" aria-label="Meal-Prep-Boxen mit den Gerichten der Woche"></canvas></div>
       <div class="facts">
         <div><b>Frühstück bis Abendessen</b><span>als Formel oder frei gewählt</span></div>
-        <div><b>Ohne Abo</b><span>bestell nur, wenn du willst</span></div>
+        <div><b>Mit oder ohne Abo</b><span>Abo −10 %, jederzeit pausierbar</span></div>
         <div><b>Bis −15 % Rabatt</b><span>automatisch ab 20 und 30</span></div>
         <div><b>Lieferung inklusive</b><span>in ganz Berlin</span></div>
       </div>
@@ -544,6 +550,7 @@ nav a{white-space:nowrap}
           <div class="head"><b id="fN">10</b><span id="fSub">Portionen</span></div>
           <div class="fitems" id="fItems"></div>
           <div class="fstats"><div><b id="fKcal">–</b>kcal pro Tag</div><div><b id="fProt">–</b>Protein pro Tag</div><div><b id="fDay">–</b>pro Tag</div></div>
+          <label class="abotoggle" for="fAbo"><input type="checkbox" id="fAbo"><span><b>Als Abo, jede Woche</b> · zusätzlich −10 %, jederzeit pausierbar</span></label>
           <div class="fprice"><span id="fDisc">inkl. Rabatt</span><b id="fTot">–</b></div>
           <button class="btn" type="button" id="fAdd">Formel in den Warenkorb</button>
           <p class="fine" id="fGoal" style="font-size:13px;color:var(--muted);margin:0" hidden></p>
@@ -724,7 +731,8 @@ const FAQ=[
     ["Kann ich Frühstück einzeln bestellen?","Nein, Frühstück gibt es nur in der Formel „Frühstück, Mittag + Abend“. Im Warenkorb kannst du die Frühstücke untereinander tauschen, höchstens eins pro zwei Hauptgerichte."],
     ["Habt ihr Gerichte für Sportler?","Ja. Unter „Extra Protein“ findest du Gerichte ab 35 g Eiweiß pro Portion. Dazu gibt es zwei Formeln: „Definition“ mit viel Eiweiß und wenig Kalorien und „Muskelaufbau“ mit großen, kalorienreichen Portionen. Du wählst dein Kalorienziel pro Tag, wir passen die Portionsgröße an. Die Nährwerte pro Tag siehst du direkt in der Formel."],
     ["Wie viele Portionen muss ich bestellen?","Mindestens 10. Du kannst sie frei aus der Wochenkarte mischen. Ab 20 Portionen gibt es 10 %, ab 30 Portionen 15 % Rabatt, automatisch im Warenkorb."],
-    ["Muss ich ein Abo abschließen?","Nein. Du bestellst, wann du willst, ohne Laufzeit und ohne Kündigung."],
+    ["Muss ich ein Abo abschließen?","Nein. Du kannst jederzeit einmalig bestellen. Wenn du regelmäßig bestellen willst, wähle im Warenkorb ein Abo (jede Woche oder alle 2 Wochen) und spare zusätzlich 10 %."],
+    ["Wie pausiere oder kündige ich mein Abo?","Jederzeit mit einer kurzen E-Mail an info@weekfuel.de, spätestens bis Donnerstag vor der nächsten Lieferung. Es gibt keine Mindestlaufzeit."],
     ["Wie bezahle ich?","Nach unserer Bestätigung per Überweisung oder PayPal. Firmen erhalten eine Rechnung."],
     ["Kann ich meine Bestellung stornieren?","Bis 48 Stunden vor dem ersten Liefertermin kostenlos. Danach kochen wir bereits für dich. Ein gesetzliches Widerrufsrecht gilt bei verderblichen Lebensmitteln nicht."]
   ]],
@@ -814,13 +822,16 @@ let cart={};
 try{const s=JSON.parse(localStorage.getItem("weekfuel-cart")||"{}");if(s&&typeof s==="object")cart=s}catch(e){}
 function save(){try{localStorage.setItem("weekfuel-cart",JSON.stringify(cart))}catch(e){}}
 const count=()=>Object.values(cart).reduce((a,b)=>a+b,0);
+let abo="0";try{abo=localStorage.getItem("weekfuel-abo")||"0"}catch(e){}
+const ABO_R=.10,ABO_TXT={"0":"Einmalige Bestellung","1":"Abo: jede Woche","2":"Abo: alle 2 Wochen"};
+function setAbo(v){abo=v;try{localStorage.setItem("weekfuel-abo",v)}catch(e){};refresh();if(typeof renderFormula==="function")renderFormula()}
 const TRIAL=()=>DISHES.filter(d=>d.meal==="m").map(d=>d.id),TRIAL_R=.2;
 const isTrial=()=>{const ks=Object.keys(cart),tr=TRIAL();return ks.length===tr.length&&tr.every(id=>cart[id]===1)};
 function totals(){
   const n=count(),sub=Object.entries(cart).reduce((a,[id,q])=>a+q*priceOf(id),0),trial=isTrial();
-  const t=TIERS.find(([m])=>n>=m),r=trial?TRIAL_R:(t?t[1]:0),tot=sub*(1-r);
+  const t=TIERS.find(([m])=>n>=m),r0=trial?TRIAL_R:(t?t[1]:0),ra=(!trial&&abo!=="0")?ABO_R:0,r=1-(1-r0)*(1-ra),tot=sub*(1-r),volDisc=sub*r0,aboDisc=sub*(1-r0)*ra;
   const next=[...TIERS].reverse().find(([m])=>n<m);
-  return{n,sub,r,tot,disc:sub-tot,next:trial?null:next,trial};
+  return{n,sub,r,r0,ra,tot,disc:sub-tot,volDisc,aboDisc,next:trial?null:next,trial};
 }
 function setQty(id,q){q=Math.max(0,Math.min(60,q));if(byId(id).meal==="b"&&q>(cart[id]||0)&&bfCount()>=bfLimit())return;if(q)cart[id]=q;else delete cart[id];save();refresh()}
 
@@ -916,7 +927,9 @@ function renderCart(){
     else if(t.trial)hint=`<div class="note"><span><b>Probierpaket:</b> jedes Hauptgericht einmal, <b>−20 %</b> auf deine erste Bestellung.</span></div>`;
     else if(t.next)hint=`<div class="note"><span>Noch <b>${t.next[0]-t.n}</b> bis <b>−${t.next[1]*100} %</b> auf die ganze Bestellung.</span></div>`;
     else hint=`<div class="note"><span>Du bekommst den maximalen Rabatt von <b>−15 %</b>.</span></div>`;
-    pb.innerHTML=hint+items+`<div class="lines"><div><span>Zwischensumme</span><span>${eur(t.sub)}</span></div><div class="g"><span>${t.trial?"Probierpaket":"Mengenrabatt"}${t.r?` (−${Math.round(t.r*100)} %)`:""}</span><span>${t.r?"−"+eur(t.disc):"–"}</span></div><div><span>Lieferung</span><span>inklusive</span></div></div>`;
+    const aboBox=`<fieldset class="fs abo"><legend>Wie oft?</legend><div class="chips three">${[["0","Einmalig","ohne Abo"],["1","Jede Woche","Abo −10 %"],["2","Alle 2 Wochen","Abo −10 %"]].map(([v,b,sm])=>`<input type="radio" name="abo" id="abo${v}" value="${v}" ${abo===v?"checked":""} ${t.trial&&v!=="0"?"disabled":""}><label for="abo${v}"><b>${b}</b><span>${sm}</span></label>`).join("")}</div><p class="hint">${t.trial?"Das Probierpaket gibt es nur als einmalige Bestellung.":"Abo jederzeit pausieren oder kündigen, per E-Mail an info@weekfuel.de."}</p></fieldset>`;
+    pb.innerHTML=hint+items+aboBox+`<div class="lines"><div><span>Zwischensumme</span><span>${eur(t.sub)}</span></div><div class="g"><span>${t.trial?"Probierpaket":"Mengenrabatt"}${t.r0?` (−${Math.round(t.r0*100)} %)`:""}</span><span>${t.r0?"−"+eur(t.volDisc):"–"}</span></div>${t.ra?`<div class="g"><span>Abo-Rabatt (−10 %)</span><span>−${eur(t.aboDisc)}</span></div>`:""}<div><span>Lieferung</span><span>inklusive</span></div></div>`;
+    pb.querySelectorAll("input[name=abo]").forEach(i=>i.onchange=()=>setAbo(i.value));
     requestAnimationFrame(()=>requestAnimationFrame(()=>pb.querySelectorAll("canvas[data-thumb]").forEach(cv=>drawThumb(cv,cv.dataset.thumb,.92))));
     pf.innerHTML=`<div class="tot"><span>Gesamt · kein USt-Ausweis (§ 19 UStG)</span><b>${eur(t.tot)}</b></div><div class="btns"><button class="btn" type="button" id="next" ${t.n<MIN||bfBad?"disabled":""}>Weiter zur Lieferung</button></div>`;
     pf.querySelector("#next").onclick=()=>{step=2;renderCart()};
@@ -966,7 +979,7 @@ function renderCart(){
   }
   if(step===4){
     const per=split(t.n,form.days.length);
-    const txt=`Bestellanfrage Weekfuel\n\n${Object.entries(cart).map(([id,q])=>`${String(q).padStart(2)} × ${nameOf(id)}`).join("\n")}\n\nPortionen: ${t.n}\nSumme: ${eur(t.tot)}${t.r?` (inkl. −${t.r*100} % Rabatt)`:""}\n\nLieferung: ${form.days.slice().sort().map((d,i)=>`${fmt(d)} (${per[i]})`).join(", ")}\nZeitfenster: ${form.win}\nAdresse: ${form.street}, ${form.plz} Berlin\n\n${form.kind==="Firma"?`Firma: ${form.company}\n`:""}Name: ${form.name}\nKontakt: ${form.contact}\nAnmerkungen: ${form.notes||"–"}`;
+    const txt=`Bestellanfrage Weekfuel\n\n${Object.entries(cart).map(([id,q])=>`${String(q).padStart(2)} × ${nameOf(id)}`).join("\n")}\n\nPortionen: ${t.n}\nBestellart: ${t.trial?"Probierpaket (einmalig)":ABO_TXT[abo]}\nSumme: ${eur(t.tot)}${t.r?` (inkl. −${t.r*100} % Rabatt)`:""}\n\nLieferung: ${form.days.slice().sort().map((d,i)=>`${fmt(d)} (${per[i]})`).join(", ")}\nZeitfenster: ${form.win}\nAdresse: ${form.street}, ${form.plz} Berlin\n\n${form.kind==="Firma"?`Firma: ${form.company}\n`:""}Name: ${form.name}\nKontakt: ${form.contact}\nAnmerkungen: ${form.notes||"–"}`;
     pb.innerHTML=`<div class="done-box"><div class="ok"><svg width="24" height="24"><use href="#i-ok"/></svg></div><h3 style="font-size:22px;letter-spacing:-.03em">Fast geschafft</h3><p style="color:var(--muted)">Schick uns diese Zusammenfassung an <b>${MAIL}</b>. Wir bestätigen Termin und Preis innerhalb von 24 Stunden. Bezahlt wird erst danach.</p><pre id="sumTxt"></pre></div>`;
     pb.querySelector("#sumTxt").textContent=txt;
     pf.innerHTML=`<div class="btns"><button class="btn" type="button" id="copyS">Zusammenfassung kopieren</button></div><button class="more" type="button" id="restart" style="justify-self:center">Neue Bestellung beginnen</button>`;
@@ -1027,7 +1040,7 @@ function renderTargets(){const goal=fval("fg"),per=+fval("fm"),set=document.getE
   document.getElementById("fKcalHint").textContent=h;
 }
 function renderFormula(){renderTargets();const {out,days,per,f,m}=buildFormula(),n=Object.values(out).reduce((a,b)=>a+b,0);
-  const sub=Object.entries(out).reduce((a,[id,q])=>a+q*priceOf(id),0),t=TIERS.find(([mm])=>n>=mm),r=t?t[1]:0,tot=sub*(1-r);
+  const sub=Object.entries(out).reduce((a,[id,q])=>a+q*priceOf(id),0),t=TIERS.find(([mm])=>n>=mm),r0=t?t[1]:0,ra=abo!=="0"?ABO_R:0,r=1-(1-r0)*(1-ra),tot=sub*(1-r);document.getElementById("fAbo").checked=abo!=="0";
   const kcal=Object.entries(out).reduce((a,[id,q])=>a+q*kcalOf(id),0)/days,prot=Object.entries(out).reduce((a,[id,q])=>a+q*protOf(id),0)/days;
   document.getElementById("fN").textContent=n+" Portionen";
   document.getElementById("fSub").textContent=(per===3?`${days} Frühstücke, `:"")+`${days*m} Hauptgerichte`;
@@ -1035,7 +1048,7 @@ function renderFormula(){renderTargets();const {out,days,per,f,m}=buildFormula()
   document.getElementById("fKcal").textContent="~"+Math.round(kcal/10)*10;
   document.getElementById("fProt").textContent="~"+Math.round(prot)+" g";
   document.getElementById("fDay").textContent=eur(tot/days);
-  document.getElementById("fDisc").textContent=r?`inkl. −${r*100} % Mengenrabatt`:"Gesamt";
+  document.getElementById("fDisc").textContent=(r0?`inkl. −${r0*100} % Mengenrabatt`:"Gesamt")+(ra?" und −10 % Abo":"")+(ra?" · pro Woche":"");
   document.getElementById("fTot").textContent=eur(tot);
   const g=fval("fg"),gh=document.getElementById("fGoal");gh.hidden=!(g==="cut"||g==="bulk");gh.textContent="Richtwerte. Dein Bedarf hängt von Gewicht, Alltag und Training ab.";
   document.getElementById("fNote").textContent=count()?"Ersetzt deinen aktuellen Warenkorb. Du kannst danach alles anpassen.":"Du kannst einzelne Gerichte danach tauschen.";
@@ -1044,6 +1057,7 @@ document.getElementById("formeln").addEventListener("change",e=>{if(e.target.nam
 let kt;document.getElementById("fkCustom").addEventListener("input",e=>{clearTimeout(kt);kt=setTimeout(()=>{const g=fval("fg"),[lo,hi]=LIMITS[g];let v=Math.round(+e.target.value/50)*50;if(!v)return;
   if(v<lo||v>hi){document.getElementById("fKcalHint").textContent=`Bitte einen Wert zwischen ${lo.toLocaleString("de-DE")} und ${hi.toLocaleString("de-DE")} kcal eingeben.`;return}
   target[g]=v;renderFormula()},350)});
+document.getElementById("fAbo").addEventListener("change",e=>setAbo(e.target.checked?"1":"0"));
 document.getElementById("fAdd").addEventListener("click",()=>{cart={...buildFormula().out};save();refresh();renderFormula();openCart(1)});
 renderFormula();
 
