@@ -386,6 +386,11 @@ footer a:hover{color:var(--ink)}
 .qbtns{display:grid;gap:8px}
 .qbtns .btn{width:100%}
 @media (max-width:520px){.qbody{padding:18px 20px 24px}.qbody h3{font-size:22px}}
+
+.kcustom{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:12px;font-size:14px;color:var(--muted)}
+.kcustom span:first-child{color:var(--ink);font-weight:500}
+.kcustom input{width:130px;font:500 16px var(--font);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.kcustom input:focus{outline:none;border-color:var(--ink)}
 </style>
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 </head>
@@ -466,10 +471,15 @@ footer a:hover{color:var(--ink)}
               <input type="radio" name="fg" id="fgm" value="bulk"><label for="fgm"><b>Muskelaufbau</b><span>viel Eiweiß, mehr kcal</span></label>
             </div>
           </fieldset>
-          <fieldset class="fs fbox" id="fKcalSet" hidden><legend id="fKcalLeg">Kalorienziel pro Tag</legend><div class="chips" id="fKcalChips"></div><p class="hint" id="fKcalHint"></p></fieldset>
+          <fieldset class="fs fbox" id="fSizeSet"><legend>Portionsgröße</legend><div class="chips">
+            <input type="radio" name="fz" id="fz1" value="1" checked><label for="fz1"><b>M</b><span>normal</span></label>
+            <input type="radio" name="fz" id="fz125" value="1.25"><label for="fz125"><b>L</b><span>etwas mehr</span></label>
+            <input type="radio" name="fz" id="fz15" value="1.5"><label for="fz15"><b>XL</b><span>sehr satt</span></label>
+          </div></fieldset>
+          <fieldset class="fs fbox" id="fKcalSet" hidden><legend id="fKcalLeg">Kalorienziel pro Tag</legend><div class="chips g4" id="fKcalChips" style="--n:4"></div><label class="kcustom" for="fkCustom"><span>Eigener Wert</span><input type="number" id="fkCustom" inputmode="numeric" step="50"><span>kcal pro Tag</span></label><p class="hint" id="fKcalHint"></p></fieldset>
           <fieldset class="fs fbox"><legend>Mahlzeiten pro Tag</legend><div class="chips" style="--n:2">
-            <input type="radio" name="fm" id="fm2" value="2" checked><label for="fm2"><b>Mittag + Abend</b><span>2 pro Tag</span></label>
-            <input type="radio" name="fm" id="fm3" value="3"><label for="fm3"><b>Frühstück, Mittag + Abend</b><span>3 pro Tag</span></label>
+            <input type="radio" name="fm" id="fm2" value="2" checked><label for="fm2"><b>Mittag + Abend</b><span>ohne Frühstück</span></label>
+            <input type="radio" name="fm" id="fm3" value="3"><label for="fm3"><b>Mit Frühstück</b><span>Frühstück, Mittag + Abend</span></label>
           </div></fieldset>
           <fieldset class="fs fbox"><legend>Für wie viele Tage?</legend><div class="chips">
             <input type="radio" name="fd" id="fd5" value="5" checked><label for="fd5"><b>5 Tage</b><span>Arbeitswoche</span></label>
@@ -632,7 +642,7 @@ const DISHES=[
    z:"Reis, Putenhack, Kidneybohnen, Tomaten, Mais, Paprika, Zwiebeln, Kreuzkümmel, Chili",a:["Sellerie"]},
   {id:"hgemuese",grp:"sport",meal:"m",n:"Hähnchen mit Ofengemüse",d:"Hähnchenbrust, Zucchini, Paprika, Brokkoli, Kräuterquark.",p:11.9,cat:"fleisch",tag:"Definition",sport:true,g:450,kcal:430,prot:50,carb:22,fat:14,pan:"5 Min",oven:"12 Min",mic:"3 Min",
    z:"Hähnchenbrust, Zucchini, Paprika, Brokkoli, rote Zwiebeln, Magerquark, Kräuter, Olivenöl",a:["Milch"]},
-  {id:"rindxl",grp:"sport",meal:"m",n:"Rinderhack-Bowl XL",d:"Große Portion Reis, Rinderhack, schwarze Bohnen, Avocado-Creme.",p:13.9,cat:"fleisch",tag:"Muskelaufbau",sport:true,g:600,kcal:950,prot:60,carb:98,fat:32,pan:"7 Min",oven:"18 Min",mic:"4–5 Min",
+  {id:"rindxl",grp:"sport",meal:"m",n:"Rinderhack-Power-Bowl",d:"Große Portion Reis, Rinderhack, schwarze Bohnen, Avocado-Creme.",p:13.9,cat:"fleisch",tag:"Muskelaufbau",sport:true,g:600,kcal:950,prot:60,carb:98,fat:32,pan:"7 Min",oven:"18 Min",mic:"4–5 Min",
    z:"Reis, Rinderhack, schwarze Bohnen, Mais, Avocado, Limette, Frühlingszwiebeln, Sesam, Sojasauce",a:["Soja","Weizen (Gluten)","Sesam"]},
   {id:"curry",grp:"klassik",meal:"m",n:"Hähnchen-Curry",d:"Hähnchenschenkel in Tomaten-Kokos-Sauce, Basmati.",p:10.5,cat:"fleisch",tag:"Beliebt",g:450,kcal:620,prot:38,carb:62,fat:22,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Basmatireis, Hähnchenschenkel, Tomaten, Kokosmilch, Zwiebeln, Ingwer, Knoblauch, Garam Masala, Koriander",a:["Sellerie"]},
@@ -685,7 +695,7 @@ const byId=id=>DISHES.find(d=>d.id===String(id).split("|")[0]);
 const facOf=k=>+(String(k).split("|")[1]||1);
 const priceOf=k=>{const d=byId(k),f=facOf(k);return f===1?d.p:Math.round(d.p*(.35+.65*f)*10)/10};
 const kcalOf=k=>byId(k).kcal*facOf(k), protOf=k=>byId(k).prot*facOf(k);
-const nameOf=k=>{const f=facOf(k);return byId(k).n+(f===1?"":` · Portion ${f>1?"+":"−"}${Math.round(Math.abs(f-1)*100)} %`)};
+const nameOf=k=>{const f=facOf(k);return byId(k).n+(f===1?"":` · Größe ${({.75:"S",1.25:"L",1.5:"XL"})[f]||Math.round(f*100)+" %"}`)};
 
 /* ================= illustration engine ================= */
 function rng(seed){let s=0;for(const c of seed)s=(s*31+c.charCodeAt(0))>>>0;return()=>{s=(s+0x6D2B79F5)>>>0;let t=s;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
@@ -924,38 +934,51 @@ const POOLS={bal:{b:["oats","pancakes","burrito"],m:["curry","huhnbowl","chili",
              bulk:{b:["burrito","pancakes"],m:["rindxl","gulasch","rindxl","pasta","huhnbowl"]},
              veg:{b:["oats"],m:["chili","dal"]}};
 function fval(n){return document.querySelector(`input[name="${n}"]:checked`).value}
-const TARGETS={cut:[1500,1800,2000],bulk:[2500,3000,3500]},DEF_T={cut:1800,bulk:3000};
-let target={cut:1800,bulk:3000};
+const TARGETS={cut:[1200,1500,1800,2000],bulk:[2500,3000,4000,5000]},LIMITS={cut:[1200,3000],bulk:[2000,6000]};
+let target={cut:1800,bulk:3000},psize=1;
+const SIZES=[.75,1,1.25,1.5],SIZE_NAME={.75:"S",1:"M",1.25:"L",1.5:"XL"};
 const avg=(l,f)=>l.reduce((a,id)=>a+f(byId(id)),0)/l.length;
-function factorFor(goal,per,T){const pool=POOLS[goal],B=per===3?avg(pool.b,d=>d.kcal):0,K=avg(pool.m,d=>d.kcal);return Math.round(((T-B)/2/K)*20)/20}
+function plan(goal,per,T){const pool=POOLS[goal],B=per===3?avg(pool.b,d=>d.kcal):0,K=avg(pool.m,d=>d.kcal);
+  let best=null;for(let m=2;m<=6;m++)for(const f of SIZES){const k=B+m*K*f,e=Math.abs(k-T)+(m-2)*25;if(!best||e<best.e)best={m,f,k,e}}
+  const raw=(T-B)/(2*K);
+  return{m:best.m,f:best.f,kcal:Math.round(best.k/10)*10,low:raw<.7,high:T-B>6*K*1.62}}
 function buildFormula(){const per=+fval("fm"),days=+fval("fd"),goal=fval("fg"),pool=POOLS[goal],out={};
-  let f=1;if(TARGETS[goal]){f=Math.min(2,Math.max(.8,factorFor(goal,per,target[goal])));if(Math.abs(f-1)<.03)f=1}
+  let f=psize,m=2;if(TARGETS[goal]){const P=plan(goal,per,target[goal]);f=P.f;m=P.m}
   const add=(list,n,fac)=>{for(let i=0;i<n;i++){const id=list[i%list.length]+(fac!==1?"|"+fac:"");out[id]=(out[id]||0)+1}};
-  if(per===3)add(pool.b,days,1);add(pool.m,days*2,f);return{out,days,per,f}}
-function renderTargets(){const goal=fval("fg"),per=+fval("fm"),set=document.getElementById("fKcalSet");
+  if(per===3)add(pool.b,days,1);add(pool.m,days*m,f);return{out,days,per,f,m}}
+function renderTargets(){const goal=fval("fg"),per=+fval("fm"),set=document.getElementById("fKcalSet");document.getElementById("fSizeSet").hidden=!!TARGETS[goal];
   if(!TARGETS[goal]){set.hidden=true;return}set.hidden=false;
+  const [lo,hi]=LIMITS[goal],T=target[goal];
   document.getElementById("fKcalLeg").textContent=goal==="bulk"?"Kalorienziel pro Tag (Muskelaufbau)":"Kalorienziel pro Tag (Definition)";
-  const ok=T=>{const f=factorFor(goal,per,T);return f<=2&&f>=.8};
-  if(!ok(target[goal]))target[goal]=TARGETS[goal].filter(ok).slice(-1)[0]||TARGETS[goal][0];
-  document.getElementById("fKcalChips").innerHTML=TARGETS[goal].map(T=>`<input type="radio" name="fk" id="fk${T}" value="${T}" ${T===target[goal]?"checked":""} ${ok(T)?"":"disabled"}><label for="fk${T}"><b>${goal==="bulk"?"+":"~"}${T.toLocaleString("de-DE")}</b><span>kcal</span></label>`).join("");
-  const off=TARGETS[goal].filter(T=>!ok(T));
-  document.getElementById("fKcalHint").textContent=(off.length?`Für ${off.map(T=>T.toLocaleString("de-DE")).join(" und ")} kcal wähle „Frühstück, Mittag + Abend“. `:"")+"Wir passen die Portionsgröße der Hauptgerichte an dein Ziel an.";
+  document.getElementById("fKcalChips").innerHTML=TARGETS[goal].map(v=>`<input type="radio" name="fk" id="fk${v}" value="${v}" ${v===T?"checked":""}><label for="fk${v}"><b>${goal==="bulk"?"+":"~"}${v.toLocaleString("de-DE")}</b><span>kcal</span></label>`).join("");
+  const ci=document.getElementById("fkCustom");ci.min=lo;ci.max=hi;ci.placeholder=`${lo.toLocaleString("de-DE")} bis ${hi.toLocaleString("de-DE")}`;
+  if(document.activeElement!==ci)ci.value=TARGETS[goal].includes(T)?"":T;
+  const P=plan(goal,per,T),parts=[];
+  if(P.m>2)parts.push(`${P.m} Hauptgerichte pro Tag`);
+  if(P.f!==1)parts.push(`Portionsgröße ${SIZE_NAME[P.f]}`);
+  let h=`Erreicht: ca. ${P.kcal.toLocaleString("de-DE")} kcal pro Tag`+(parts.length?` (${parts.join(", ")}).`:".");
+  if(P.low)h+=" Weniger ist mit diesen Mahlzeiten nicht möglich. Wähle „Mittag + Abend“ für weniger Kalorien.";
+  if(P.high)h+=" Das ist unser Maximum.";
+  document.getElementById("fKcalHint").textContent=h;
 }
-function renderFormula(){renderTargets();const {out,days,per,f}=buildFormula(),n=days*per;
-  const sub=Object.entries(out).reduce((a,[id,q])=>a+q*priceOf(id),0),t=TIERS.find(([m])=>n>=m),r=t?t[1]:0,tot=sub*(1-r);
+function renderFormula(){renderTargets();const {out,days,per,f,m}=buildFormula(),n=Object.values(out).reduce((a,b)=>a+b,0);
+  const sub=Object.entries(out).reduce((a,[id,q])=>a+q*priceOf(id),0),t=TIERS.find(([mm])=>n>=mm),r=t?t[1]:0,tot=sub*(1-r);
   const kcal=Object.entries(out).reduce((a,[id,q])=>a+q*kcalOf(id),0)/days,prot=Object.entries(out).reduce((a,[id,q])=>a+q*protOf(id),0)/days;
   document.getElementById("fN").textContent=n+" Portionen";
-  document.getElementById("fSub").textContent=per===3?`${days} Frühstücke, ${days*2} Hauptgerichte`:`${days*2} Hauptgerichte`;
+  document.getElementById("fSub").textContent=(per===3?`${days} Frühstücke, `:"")+`${days*m} Hauptgerichte`;
   document.getElementById("fItems").innerHTML=Object.entries(out).sort((a,b)=>byId(a[0]).meal.localeCompare(byId(b[0]).meal)).map(([id,q])=>`<div><span>${q} × ${nameOf(id)}</span><span>${eur(q*priceOf(id))}</span></div>`).join("");
   document.getElementById("fKcal").textContent="~"+Math.round(kcal/10)*10;
   document.getElementById("fProt").textContent="~"+Math.round(prot)+" g";
   document.getElementById("fDay").textContent=eur(tot/days);
   document.getElementById("fDisc").textContent=r?`inkl. −${r*100} % Mengenrabatt`:"Gesamt";
   document.getElementById("fTot").textContent=eur(tot);
-  const g=fval("fg"),gh=document.getElementById("fGoal");gh.hidden=!(g==="cut"||g==="bulk");gh.textContent=(f!==1?`Hauptgerichte in angepasster Größe (${f>1?"+":"−"}${Math.round(Math.abs(f-1)*100)} %). `:"")+"Richtwerte. Dein Bedarf hängt von Gewicht, Alltag und Training ab.";
+  const g=fval("fg"),gh=document.getElementById("fGoal");gh.hidden=!(g==="cut"||g==="bulk");gh.textContent="Richtwerte. Dein Bedarf hängt von Gewicht, Alltag und Training ab.";
   document.getElementById("fNote").textContent=count()?"Ersetzt deinen aktuellen Warenkorb. Du kannst danach alles anpassen.":"Du kannst einzelne Gerichte danach tauschen.";
 }
-document.getElementById("formeln").addEventListener("change",e=>{if(e.target.name==="fk")target[fval("fg")]=+e.target.value;renderFormula()});
+document.getElementById("formeln").addEventListener("change",e=>{if(e.target.name==="fk")target[fval("fg")]=+e.target.value;if(e.target.name==="fz")psize=+e.target.value;if(e.target.id==="fkCustom")return;renderFormula()});
+let kt;document.getElementById("fkCustom").addEventListener("input",e=>{clearTimeout(kt);kt=setTimeout(()=>{const g=fval("fg"),[lo,hi]=LIMITS[g];let v=Math.round(+e.target.value/50)*50;if(!v)return;
+  if(v<lo||v>hi){document.getElementById("fKcalHint").textContent=`Bitte einen Wert zwischen ${lo.toLocaleString("de-DE")} und ${hi.toLocaleString("de-DE")} kcal eingeben.`;return}
+  target[g]=v;renderFormula()},350)});
 document.getElementById("fAdd").addEventListener("click",()=>{cart={...buildFormula().out};save();refresh();renderFormula();openCart(1)});
 renderFormula();
 
@@ -964,8 +987,9 @@ renderFormula();
 const quizOv=document.getElementById("quizOv"),qBody=document.getElementById("qBody"),qBar=document.getElementById("qBar");
 let qa={},qstep=0;
 const QS=[
- {k:"goal",q:"Was ist dein Ziel?",o:[["cut","Abnehmen oder definieren","Viel Eiweiß, weniger Kalorien"],["bulk","Muskeln aufbauen","Viel Eiweiß, mehr Kalorien"],["bal","Einfach gut und bequem essen","Abwechslungsreich, ohne Zählen"],["veg","Pflanzlich essen","Komplett vegan"]]},
- {k:"train",q:"Wie oft trainierst du?",only:a=>a.goal==="cut"||a.goal==="bulk",o:[["1","1 bis 2 Mal pro Woche","Eher wenig Bewegung im Alltag"],["2","3 bis 4 Mal pro Woche","Regelmäßig im Gym oder beim Sport"],["3","5 Mal oder öfter","Intensives Training"]]},
+ {k:"goal",q:"Was ist dein Ziel?",o:[["cut","Abnehmen oder Definition","Viel Eiweiß, weniger Kalorien"],["bulk","Muskeln aufbauen","Viel Eiweiß, mehr Kalorien"],["bal","Einfach gut und bequem essen","Abwechslungsreich, ohne Zählen"],["veg","Pflanzlich essen","Komplett vegan"]]},
+ {k:"hunger",q:"Wie groß ist dein Hunger?",only:a=>a.goal==="bal"||a.goal==="veg",o:[["1","Normal","Standardportion, Größe M"],["1.25","Groß","Etwas mehr auf dem Teller, Größe L"],["1.5","Sehr groß","Richtig satt werden, Größe XL"]]},
+ {k:"train",q:"Wie aktiv bist du?",only:a=>a.goal==="cut"||a.goal==="bulk",o:[["1","1 bis 2 Mal pro Woche","Eher wenig Bewegung im Alltag"],["2","3 bis 4 Mal pro Woche","Regelmäßig im Gym oder beim Sport"],["3","5 Mal oder öfter","Intensives Training"]]},
  {k:"per",q:"Welche Mahlzeiten sollen wir übernehmen?",o:[["2","Mittag und Abend","2 Mahlzeiten pro Tag"],["3","Frühstück, Mittag und Abend","3 Mahlzeiten pro Tag"]]},
  {k:"days",q:"Für wie viele Tage?",o:[["5","Arbeitswoche","5 Tage"],["7","Ganze Woche","7 Tage"],["10","Zwei Wochen","10 Tage, auf mehrere Lieferungen verteilt"]]}
 ];
@@ -973,20 +997,20 @@ const qsteps=()=>QS.filter(x=>!x.only||x.only(qa));
 function qRender(){const st=qsteps();qBar.style.width=(qstep/st.length*100)+"%";
   if(qstep>=st.length)return qResult();
   const x=st[qstep];
-  qBody.innerHTML=`<span class="qn">Frage ${qstep+1} von ${st.length}</span><h3 id="qTitle">${x.q}</h3><div class="qopts">${x.o.map(([v,t,d])=>`<button class="qopt" type="button" data-v="${v}"><b>${t}</b><small>${d}</small></button>`).join("")}</div>${qstep?'<button class="qback" type="button" data-qback>Zurück</button>':""}`;
+  qBody.innerHTML=`<span class="qn">Frage ${qstep+1} von 4</span><h3 id="qTitle">${x.q}</h3><div class="qopts">${x.o.map(([v,t,d])=>`<button class="qopt" type="button" data-v="${v}"><b>${t}</b><small>${d}</small></button>`).join("")}</div>${qstep?'<button class="qback" type="button" data-qback>Zurück</button>':""}`;
   qBody.querySelector(".qopt").focus();
 }
 function setRadio(name,v){const el=document.querySelector(`input[name="${name}"][value="${v}"]`);if(el)el.checked=true}
 function qApply(){
   let per=+qa.per,note="";
-  setRadio("fg",qa.goal);setRadio("fd",qa.days);
-  if(TARGETS[qa.goal]){const T=TARGETS[qa.goal][+qa.train-1];target[qa.goal]=T;
-    const f=factorFor(qa.goal,per,T);if(per===2&&(f>2||f<.8)){per=3;note="Für dein Kalorienziel empfehlen wir zusätzlich das Frühstück."}}
+  setRadio("fg",qa.goal);setRadio("fd",qa.days);if(qa.hunger){psize=+qa.hunger;setRadio("fz",qa.hunger)}
+  if(TARGETS[qa.goal]){const T=({cut:[1500,1800,2000],bulk:[2800,3200,3800]})[qa.goal][+qa.train-1];target[qa.goal]=T;
+    const P=plan(qa.goal,per,T);if(P.m>2)note=`Dafür planen wir ${P.m} Hauptgerichte pro Tag ein.`}
   setRadio("fm",per);renderFormula();return note}
 function qResult(){qBar.style.width="100%";const note=qApply();
   const g=qa.goal,T=target[g];
-  const name={cut:`Definition · ~${T.toLocaleString("de-DE")} kcal`,bulk:`Muskelaufbau · +${T.toLocaleString("de-DE")} kcal`,bal:"Ausgewogen",veg:"Vegan"}[g];
-  const why={cut:"Eiweißreiche Gerichte mit wenig Fett, damit du satt bleibst und deine Muskeln erhältst.",bulk:"Große, kalorienreiche Portionen mit viel Eiweiß für deinen Muskelaufbau.",bal:"Eine abwechslungsreiche Mischung aus unseren Klassikern, ohne Kalorienzählen.",veg:"Unsere pflanzlichen Gerichte, sättigend und eiweißreich."}[g];
+  const name=g==="cut"?`Definition · ~${T.toLocaleString("de-DE")} kcal`:g==="bulk"?`Muskelaufbau · +${T.toLocaleString("de-DE")} kcal`:g==="bal"?"Ausgewogen":"Vegan";
+  const why={cut:"Eiweißreiche, kalorienarme Gerichte, damit du abnimmst, satt bleibst und deine Muskeln erhältst. Den Kalorienwert kannst du danach frei anpassen.",bulk:"Große, kalorienreiche Portionen mit viel Eiweiß für deinen Muskelaufbau. Den Kalorienwert kannst du danach frei anpassen.",bal:"Eine abwechslungsreiche Mischung aus unseren Klassikern, ohne Kalorienzählen.",veg:"Unsere pflanzlichen Gerichte, sättigend und eiweißreich."}[g];
   const per=+fval("fm"),days=+fval("fd");
   qBody.innerHTML=`<div class="qres"><span class="tag">Deine Empfehlung</span><h3 id="qTitle">${name}</h3>
    <p class="why">${why} ${per===3?"Frühstück, Mittag und Abend":"Mittag und Abend"} für ${days} Tage, also ${document.getElementById("fN").textContent}.${note?" "+note:""}</p>
