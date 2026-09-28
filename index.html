@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Weekfuel</title>
+<meta name="description" content="Weekfuel – hausgemachtes Meal Prep aus Berlin. Frühstück, Mittag und Abend als Formel oder frei gewählt, mit Formeln für Definition und Muskelaufbau.">
+<meta property="og:title" content="Weekfuel – Deine Woche. Schon gekocht.">
+<meta property="og:description" content="Hausgemachtes Meal Prep aus Berlin, ab 10 Portionen geliefert.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 24'%3E%3Crect x='1' y='1' width='30' height='22' rx='6' fill='none' stroke='%231E4A36' stroke-width='3'/%3E%3Crect x='6' y='6' width='9' height='12' rx='2' fill='%231E4A36'/%3E%3Crect x='17' y='6' width='9' height='12' rx='2' fill='%231E4A36'/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:"Geist";font-weight:400;font-style:normal;font-display:swap;src:url(geist-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Geist";font-weight:500;font-style:normal;font-display:swap;src:url(geist-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Geist";font-weight:600;font-style:normal;font-display:swap;src:url(geist-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-weight:400;font-style:normal;font-display:swap;src:url(instrument-serif-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-weight:400;font-style:italic;font-display:swap;src:url(instrument-serif-latin-400-italic.woff2) format("woff2")}
+:root{
+  --bg:#FFFFFF; --soft:#F4F4F1; --plate:#E9E8E2; --ink:#121412; --muted:#6A6E6A; --line:#E3E3DE;
+  --accent:#1E4A36; --accent-soft:#E3EEE7; --on-accent:#FFFFFF; --warn:#9A5B00; --warn-soft:#FBF0DC;
+  --deep:#15201A; --on-deep:#EEF0EC; --deep-muted:#9FA8A1; --deep-line:#2A3630; --glow:#A9D8BC;
+  --overlay:rgba(12,16,13,.45);
+  --font:"Geist", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --serif:"Instrument Serif", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0F100F; --soft:#161816; --plate:#1C1F1C; --ink:#EEEFEC; --muted:#9A9F9A; --line:#282B28;
+    --accent:#8CC7A5; --accent-soft:#18281F; --on-accent:#0F100F; --warn:#F0B75A; --warn-soft:#2A2213;
+    --deep:#131C17; --on-deep:#EEF0EC; --deep-muted:#95A097; --deep-line:#27332C; --glow:#A9D8BC;
+    --overlay:rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F100F; --soft:#161816; --plate:#1C1F1C; --ink:#EEEFEC; --muted:#9A9F9A; --line:#282B28;
+  --accent:#8CC7A5; --accent-soft:#18281F; --on-accent:#0F100F; --warn:#F0B75A; --warn-soft:#2A2213;
+  --deep:#131C17; --on-deep:#EEF0EC; --deep-muted:#95A097; --deep-line:#27332C; --glow:#A9D8BC;
+  --overlay:rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body.lock{overflow:hidden}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:32px}
+@media (max-width:600px){.wrap{padding-inline:20px}}
+h1,h2,h3{margin:0;font-weight:500;text-wrap:balance}
+h1{font-size:clamp(44px,7vw,96px);line-height:.96;letter-spacing:-.05em}
+h2{font-size:clamp(30px,3.6vw,46px);line-height:1.05;letter-spacing:-.04em}
+h3{font-size:17px;letter-spacing:-.01em;line-height:1.35}
+em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+.label{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:10px}
+.label::before{content:"";width:18px;height:1px;background:currentColor}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:500 15px/1 var(--font);padding:16px 24px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer;transition:opacity .2s,border-color .2s}
+.btn:hover{opacity:.86}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink);opacity:1}
+.btn.sm{padding:10px 16px;font-size:14px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:24px}
+.logo{font-weight:600;font-size:21px;letter-spacing:-.05em;display:flex;align-items:center;gap:8px}
+.logo i{width:20px;height:14px;border-radius:4px;border:2px solid var(--accent);display:inline-grid;grid-template-columns:1fr 1fr;gap:2px;padding:2px;box-sizing:border-box;background:linear-gradient(90deg,var(--accent) 0 42%,transparent 42% 58%,var(--accent) 58%);background-clip:content-box}
+nav{display:flex;align-items:center;gap:28px;font-size:15px}
+nav a{color:var(--muted);transition:color .2s}
+nav a:hover{color:var(--ink)}
+.cartbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:9px 14px 9px 12px;font:500 14px var(--font);cursor:pointer}
+.cartbtn:hover{border-color:var(--ink)}
+.cartbtn svg{width:18px;height:18px}
+.cartbtn .c{min-width:22px;height:22px;border-radius:11px;background:var(--ink);color:var(--bg);font-size:12px;display:grid;place-items:center;padding-inline:6px;font-variant-numeric:tabular-nums}
+@media (max-width:880px){nav a{display:none}}
+
+/* hero */
+.hero{padding-top:80px}
+.hero-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:48px;align-items:end}
+.hero .intro{display:grid;gap:26px;justify-items:start;max-width:30em;padding-bottom:8px}
+.hero .intro p{font-size:18px;color:var(--muted)}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+@media (max-width:880px){.hero{padding-top:48px}.hero-grid{grid-template-columns:1fr;gap:24px}}
+.flatlay{margin-top:64px;position:relative;height:clamp(240px,34vw,460px);background:var(--plate);overflow:hidden}
+.flatlay canvas{position:absolute;inset:0;width:100%;height:100%}
+@media (max-width:880px){.flatlay{margin-top:40px}}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.facts div{padding:22px 24px 24px 0;display:grid;gap:2px}
+.facts div + div{padding-left:24px;border-left:1px solid var(--line)}
+.facts b{font-weight:500;font-size:15px}
+.facts span{font-size:14px;color:var(--muted)}
+@media (max-width:880px){.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(3){padding-left:0;border-left:0}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+section{padding-block:104px}
+@media (max-width:700px){section{padding-block:68px}}
+.shead{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:48px}
+.shead > div{display:grid;gap:16px}
+.shead p{color:var(--muted);max-width:32em;font-size:17px}
+@media (max-width:880px){.shead{grid-template-columns:1fr;gap:16px;margin-bottom:36px}}
+.soft{background:var(--soft)}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.step{padding:26px 32px 0 0;display:grid;gap:8px;align-content:start}
+.step + .step{padding-left:32px;border-left:1px solid var(--line)}
+.step .n{font-family:var(--serif);font-size:30px;line-height:1;color:var(--accent)}
+.step p{color:var(--muted);max-width:26em}
+@media (max-width:760px){.steps{grid-template-columns:1fr}.step,.step + .step{padding:22px 0;border-left:0;border-bottom:1px solid var(--line)}}
+
+/* menu */
+.menubar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid var(--line);margin-bottom:36px}
+.tabs{display:flex;gap:26px;overflow-x:auto;max-width:100%}
+.tabs button{font:500 15px var(--font);background:none;border:0;color:var(--muted);padding:0 0 14px;margin-bottom:-1px;border-bottom:1px solid transparent;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs button span{font-size:12px;margin-left:4px}
+.quick{background:none;border:0;color:var(--accent);font:500 14px var(--font);cursor:pointer;padding:0 0 14px;display:flex;align-items:center;gap:6px}
+.quick:hover{text-decoration:underline;text-underline-offset:3px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:52px 28px}
+.dish{display:grid;gap:16px;align-content:start}
+.dish .img{position:relative;aspect-ratio:5/4;background:var(--plate);overflow:hidden;border:0;padding:0;cursor:pointer;width:100%;display:block}
+.dish .img canvas{position:absolute;inset:0;width:100%;height:100%;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:no-preference){.dish .img:hover canvas{transform:scale(1.04)}}
+.dish .tag{position:absolute;left:14px;top:14px;background:var(--bg);color:var(--ink);font-size:12.5px;padding:5px 11px;border-radius:999px}
+.dish .incart{position:absolute;right:14px;top:14px;background:var(--ink);color:var(--bg);font-size:12.5px;padding:5px 11px;border-radius:999px}
+.dish .row{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+.dish .price{font-variant-numeric:tabular-nums;font-weight:500;white-space:nowrap}
+.dish p.d{color:var(--muted);font-size:15px;line-height:1.5;margin-top:4px}
+.nut{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);margin-top:10px;font-variant-numeric:tabular-nums}
+.nut b{color:var(--ink);font-weight:500}
+.dish .act{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.more{background:none;border:0;color:var(--muted);font:14px var(--font);cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line)}
+.more:hover{color:var(--ink)}
+.add{border:1px solid var(--ink);background:var(--bg);color:var(--ink);border-radius:999px;font:500 14px var(--font);padding:9px 16px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.add:hover{background:var(--ink);color:var(--bg)}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--ink);border-radius:999px;background:var(--ink);color:var(--bg)}
+.stepper button{width:38px;height:38px;border:0;background:transparent;color:inherit;font-size:18px;cursor:pointer;border-radius:50%}
+.stepper button:hover{background:color-mix(in srgb,var(--bg) 16%,transparent)}
+.stepper output{min-width:26px;text-align:center;font-weight:500;font-variant-numeric:tabular-nums}
+@media (max-width:960px){.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.grid{grid-template-columns:1fr;gap:44px}}
+
+/* tiers inline */
+.tierline{display:grid;grid-template-columns:repeat(3,1fr);margin-top:64px;border-top:1px solid var(--ink)}
+.tierline div{padding:22px 24px 0 0;display:grid;gap:4px}
+.tierline div + div{padding-left:24px;border-left:1px solid var(--line)}
+.tierline b{font-size:40px;font-weight:500;letter-spacing:-.05em;line-height:1}
+.tierline span{color:var(--muted);font-size:14px}
+.tierline .off{color:var(--accent);font-size:14px;font-weight:500}
+@media (max-width:640px){.tierline{grid-template-columns:1fr}.tierline div,.tierline div + div{padding:18px 0;border-left:0;border-bottom:1px solid var(--line);grid-template-columns:auto 1fr auto;align-items:baseline;gap:12px}.tierline b{font-size:30px}}
+
+/* story */
+.story{background:var(--deep);color:var(--on-deep)}
+.story .label{color:var(--deep-muted)}
+.story-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:64px;align-items:end}
+.statement{font-size:clamp(32px,4.4vw,60px);line-height:1.05;letter-spacing:-.045em;font-weight:500;margin-top:24px}
+.statement em{color:var(--glow)}
+.story-txt{display:grid;gap:16px;color:var(--deep-muted);font-size:16.5px;line-height:1.7}
+.story-txt p:first-child{color:var(--on-deep)}
+.principles{display:grid;grid-template-columns:repeat(4,1fr);margin-top:72px;border-top:1px solid var(--deep-line)}
+.pr{padding:26px 24px 0 0;display:grid;gap:8px;align-content:start}
+.pr + .pr{padding-left:24px;border-left:1px solid var(--deep-line)}
+.pr h3{color:var(--on-deep)}
+.pr p{color:var(--deep-muted);font-size:15px}
+@media (max-width:960px){.story-grid{grid-template-columns:1fr;gap:28px}.principles{grid-template-columns:1fr 1fr}.pr:nth-child(3){padding-left:0;border-left:0}.pr:nth-child(n+3){margin-top:24px;border-top:1px solid var(--deep-line)}}
+@media (max-width:560px){.principles{grid-template-columns:1fr}.pr,.pr + .pr{padding:20px 0;border-left:0;margin-top:0;border-top:0;border-bottom:1px solid var(--deep-line)}}
+
+/* business */
+.biz{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.biz .img{aspect-ratio:1/1;background:var(--plate);position:relative;overflow:hidden}
+.biz .img canvas{position:absolute;inset:0;width:100%;height:100%}
+.biz .txt{display:grid;gap:22px;justify-items:start}
+.biz .txt p{color:var(--muted);font-size:17px;max-width:30em}
+.list{list-style:none;margin:0;padding:0;width:100%;border-top:1px solid var(--line)}
+.list li{padding:14px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:16px}
+.list li span:last-child{color:var(--muted);text-align:right}
+@media (max-width:880px){.biz{grid-template-columns:1fr;gap:36px}}
+
+/* faq */
+.faq-wrap{display:grid;grid-template-columns:1fr 2fr;gap:64px;align-items:start}
+.faq-side{display:grid;gap:16px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 100px)}
+.faq-side p{color:var(--muted);max-width:22em}
+.faq-side b{color:var(--ink);font-weight:500;user-select:all}
+.fgroup + .fgroup{margin-top:44px}
+.fgroup h3{font-size:13px;font-weight:500;color:var(--muted);padding-bottom:12px;border-bottom:1px solid var(--ink)}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding-block:19px;display:flex;justify-content:space-between;gap:16px;font-size:17px;font-weight:500;letter-spacing:-.01em}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--muted);font-weight:400;font-size:20px;line-height:1;transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--muted);padding-bottom:22px;max-width:60ch}
+@media (max-width:880px){.faq-wrap{grid-template-columns:1fr;gap:28px}.faq-side{position:static}}
+
+footer{padding-block:56px 120px;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+footer .logo{color:var(--ink);margin-bottom:12px}
+footer .about p{max-width:24em}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer h4{margin:0 0 14px;color:var(--ink);font-weight:500;font-size:14px}
+footer a:hover{color:var(--ink)}
+.legal{grid-column:1/-1;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:28px;margin-top:20px;border-top:1px solid var(--line)}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr 1fr}footer .about{grid-column:1/-1}}
+
+/* sticky cart bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:25;padding:0 16px calc(14px + env(safe-area-inset-bottom,0px));pointer-events:none;transform:translateY(120%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.bar.show{transform:none}
+.bar:not(.show){visibility:hidden;transition:transform .35s,visibility 0s .35s}
+.bar-in{pointer-events:auto;max-width:760px;margin:0 auto;background:var(--ink);color:var(--bg);border-radius:18px;padding:14px 14px 14px 20px;display:grid;grid-template-columns:1fr auto;gap:8px 16px;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.22)}
+.bar-txt{display:grid;gap:8px;min-width:0}
+.bar-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;font-size:14px}
+.bar-top b{white-space:nowrap}
+.bar-top b{font-weight:500}
+.bar-top span{opacity:.72;white-space:nowrap}
+.prog{height:4px;border-radius:2px;background:color-mix(in srgb,var(--bg) 22%,transparent);position:relative;overflow:hidden}
+.prog i{position:absolute;inset:0 auto 0 0;background:var(--glow);border-radius:2px;transition:width .3s}
+.bar .btn{background:var(--bg);color:var(--ink);border-color:var(--bg);padding:13px 18px}
+@media (max-width:520px){.bar-in{padding:12px 12px 12px 16px}.bar .btn{padding:12px 14px;font-size:14px}.bar-top{font-size:13px;flex-direction:column}}
+
+/* overlay: drawer + modal */
+.ov{position:fixed;inset:0;z-index:50;background:var(--overlay);display:flex;justify-content:flex-end;opacity:0;transition:opacity .25s}
+.ov.open{opacity:1}
+.ov.center{justify-content:center;align-items:center;padding:16px}
+.panel{background:var(--bg);width:min(480px,100%);height:100%;display:grid;grid-template-rows:auto 1fr auto;transform:translateX(24px);transition:transform .3s cubic-bezier(.2,.7,.2,1);padding-top:env(safe-area-inset-top,0px)}
+.ov.open .panel{transform:none}
+.ph{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 24px;border-bottom:1px solid var(--line)}
+.ph h3{font-size:18px}
+.x{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;font-size:18px;line-height:1}
+.x:hover{border-color:var(--ink)}
+.crumbs{display:flex;gap:6px;padding:14px 24px 0;font-size:13px;color:var(--muted)}
+.crumbs span{display:flex;align-items:center;gap:6px}
+.crumbs span + span::before{content:"";width:14px;height:1px;background:var(--line)}
+.crumbs .on{color:var(--ink);font-weight:500}
+.crumbs .done{color:var(--accent)}
+.pb{overflow-y:auto;padding:20px 24px 24px;display:grid;gap:22px;align-content:start}
+.pf{border-top:1px solid var(--line);padding:18px 24px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:12px}
+.pf .tot{display:flex;justify-content:space-between;align-items:baseline}
+.pf .tot b{font-size:26px;font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.pf .tot span{color:var(--muted);font-size:13px}
+.pf .btns{display:flex;gap:8px}
+.pf .btns .btn{flex:1}
+.pf .btns .btn.ghost{flex:0 0 auto}
+.note{font-size:14px;border-radius:12px;padding:12px 14px;background:var(--accent-soft);color:var(--ink);display:grid;gap:8px}
+.note.warn{background:var(--warn-soft)}
+.note b{font-weight:500}
+.citem{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.citem canvas{width:64px;height:52px;background:var(--plate);display:block}
+.citem .nm{font-weight:500;font-size:15px;line-height:1.3}
+.citem .pp{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.citem .stepper{transform:scale(.88);transform-origin:right center}
+.empty{text-align:center;color:var(--muted);padding:40px 0;display:grid;gap:14px;justify-items:center}
+.lines{display:grid;gap:8px;font-size:15px}
+.lines div{display:flex;justify-content:space-between;gap:12px}
+.lines span:first-child{color:var(--muted)}
+.lines span:last-child{font-variant-numeric:tabular-nums}
+.lines .g span:last-child{color:var(--accent)}
+.fs{display:grid;gap:10px;border:0;margin:0;padding:0}
+.fs legend{font-weight:500;font-size:15px;padding:0;margin-bottom:10px}
+.fs .hint{font-size:13px;color:var(--muted);margin-top:-6px}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.chips.three{grid-template-columns:repeat(3,1fr)}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips label{border:1px solid var(--line);border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;display:grid;gap:0;font-size:13px;color:var(--muted);line-height:1.35}
+.chips label b{font-size:15px;color:var(--ink);font-weight:500}
+.chips input:checked + label{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:var(--soft)}
+.chips input:focus-visible + label{outline:2px solid var(--accent);outline-offset:2px}
+.chips input:disabled + label{opacity:.35;cursor:not-allowed}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:18px 14px}
+.fields .full{grid-column:1/-1}
+.f{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.f input,.f textarea,.f select{font:400 16px var(--font);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:8px 0 9px;width:100%}
+.f input:focus,.f textarea:focus,.f select:focus{outline:none;border-bottom-color:var(--ink)}
+.f.err input{border-bottom-color:#C2412D}
+.f small{color:#C2412D;font-size:12.5px}
+.f textarea{min-height:56px;resize:vertical}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted)}
+.check input{margin-top:3px;accent-color:var(--accent);width:16px;height:16px}
+.done-box{display:grid;gap:16px;justify-items:start}
+.done-box .ok{width:52px;height:52px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.done-box pre{margin:0;width:100%;font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;background:var(--soft);padding:14px;border-radius:10px;max-height:240px;overflow:auto}
+.done-box b{font-weight:500;user-select:all}
+@media (max-width:520px){.panel{width:100%}.fields{grid-template-columns:1fr}.chips{grid-template-columns:repeat(3,1fr)}.ph,.pb,.pf{padding-inline:18px}.crumbs{padding-inline:18px}}
+
+/* dish modal */
+.modal{background:var(--bg);width:min(760px,100%);max-height:calc(100% - 32px);overflow:auto;border-radius:18px;display:grid;grid-template-columns:1fr 1fr;transform:translateY(12px);transition:transform .3s}
+.ov.open .modal{transform:none}
+.modal .mi{position:relative;background:var(--plate);min-height:280px}
+.modal .mi canvas{position:absolute;inset:0;width:100%;height:100%}
+.modal .mt{padding:28px;display:grid;gap:16px;align-content:start}
+.modal .mt .x{position:absolute;right:14px;top:14px}
+.modal h3{font-size:24px;letter-spacing:-.03em}
+.modal dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:14px}
+.modal dt{color:var(--muted)}
+.modal dd{margin:0}
+.ntab{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ntab div{padding:10px 0;display:grid;font-size:12px;color:var(--muted)}
+.ntab b{font-size:17px;color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+@media (max-width:640px){.modal{grid-template-columns:1fr}.modal .mi{min-height:220px}.modal .mt{padding:22px}}
+
+/* formulas */
+.fx{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start}
+.fx .fs + .fs{margin-top:26px}
+.fx .chips{grid-template-columns:repeat(var(--n,3),1fr)}
+.fx .chips label{padding:14px 10px;font-size:13px}
+.fx .chips label b{font-size:16px}
+.fres{position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px);border:1px solid var(--line);border-radius:16px;padding:26px;display:grid;gap:18px;background:var(--bg)}
+.fres .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.fres .head b{font-size:40px;font-weight:500;letter-spacing:-.05em;line-height:1}
+.fres .head span{color:var(--muted);font-size:14px;text-align:right}
+.fitems{display:grid;gap:6px;font-size:14.5px;border-top:1px solid var(--line);padding-top:14px}
+.fitems div{display:flex;justify-content:space-between;gap:12px}
+.fitems span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
+.fstats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.fstats div{padding:12px 0;display:grid;font-size:12px;color:var(--muted)}
+.fstats b{font-size:18px;color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.fprice{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.fprice b{font-size:26px;font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.fprice span{color:var(--muted);font-size:14px}
+.fres .btn{width:100%}
+@media (max-width:960px){.fx{grid-template-columns:1fr;gap:32px}.fres{position:static}}
+@media (max-width:700px){.fx .chips.g4{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.fx .chips label{padding:12px 6px}.fx .chips label b{font-size:14px}}
+
+/* packaging */
+.pack{display:grid;grid-template-columns:1fr 1.25fr;gap:64px;align-items:start}
+.pack .intro{display:grid;gap:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 100px)}
+.pack .intro p{color:var(--muted);font-size:17px;max-width:28em}
+.cycle{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:c}
+.cycle li{display:grid;grid-template-columns:48px 1fr;gap:4px 16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.cycle li::before{counter-increment:c;content:counter(c);grid-row:span 2;font-family:var(--serif);font-size:28px;line-height:1;color:var(--accent)}
+.cycle b{font-weight:500;font-size:17px;letter-spacing:-.01em}
+.cycle span{color:var(--muted);font-size:15px}
+.packfacts{display:grid;grid-template-columns:repeat(3,1fr);margin-top:28px;gap:0}
+.packfacts div{padding:16px 16px 0 0;display:grid;gap:2px;font-size:14px;color:var(--muted)}
+.packfacts div + div{padding-left:16px;border-left:1px solid var(--line)}
+.packfacts b{color:var(--ink);font-weight:500;font-size:15px}
+@media (max-width:880px){.pack{grid-template-columns:1fr;gap:32px}.pack .intro{position:static}}
+@media (max-width:560px){.packfacts{grid-template-columns:1fr}.packfacts div,.packfacts div + div{padding:12px 0;border-left:0;border-bottom:1px solid var(--line)}}
+
+.fx > div:first-child{display:grid;gap:14px;counter-reset:fstep;align-content:start}
+.fbox{border:1px solid var(--line)!important;border-radius:16px;padding:20px 20px 22px!important;background:var(--bg)}
+.fx .fs + .fs{margin-top:0}
+.fbox legend{float:left;width:100%;display:flex;align-items:center;gap:10px;margin-bottom:14px!important}
+.fbox legend::before{counter-increment:fstep;content:counter(fstep);width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:13px;font-weight:500;flex:none}
+.fbox .grp{clear:both;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:4px 0 8px}
+.fbox .grp + .chips{margin-bottom:10px}
+.fbox .chips{clear:both}
+.fbox .hint{margin-top:10px!important}
+</style>
+<style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></g></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.2 4.2L19 7"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top"><i aria-hidden="true"></i>weekfuel</a>
+    <nav>
+      <a href="#karte">Wochenkarte</a>
+      <a href="#formeln">Formeln</a>
+      <a href="#ueber-uns">Über uns</a>
+      <a href="#verpackung">Verpackung</a>
+      <a href="#firmen">Für Firmen</a>
+      <a href="#faq">FAQ</a>
+      <button class="cartbtn" type="button" data-open-cart aria-label="Warenkorb öffnen"><svg><use href="#i-bag"/></svg>Warenkorb <span class="c" id="hdrCount">0</span></button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <h1>Deine Woche.<br>Schon <em>gekocht.</em></h1>
+        <div class="intro">
+          <p>Frühstück, Mittag und Abend, hausgemacht. Mit Formeln für Definition und Muskelaufbau. Ab 10 Portionen. Wir kochen, portionieren und liefern in Berlin. Du wärmst nur noch auf.</p>
+          <div class="ctas">
+            <a class="btn" href="#formeln">Formel wählen</a>
+            <a class="btn ghost" href="#karte">Gerichte ansehen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="flatlay"><canvas id="heroCanvas" aria-label="Meal-Prep-Boxen mit den Gerichten der Woche"></canvas></div>
+      <div class="facts">
+        <div><b>Frühstück bis Abendessen</b><span>als Formel oder frei gewählt</span></div>
+        <div><b>Ohne Abo</b><span>bestell nur, wenn du willst</span></div>
+        <div><b>Bis −15 % Rabatt</b><span>automatisch ab 20 und 30</span></div>
+        <div><b>Lieferung inklusive</b><span>in ganz Berlin</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="so-gehts">
+    <div class="wrap">
+      <div class="shead"><div><span class="label">So funktioniert's</span><h2>In zwei Minuten bestellt</h2></div><p>Kein Einkauf, kein Kochen, kein Abwasch.</p></div>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Formel oder Gerichte wählen</h3><p>Nimm eine fertige Formel für ganze Tage oder stell dir mindestens 10 Portionen selbst zusammen.</p></div>
+        <div class="step"><span class="n">2</span><h3>Liefertage festlegen</h3><p>Alles an einem Tag oder auf bis zu drei Tage verteilt, wenn der Kühlschrank klein ist.</p></div>
+        <div class="step"><span class="n">3</span><h3>Aufwärmen und essen</h3><p>Pfanne, Ofen oder Mikrowelle. Die Zeit steht auf jedem Etikett.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="formeln">
+    <div class="wrap">
+      <div class="shead"><div><span class="label">Formeln</span><h2>Ganze Tage, <em>fertig geplant</em></h2></div><p>Sag uns, wie viele Mahlzeiten du am Tag brauchst. Wir stellen die Gerichte ausgewogen zusammen, du kannst danach alles im Warenkorb anpassen.</p></div>
+      <div class="fx">
+        <div>
+          <fieldset class="fs fbox"><legend>Dein Ziel</legend>
+            <p class="grp">Alltag</p>
+            <div class="chips" style="--n:2">
+              <input type="radio" name="fg" id="fgb" value="bal" checked><label for="fgb"><b>Ausgewogen</b><span>abwechslungsreich</span></label>
+              <input type="radio" name="fg" id="fgv" value="veg"><label for="fgv"><b>Vegan</b><span>rein pflanzlich</span></label>
+            </div>
+            <p class="grp">Sport</p>
+            <div class="chips" style="--n:2">
+              <input type="radio" name="fg" id="fgc" value="cut"><label for="fgc"><b>Definition</b><span>viel Eiweiß, weniger kcal</span></label>
+              <input type="radio" name="fg" id="fgm" value="bulk"><label for="fgm"><b>Muskelaufbau</b><span>viel Eiweiß, mehr kcal</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="fs fbox" id="fKcalSet" hidden><legend id="fKcalLeg">Kalorienziel pro Tag</legend><div class="chips" id="fKcalChips"></div><p class="hint" id="fKcalHint"></p></fieldset>
+          <fieldset class="fs fbox"><legend>Mahlzeiten pro Tag</legend><div class="chips" style="--n:2">
+            <input type="radio" name="fm" id="fm2" value="2" checked><label for="fm2"><b>Mittag + Abend</b><span>2 pro Tag</span></label>
+            <input type="radio" name="fm" id="fm3" value="3"><label for="fm3"><b>Frühstück, Mittag + Abend</b><span>3 pro Tag</span></label>
+          </div></fieldset>
+          <fieldset class="fs fbox"><legend>Für wie viele Tage?</legend><div class="chips">
+            <input type="radio" name="fd" id="fd5" value="5" checked><label for="fd5"><b>5 Tage</b><span>Arbeitswoche</span></label>
+            <input type="radio" name="fd" id="fd7" value="7"><label for="fd7"><b>7 Tage</b><span>ganze Woche</span></label>
+            <input type="radio" name="fd" id="fd10" value="10"><label for="fd10"><b>10 Tage</b><span>zwei Wochen</span></label>
+          </div></fieldset>
+        </div>
+        <div class="fres" aria-live="polite">
+          <div class="head"><b id="fN">10</b><span id="fSub">Portionen</span></div>
+          <div class="fitems" id="fItems"></div>
+          <div class="fstats"><div><b id="fKcal">–</b>kcal pro Tag</div><div><b id="fProt">–</b>Protein pro Tag</div><div><b id="fDay">–</b>pro Tag</div></div>
+          <div class="fprice"><span id="fDisc">inkl. Rabatt</span><b id="fTot">–</b></div>
+          <button class="btn" type="button" id="fAdd">Formel in den Warenkorb</button>
+          <p class="fine" id="fGoal" style="font-size:13px;color:var(--muted);margin:0" hidden></p>
+          <p class="fine" id="fNote" style="font-size:13px;color:var(--muted);margin:0">Du kannst einzelne Gerichte danach tauschen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="karte" class="soft">
+    <div class="wrap">
+      <div class="shead"><div><span class="label">Wochenkarte · KW 40</span><h2>Oder wähle selbst</h2></div><p>Hauptgerichte und Extra-Protein-Gerichte für Sportler, Frühstück in der Formel. Tippe auf ein Gericht für Zutaten, Allergene und Nährwerte. Preise pro Portion vor Mengenrabatt.</p></div>
+      <div class="menubar">
+        <div class="tabs" role="tablist" aria-label="Gerichte filtern" id="tabs"></div>
+        <button class="quick" type="button" id="quickFill">10 gemischte Portionen vorschlagen</button>
+      </div>
+      <div class="grid" id="grid"></div>
+      <div class="tierline" id="preise">
+        <div><b>10+</b><span>Portionen</span><span class="off">−5 %</span></div>
+        <div><b>20+</b><span>Portionen</span><span class="off">−10 %</span></div>
+        <div><b>30+</b><span>Portionen</span><span class="off">−15 %</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ueber-uns" class="story">
+    <div class="wrap">
+      <div class="story-grid">
+        <div><span class="label">Über uns</span><p class="statement">Wir kochen für Berliner Büros und Events. Jetzt auch <em>für deinen Kühlschrank.</em></p></div>
+        <div class="story-txt">
+          <p>Hinter Weekfuel steht ein Catering-Team aus Berlin. Wir sind es gewohnt, für viele Menschen gleichzeitig frisch zu kochen.</p>
+          <p>Unter der Woche fehlt vielen die Zeit, gut zu essen. Also machen wir, was wir am besten können: ehrliche Gerichte in großen Mengen, portioniert und bereit für deine Woche.</p>
+        </div>
+      </div>
+      <div class="principles">
+        <div class="pr"><h3>Alles hausgemacht</h3><p>Saucen, Brühen und Marinaden kommen aus unserer Küche.</p></div>
+        <div class="pr"><h3>Karte im Wechsel</h3><p>Feste Lieblinge bleiben, neue Gerichte kommen regelmäßig dazu.</p></div>
+        <div class="pr"><h3>Transparent</h3><p>Zutaten, Allergene und Nährwerte stehen online und auf jeder Box.</p></div>
+        <div class="pr"><h3>Faire Preise</h3><p>Frühstück ab 5,90 €, Hauptgerichte 8,50 bis 14,50 €. Wer mehr bestellt, zahlt weniger.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="verpackung">
+    <div class="wrap pack">
+      <div class="intro">
+        <span class="label">Verpackung</span>
+        <h2>Die Box kommt <em>zurück.</em></h2>
+        <p>Wer jede Woche 20 Mahlzeiten bestellt, soll dafür nicht jede Woche 20 Einwegboxen wegwerfen. Deshalb setzen wir auf Mehrweg.</p>
+      </div>
+      <div>
+        <ol class="cycle">
+          <li><b>Wir liefern in Mehrwegboxen</b><span>Stabile Boxen, die mehrfach gespült und wieder befüllt werden können.</span></li>
+          <li><b>Du stellst sie leer bereit</b><span>Kurz ausspülen reicht. Bei der nächsten Lieferung nehmen wir sie mit.</span></li>
+          <li><b>Wir reinigen und füllen neu</b><span>Die Boxen werden bei uns in der Küche gespült und wieder befüllt.</span></li>
+        </ol>
+        <div class="packfacts">
+          <div><b>Etiketten aus Papier</b>mit allen Angaben zum Gericht</div>
+          <div><b>Kühltaschen im Kreislauf</b>auch sie nehmen wir wieder mit</div>
+          <div><b>Kein Pfand bei Stammkunden</b>solange die Boxen zurückkommen</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="firmen">
+    <div class="wrap biz">
+      <div class="img"><canvas id="bizCanvas" aria-label="Meal-Prep-Boxen für ein Büro"></canvas></div>
+      <div class="txt">
+        <span class="label">Für Firmen</span>
+        <h2>Mittagessen fürs Team, <em>ohne Kantine</em></h2>
+        <p>Wir liefern wöchentlich in eure Büroküche. Jeder nimmt sich, was er mag, und isst nach fünf Minuten.</p>
+        <ul class="list">
+          <li><span>Abrechnung</span><span>eine Rechnung pro Monat</span></li>
+          <li><span>Lieferung</span><span>feste Tage, flexible Mengen</span></li>
+          <li><span>Auswahl</span><span>vegan und Fleisch im Mix</span></li>
+        </ul>
+        <button class="btn" type="button" id="bizBtn">Firmenangebot anfragen</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="soft">
+    <div class="wrap faq-wrap">
+      <div class="faq-side">
+        <span class="label">FAQ</span>
+        <h2>Häufige Fragen</h2>
+        <p>Noch etwas offen? Schreib uns an <b>info@weekfuel.de</b>. Wir antworten innerhalb eines Tages.</p>
+      </div>
+      <div id="faqList"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="about"><div class="logo"><i aria-hidden="true"></i>weekfuel</div><p>Fuel your week. Hausgemachtes Meal Prep aus Berlin, frisch gekocht, portioniert und geliefert.</p></div>
+    <div><h4>Bestellen</h4><ul><li><a href="#karte">Wochenkarte</a></li><li><a href="#preise">Preise</a></li><li><a href="#firmen">Für Firmen</a></li></ul></div>
+    <div><h4>Hilfe</h4><ul><li><a href="#faq">FAQ</a></li><li><a href="#so-gehts">So geht's</a></li><li><a href="#ueber-uns">Über uns</a></li><li><a href="#verpackung">Verpackung</a></li></ul></div>
+    <div><h4>Social</h4><ul><li>Instagram</li><li>TikTok</li></ul></div>
+    <div class="legal"><span>© 2026 Weekfuel, Berlin</span><span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span></div>
+  </div>
+</footer>
+
+<div class="bar" id="bar" aria-live="polite">
+  <div class="bar-in">
+    <div class="bar-txt">
+      <div class="bar-top"><b id="barMain">0 Portionen</b><span id="barSub"></span></div>
+      <div class="prog"><i id="barProg" style="width:0"></i></div>
+    </div>
+    <button class="btn" type="button" data-open-cart id="barBtn">Warenkorb</button>
+  </div>
+</div>
+
+<div class="ov" id="cartOv" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div>
+      <div class="ph"><h3 id="cartTitle">Warenkorb</h3><button class="x" type="button" data-close aria-label="Schließen">×</button></div>
+      <div class="crumbs" id="crumbs"></div>
+    </div>
+    <div class="pb" id="pb"></div>
+    <div class="pf" id="pf"></div>
+  </div>
+</div>
+
+<div class="ov center" id="dishOv" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="dTitle" id="dishModal"></div>
+</div>
+
+<script>
+/* ================= data ================= */
+const DISHES=[
+  {id:"oats",meal:"b",n:"Overnight Oats Beeren",d:"Hafer, Chia, Haferdrink, Beeren, Banane.",p:5.9,cat:"vegan",tag:"Frühstück",g:300,kcal:420,prot:14,carb:62,fat:12,cold:true,
+   z:"Haferflocken, Haferdrink, Chiasamen, Heidelbeeren, Himbeeren, Banane, Ahornsirup",a:["Hafer (Gluten)"]},
+  {id:"pancakes",meal:"b",n:"Protein-Pancakes",d:"Hafer-Quark-Pancakes mit Skyr und Heidelbeeren.",p:6.9,cat:"veggie",tag:"Frühstück",g:300,kcal:480,prot:36,carb:52,fat:12,pan:"3 Min",oven:"8 Min",mic:"1–2 Min",
+   z:"Haferflocken, Eier, Magerquark, Banane, Backpulver, Skyr, Heidelbeeren",a:["Hafer (Gluten)","Ei","Milch"]},
+  {id:"burrito",meal:"b",n:"Frühstücks-Burrito",d:"Rührei, schwarze Bohnen, Cheddar, Salsa.",p:7.5,cat:"veggie",tag:"Frühstück",g:350,kcal:560,prot:38,carb:48,fat:22,pan:"5 Min",oven:"12 Min",mic:"2 Min",
+   z:"Weizentortilla, Eier, schwarze Bohnen, Cheddar, Paprika, Frühlingszwiebeln, Tomatensalsa",a:["Weizen (Gluten)","Ei","Milch"]},
+  {id:"huhnbowl",meal:"m",n:"Hähnchen-Süßkartoffel-Bowl",d:"Gegrillte Hähnchenbrust, Süßkartoffel, Quinoa, Brokkoli.",p:12.9,cat:"fleisch",tag:"Extra Protein",sport:true,g:500,kcal:650,prot:58,carb:60,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Hähnchenbrust, Süßkartoffel, Quinoa, Brokkoli, Joghurt-Kräuter-Dip, Paprika, Olivenöl",a:["Milch"]},
+  {id:"putenchili",meal:"m",n:"Puten-Chili con carne",d:"Mageres Putenhack, Kidneybohnen, Mais, Reis.",p:11.9,cat:"fleisch",tag:"Extra Protein",sport:true,g:500,kcal:610,prot:52,carb:64,fat:12,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Reis, Putenhack, Kidneybohnen, Tomaten, Mais, Paprika, Zwiebeln, Kreuzkümmel, Chili",a:["Sellerie"]},
+  {id:"hgemuese",meal:"m",n:"Hähnchen mit Ofengemüse",d:"Hähnchenbrust, Zucchini, Paprika, Brokkoli, Kräuterquark.",p:11.9,cat:"fleisch",tag:"Definition",sport:true,g:450,kcal:430,prot:50,carb:22,fat:14,pan:"5 Min",oven:"12 Min",mic:"3 Min",
+   z:"Hähnchenbrust, Zucchini, Paprika, Brokkoli, rote Zwiebeln, Magerquark, Kräuter, Olivenöl",a:["Milch"]},
+  {id:"rindxl",meal:"m",n:"Rinderhack-Bowl XL",d:"Große Portion Reis, Rinderhack, schwarze Bohnen, Avocado-Creme.",p:13.9,cat:"fleisch",tag:"Muskelaufbau",sport:true,g:600,kcal:950,prot:60,carb:98,fat:32,pan:"7 Min",oven:"18 Min",mic:"4–5 Min",
+   z:"Reis, Rinderhack, schwarze Bohnen, Mais, Avocado, Limette, Frühlingszwiebeln, Sesam, Sojasauce",a:["Soja","Weizen (Gluten)","Sesam"]},
+  {id:"curry",meal:"m",n:"Hähnchen-Curry",d:"Hähnchenschenkel in Tomaten-Kokos-Sauce, Basmati.",p:10.5,cat:"fleisch",tag:"Beliebt",g:450,kcal:620,prot:38,carb:62,fat:22,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Basmatireis, Hähnchenschenkel, Tomaten, Kokosmilch, Zwiebeln, Ingwer, Knoblauch, Garam Masala, Koriander",a:["Sellerie"]},
+  {id:"chili",meal:"m",n:"Chili sin carne",d:"Schwarze Bohnen, Mais, geröstete Paprika, Reis.",p:8.5,cat:"vegan",tag:"Vegan",g:450,kcal:540,prot:20,carb:88,fat:10,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Reis, schwarze Bohnen, Kidneybohnen, Tomaten, Mais, Paprika, Zwiebeln, Kreuzkümmel, Chili, Limette",a:["Sellerie"]},
+  {id:"lachs",meal:"m",n:"Teriyaki-Lachs",d:"Ofenlachs, Brokkoli, Sesam, Jasminreis.",p:14.5,cat:"fisch",g:420,kcal:610,prot:36,carb:58,fat:24,pan:"5 Min",oven:"12 Min",mic:"3 Min",
+   z:"Jasminreis, Lachsfilet, Brokkoli, Sojasauce, Mirin, Ingwer, Honig, Sesam, Frühlingszwiebeln",a:["Fisch","Soja","Weizen (Gluten)","Sesam"]},
+  {id:"dal",meal:"m",n:"Rote-Linsen-Dal",d:"Kokosmilch, Spinat, Ingwer, Limette, Basmati.",p:8.9,cat:"vegan",tag:"Vegan",g:450,kcal:520,prot:19,carb:76,fat:14,pan:"5 Min",oven:"12 Min",mic:"3 Min",
+   z:"Basmatireis, rote Linsen, Kokosmilch, Spinat, Tomaten, Zwiebeln, Ingwer, Kurkuma, Senfsaat, Limette",a:["Senf"]},
+  {id:"gulasch",meal:"m",n:"Rindergulasch",d:"Drei Stunden geschmort, Spätzle, Schmand.",p:12.9,cat:"fleisch",g:480,kcal:680,prot:40,carb:56,fat:30,pan:"7 Min",oven:"18 Min",mic:"4 Min",
+   z:"Spätzle (Weizenmehl, Eier), Rindfleisch, Zwiebeln, Paprika, Tomatenmark, Kümmel, Schmand, Petersilie",a:["Weizen (Gluten)","Ei","Milch","Sellerie"]},
+  {id:"pasta",meal:"m",n:"Pasta al forno",d:"Rigatoni, Rinderragout, Mozzarella, Basilikum.",p:10.9,cat:"fleisch",tag:"Neu",g:450,kcal:720,prot:35,carb:74,fat:28,pan:"–",oven:"18 Min",mic:"4 Min",
+   z:"Rigatoni (Hartweizengrieß), Rinderhack, Tomaten, Karotten, Sellerie, Mozzarella, Parmesan, Basilikum",a:["Weizen (Gluten)","Milch","Sellerie"]}
+];
+const CATS=[["alle","Alle"],["b","Frühstück"],["m","Hauptgerichte"],["protein","Extra Protein"],["vegan","Vegan"]];
+const TIERS=[[30,.15],[20,.10],[10,.05]];
+const MIN=10, MAIL="info@weekfuel.de";
+const FAQ=[
+  ["Bestellung",[
+    ["Was ist eine Formel?","Eine fertig geplante Kombination für ganze Tage: Mittag und Abend oder Frühstück, Mittag und Abend, für 5, 7 oder 10 Tage. Du wählst dein Ziel, wir stellen die Gerichte zusammen. Im Warenkorb kannst du alles tauschen."],
+    ["Kann ich Frühstück einzeln bestellen?","Nein, Frühstück gibt es nur in der Formel „Frühstück, Mittag + Abend“. Im Warenkorb kannst du die Frühstücke untereinander tauschen, höchstens eins pro zwei Hauptgerichte."],
+    ["Habt ihr Gerichte für Sportler?","Ja. Unter „Extra Protein“ findest du Gerichte ab 35 g Eiweiß pro Portion. Dazu gibt es zwei Formeln: „Definition“ mit viel Eiweiß und wenig Kalorien und „Muskelaufbau“ mit großen, kalorienreichen Portionen. Du wählst dein Kalorienziel pro Tag, wir passen die Portionsgröße an. Die Nährwerte pro Tag siehst du direkt in der Formel."],
+    ["Wie viele Portionen muss ich bestellen?","Mindestens 10. Du kannst sie frei aus der Wochenkarte mischen. Ab 20 Portionen gibt es 10 %, ab 30 Portionen 15 % Rabatt, automatisch im Warenkorb."],
+    ["Muss ich ein Abo abschließen?","Nein. Du bestellst, wann du willst, ohne Laufzeit und ohne Kündigung."],
+    ["Wie bezahle ich?","Nach unserer Bestätigung per Überweisung oder PayPal. Firmen erhalten eine Rechnung."],
+    ["Kann ich meine Bestellung stornieren?","Bis 48 Stunden vor dem ersten Liefertermin kostenlos. Danach kochen wir bereits für dich. Ein gesetzliches Widerrufsrecht gilt bei verderblichen Lebensmitteln nicht."]
+  ]],
+  ["Lieferung",[
+    ["Wohin liefert ihr?","In ganz Berlin, die Lieferung ist inklusive. Für Adressen außerhalb schreib uns kurz."],
+    ["Mein Kühlschrank ist zu klein. Was nun?","Wähle im Warenkorb zwei oder drei Liefertage. Wir teilen die Portionen gleichmäßig auf, der Rabatt bleibt gleich."],
+    ["Muss ich zu Hause sein?","Ja, die Boxen müssen gekühlt bleiben. Du wählst beim Bestellen ein Zeitfenster."]
+  ]],
+  ["Essen",[
+    ["Was passiert mit den leeren Boxen?","Du spülst sie kurz aus und stellst sie bei der nächsten Lieferung bereit. Wir nehmen sie mit, reinigen sie und füllen sie neu. Wenn du nicht mehr bestellst, holen wir sie einmal ab."],
+    ["Wie lange sind die Gerichte haltbar?","Gekühlt vier Tage ab Lieferung. Das Verbrauchsdatum steht auf jeder Box."],
+    ["Wo finde ich Zutaten, Allergene und Nährwerte?","Tippe auf ein Gericht in der Wochenkarte. Die Angaben stehen außerdem auf jedem Etikett."],
+    ["Wie wärme ich die Gerichte auf?","Overnight Oats isst du kalt. Alles andere in der Pfanne mit einem Schuss Wasser (5 bis 7 Min), im Ofen bei 180 °C (12 bis 18 Min) oder in der Mikrowelle bei 800 Watt (3 bis 4 Min)."]
+  ]],
+  ["Für Firmen",[
+    ["Wie funktioniert die Lieferung ins Büro?","Wir legen feste Liefertage fest und liefern direkt in eure Küche. Die Menge könnt ihr jede Woche anpassen."],
+    ["Bekommen wir eine Rechnung?","Ja, eine Sammelrechnung pro Monat mit ausgewiesener Mehrwertsteuer."]
+  ]]
+];
+const eur=v=>v.toLocaleString("de-DE",{style:"currency",currency:"EUR"});
+const byId=id=>DISHES.find(d=>d.id===String(id).split("|")[0]);
+const facOf=k=>+(String(k).split("|")[1]||1);
+const priceOf=k=>{const d=byId(k),f=facOf(k);return f===1?d.p:Math.round(d.p*(.35+.65*f)*10)/10};
+const kcalOf=k=>byId(k).kcal*facOf(k), protOf=k=>byId(k).prot*facOf(k);
+const nameOf=k=>{const f=facOf(k);return byId(k).n+(f===1?"":` · Portion ${f>1?"+":"−"}${Math.round(Math.abs(f-1)*100)} %`)};
+
+/* ================= illustration engine ================= */
+function rng(seed){let s=0;for(const c of seed)s=(s*31+c.charCodeAt(0))>>>0;return()=>{s=(s+0x6D2B79F5)>>>0;let t=s;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function scatter(c,R,b,n,fn){for(let i=0;i<n;i++)fn(b.x+R()*b.w,b.y+R()*b.h,R)}
+function shade(c,b,a,z){const g=c.createRadialGradient(b.x+b.w*.35,b.y+b.h*.3,b.w*.05,b.x+b.w*.5,b.y+b.h*.5,Math.max(b.w,b.h)*.75);g.addColorStop(0,a);g.addColorStop(1,z);c.fillStyle=g;c.fillRect(b.x-5,b.y-5,b.w+10,b.h+10)}
+function blob(c,cx,cy,rx,ry,R,w=.12){c.beginPath();for(let i=0;i<=14;i++){const a=i/14*Math.PI*2,f=1+(R()-.5)*w*2,x=cx+Math.cos(a)*rx*f,y=cy+Math.sin(a)*ry*f;i?c.lineTo(x,y):c.moveTo(x,y)}c.closePath()}
+function oval(c,x,y,rx,ry,rot,col){c.save();c.translate(x,y);c.rotate(rot);c.beginPath();c.ellipse(0,0,rx,ry,0,0,Math.PI*2);c.fillStyle=col;c.fill();c.restore()}
+function leaf(c,x,y,s,rot,col){c.save();c.translate(x,y);c.rotate(rot);c.beginPath();c.moveTo(-s,0);c.quadraticCurveTo(0,-s*.75,s,0);c.quadraticCurveTo(0,s*.75,-s,0);c.fillStyle=col;c.fill();c.restore()}
+const S=b=>Math.min(b.w,b.h);
+function herbs(c,R,b,n,cols){scatter(c,R,b,n,(x,y,R)=>leaf(c,x,y,S(b)*(.03+R()*.025),R()*6.3,cols[Math.floor(R()*cols.length)]))}
+function lime(c,x,y,r,R){c.save();c.translate(x,y);c.rotate(R()*6.3);c.beginPath();c.arc(0,0,r,0,Math.PI);c.closePath();c.fillStyle="#6A9F3A";c.fill();c.beginPath();c.arc(0,0,r*.84,0,Math.PI);c.closePath();c.fillStyle="#E1EBAE";c.fill();c.restore()}
+function broc(c,x,y,r,R){c.save();c.translate(x,y);c.rotate(R()*6.3);c.fillStyle="#7BA24A";rr(c,-r*.18,0,r*.36,r*.9,r*.1);c.fill();for(let i=0;i<9;i++){const a=R()*6.3,d=R()*r*.5;c.beginPath();c.arc(Math.cos(a)*d,Math.sin(a)*d-r*.1,r*(.28+R()*.12),0,6.3);c.fillStyle=["#3A6E2C","#467F33","#55903C"][i%3];c.fill()}c.restore()}
+const FILL={
+  rice(c,b,R){shade(c,b,"#FAF7EF","#E6DFCD");scatter(c,R,b,Math.round(b.w*b.h/28),(x,y,R)=>oval(c,x,y,S(b)*.028,S(b)*.011,R()*6.3,R()<.5?"#FFFFFF":"#E9E0CC"))},
+  riceGreen(c,b,R){FILL.rice(c,b,R);herbs(c,R,b,4,["#517F3C"])},
+  curry(c,b,R){shade(c,b,"#DC9A4A","#B06A2A");scatter(c,R,b,Math.round(b.w*b.h/900),(x,y,R)=>{const s=S(b)*(.07+R()*.04);c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-s/2,-s*.4,s,s*.8,s*.3);c.fillStyle=R()<.5?"#EFCF9C":"#E3BB82";c.fill();c.restore()});c.strokeStyle="rgba(255,248,235,.75)";c.lineWidth=S(b)*.016;c.lineCap="round";c.beginPath();c.moveTo(b.x+b.w*.2,b.y+b.h*.3);c.bezierCurveTo(b.x+b.w*.5,b.y+b.h*.15,b.x+b.w*.4,b.y+b.h*.7,b.x+b.w*.8,b.y+b.h*.6);c.stroke();herbs(c,R,b,6,["#46783A","#5A8C45"])},
+  chili(c,b,R){shade(c,b,"#A14C33","#6C2A1A");scatter(c,R,b,Math.round(b.w*b.h/420),(x,y,R)=>oval(c,x,y,S(b)*.03,S(b)*.019,R()*6.3,"#35201A"));scatter(c,R,b,Math.round(b.w*b.h/700),(x,y,R)=>{const s=S(b)*.024;c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-s/2,-s/2,s,s,s*.3);c.fillStyle="#EBC45A";c.fill();c.restore()});herbs(c,R,b,5,["#46783A"]);lime(c,b.x+b.w*.78,b.y+b.h*.22,S(b)*.14,R)},
+  dal(c,b,R){shade(c,b,"#E8B653","#C38A2B");scatter(c,R,b,Math.round(b.w*b.h/900),(x,y,R)=>leaf(c,x,y,S(b)*(.05+R()*.03),R()*6.3,R()<.5?"#355F2C":"#437236"));c.strokeStyle="rgba(255,252,242,.8)";c.lineWidth=S(b)*.018;c.lineCap="round";c.beginPath();c.arc(b.x+b.w*.5,b.y+b.h*.5,S(b)*.22,.3,3.6);c.stroke()},
+  salmon(c,b,R){FILL.rice(c,b,R);const w=b.w*.6,h=b.h*.44,x=b.x+b.w*.2,y=b.y+b.h*.07;c.save();rr(c,x,y,w,h,h*.45);c.clip();const g=c.createLinearGradient(x,y,x,y+h);g.addColorStop(0,"#8C4424");g.addColorStop(.35,"#C96C42");g.addColorStop(1,"#EC9C74");c.fillStyle=g;c.fillRect(x,y,w,h);c.strokeStyle="rgba(255,235,220,.4)";c.lineWidth=S(b)*.012;for(let i=-3;i<10;i++){c.beginPath();c.moveTo(x+i*w*.12,y+h);c.quadraticCurveTo(x+i*w*.12+w*.08,y+h*.5,x+i*w*.12+w*.02,y);c.stroke()}c.restore();const bx={x:b.x+b.w*.05,y:b.y+b.h*.55,w:b.w*.9,h:b.h*.4};for(let i=0;i<5;i++)broc(c,bx.x+bx.w*(.1+i*.2)+R()*6,bx.y+bx.h*(.35+R()*.3),S(b)*(.085+R()*.03),R)},
+  gulasch(c,b,R){shade(c,b,"#8A3E24","#5A2414");scatter(c,R,b,Math.round(b.w*b.h/650),(x,y,R)=>{const s=S(b)*(.08+R()*.04);c.save();c.translate(x,y);c.rotate(R()*6.3);blob(c,0,0,s*.55,s*.42,R,.18);c.fillStyle=R()<.5?"#7E3B20":"#93492A";c.fill();c.restore()});c.fillStyle="#FBF4E8";blob(c,b.x+b.w*.62,b.y+b.h*.4,S(b)*.12,S(b)*.09,R,.2);c.fill();herbs(c,R,b,6,["#517F3C"])},
+  spaetzle(c,b,R){shade(c,b,"#EDD38F","#CFAE60");scatter(c,R,b,Math.round(b.w*b.h/110),(x,y,R)=>{const s=S(b)*(.06+R()*.04);c.save();c.translate(x,y);c.rotate(R()*6.3);c.strokeStyle=R()<.5?"#F5E2AC":"#DDBE74";c.lineWidth=S(b)*.03;c.lineCap="round";c.beginPath();c.moveTo(-s/2,0);c.quadraticCurveTo(0,s*.35*(R()-.5),s/2,0);c.stroke();c.restore()})},
+  pasta(c,b,R){shade(c,b,"#BC4B31","#86301D");scatter(c,R,b,Math.round(b.w*b.h/300),(x,y,R)=>{const l=S(b)*(.11+R()*.03),r=S(b)*.032;c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-l/2,-r,l,r*2,r);c.fillStyle="#EBC585";c.fill();c.beginPath();c.ellipse(l/2-r*.3,0,r*.35,r*.8,0,0,6.3);c.fillStyle="#973D24";c.fill();c.restore()});scatter(c,R,b,6,(x,y,R)=>{c.fillStyle="rgba(253,245,222,.94)";blob(c,x,y,S(b)*(.1+R()*.06),S(b)*(.08+R()*.04),R,.25);c.fill()});scatter(c,R,b,4,(x,y,R)=>leaf(c,x,y,S(b)*.07,R()*6.3,"#3A7234"))},
+  oats(c,b,R){shade(c,b,"#EADCBF","#CDB98F");scatter(c,R,b,Math.round(b.w*b.h/60),(x,y,R)=>oval(c,x,y,S(b)*.03,S(b)*.018,R()*6.3,R()<.5?"#F3E8CF":"#D8C49B"));
+    scatter(c,R,{x:b.x+b.w*.1,y:b.y+b.h*.1,w:b.w*.5,h:b.h*.8},5,(x,y,R)=>{const r=S(b)*.09;c.beginPath();c.arc(x,y,r,0,6.3);c.fillStyle="#F6EBC0";c.fill();c.beginPath();c.arc(x,y,r*.35,0,6.3);c.fillStyle="#E4D08F";c.fill()});
+    scatter(c,R,{x:b.x+b.w*.45,y:b.y,w:b.w*.55,h:b.h},Math.round(b.w*b.h/500),(x,y,R)=>{const r=S(b)*(.035+R()*.012);c.beginPath();c.arc(x,y,r,0,6.3);c.fillStyle=R()<.6?"#343A74":"#B8344A";c.fill();c.beginPath();c.arc(x-r*.3,y-r*.3,r*.3,0,6.3);c.fillStyle="rgba(255,255,255,.3)";c.fill()});
+    scatter(c,R,b,Math.round(b.w*b.h/300),(x,y,R)=>oval(c,x,y,S(b)*.008,S(b)*.006,R()*6.3,"#2A2A2A"))},
+  pancakes(c,b,R){shade(c,b,"#F7F3EA","#E6DFD0");[[.3,.36],[.62,.3],[.46,.66],[.78,.66]].forEach(([px,py])=>{const r=S(b)*.3,x=b.x+b.w*px,y=b.y+b.h*py;const g=c.createRadialGradient(x-r*.2,y-r*.2,r*.1,x,y,r);g.addColorStop(0,"#E9C07A");g.addColorStop(.8,"#C98B45");g.addColorStop(1,"#A86B32");c.beginPath();c.arc(x,y,r,0,6.3);c.fillStyle=g;c.fill()});
+    c.fillStyle="rgba(255,255,255,.92)";blob(c,b.x+b.w*.5,b.y+b.h*.46,S(b)*.16,S(b)*.12,R,.2);c.fill();
+    scatter(c,R,{x:b.x+b.w*.3,y:b.y+b.h*.25,w:b.w*.45,h:b.h*.45},9,(x,y,R)=>{const r=S(b)*.04;c.beginPath();c.arc(x,y,r,0,6.3);c.fillStyle="#343A74";c.fill()})},
+  burrito(c,b,R){shade(c,b,"#EFE7D6","#DCD0B8");[[.28,.5,.2],[.72,.5,-.2]].forEach(([px,py,rot])=>{c.save();c.translate(b.x+b.w*px,b.y+b.h*py);c.rotate(rot);const w=b.w*.4,h=b.h*.8;rr(c,-w/2,-h/2,w,h,w*.45);c.fillStyle="#E4C48A";c.fill();scatter(c,R,{x:-w/2,y:-h/2,w,h},14,(x,y,R)=>oval(c,x,y,S(b)*.02,S(b)*.012,R()*6.3,"rgba(150,95,40,.45)"));
+      c.beginPath();c.ellipse(0,-h*.18,w*.4,w*.4,0,0,6.3);c.fillStyle="#F2EAD6";c.fill();c.beginPath();c.ellipse(0,-h*.18,w*.33,w*.33,0,0,6.3);c.fillStyle="#F3C94E";c.fill();
+      scatter(c,R,{x:-w*.25,y:-h*.18-w*.25,w:w*.5,h:w*.5},9,(x,y,R)=>oval(c,x,y,S(b)*.022,S(b)*.014,R()*6.3,R()<.5?"#2E1D18":"#5E9E3F"));c.restore()})},
+  salsa(c,b,R){shade(c,b,"#C9452E","#8E2A1A");scatter(c,R,b,Math.round(b.w*b.h/250),(x,y,R)=>{const s=S(b)*.07;c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-s/2,-s/2,s,s,s*.2);c.fillStyle=R()<.7?"#E0563B":"#F4EDE0";c.fill();c.restore()});herbs(c,R,b,6,["#3F7F2E"])},
+  quinoa(c,b,R){shade(c,b,"#EFE4C9","#D6C6A0");scatter(c,R,b,Math.round(b.w*b.h/22),(x,y,R)=>oval(c,x,y,S(b)*.012,S(b)*.012,0,R()<.5?"#F6EDD6":"#D9C79C"));
+    scatter(c,R,b,Math.round(b.w*b.h/500),(x,y,R)=>{const s=S(b)*(.1+R()*.03);c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-s/2,-s/2,s,s,s*.18);c.fillStyle=R()<.5?"#E0782E":"#EA8A3B";c.fill();c.fillStyle="rgba(255,220,170,.35)";c.fillRect(-s*.35,-s*.35,s*.35,s*.15);c.restore()})},
+  chicken(c,b,R){shade(c,b,"#EFE4C9","#D6C6A0");for(let i=0;i<5;i++){const x=b.x+b.w*(.14+i*.17),y=b.y+b.h*.34;c.save();c.translate(x,y);c.rotate(.25);rr(c,-b.w*.08,-b.h*.3,b.w*.15,b.h*.6,b.w*.04);c.fillStyle="#E8C38E";c.fill();c.strokeStyle="#A8743F";c.lineWidth=S(b)*.018;for(let k=-2;k<=2;k++){c.beginPath();c.moveTo(-b.w*.07,k*b.h*.1-b.h*.03);c.lineTo(b.w*.07,k*b.h*.1+b.h*.03);c.stroke()}c.restore()}
+    for(let i=0;i<4;i++)broc(c,b.x+b.w*(.15+i*.23),b.y+b.h*.82,S(b)*.12,R);c.fillStyle="rgba(250,248,240,.92)";blob(c,b.x+b.w*.85,b.y+b.h*.15,S(b)*.1,S(b)*.08,R,.2);c.fill()},
+  meatChili(c,b,R){shade(c,b,"#A5472C","#6E2A18");scatter(c,R,b,Math.round(b.w*b.h/120),(x,y,R)=>{c.fillStyle=R()<.5?"#7C3620":"#8F4A2C";blob(c,x,y,S(b)*.03,S(b)*.024,R,.3);c.fill()});
+    scatter(c,R,b,Math.round(b.w*b.h/500),(x,y,R)=>{oval(c,x,y,S(b)*.035,S(b)*.021,R()*6.3,"#6E1E2A");oval(c,x-1,y-1,S(b)*.012,S(b)*.006,0,"rgba(255,255,255,.3)")});
+    scatter(c,R,b,Math.round(b.w*b.h/800),(x,y,R)=>{const s=S(b)*.026;c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-s/2,-s/2,s,s,s*.3);c.fillStyle="#EBC45A";c.fill();c.restore()});herbs(c,R,b,5,["#46783A"])},
+  veggies(c,b,R){shade(c,b,"#D9C69C","#B99F6E");scatter(c,R,b,Math.round(b.w*b.h/380),(x,y,R)=>{const k=R();if(k<.4){const r=S(b)*.07;c.beginPath();c.arc(x,y,r,0,6.3);c.fillStyle="#6E9B45";c.fill();c.beginPath();c.arc(x,y,r*.78,0,6.3);c.fillStyle="#E3E7B8";c.fill()}else if(k<.75){c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-S(b)*.07,-S(b)*.025,S(b)*.14,S(b)*.05,S(b)*.02);c.fillStyle=R()<.5?"#D6402C":"#EDB72E";c.fill();c.restore()}else broc(c,x,y,S(b)*.1,R)})},
+  beef(c,b,R){shade(c,b,"#7A4029","#4E2616");scatter(c,R,b,Math.round(b.w*b.h/90),(x,y,R)=>{c.fillStyle=R()<.5?"#6B361F":"#8A4B2E";blob(c,x,y,S(b)*.03,S(b)*.024,R,.3);c.fill()});
+    scatter(c,R,b,Math.round(b.w*b.h/600),(x,y,R)=>oval(c,x,y,S(b)*.03,S(b)*.019,R()*6.3,"#2E1D18"));c.fillStyle="#9CC46A";blob(c,b.x+b.w*.7,b.y+b.h*.7,S(b)*.14,S(b)*.1,R,.2);c.fill();
+    scatter(c,R,b,Math.round(b.w*b.h/250),(x,y,R)=>oval(c,x,y,S(b)*.01,S(b)*.006,R()*6.3,"#F6F0DE"));herbs(c,R,b,6,["#4F8A3A"])}
+};
+const RECIPE={curry:[["rice",.42],["curry",.58]],chili:[["rice",.4],["chili",.6]],lachs:[["salmon",1]],dal:[["riceGreen",.38],["dal",.62]],gulasch:[["spaetzle",.42],["gulasch",.58]],pasta:[["pasta",1]],oats:[["oats",1]],pancakes:[["pancakes",1]],burrito:[["burrito",.66],["salsa",.34]],huhnbowl:[["quinoa",.42],["chicken",.58]],putenchili:[["rice",.4],["meatChili",.6]],hgemuese:[["veggies",.45],["chicken",.55]],rindxl:[["rice",.45],["beef",.55]]};
+function box(c,cx,cy,w,id,rot=0,seed=id){
+  const R=rng(seed),h=w*.66,x=-w/2,y=-h/2,r=w*.07;
+  c.save();c.translate(cx,cy);c.rotate(rot);
+  c.save();c.shadowColor="rgba(30,30,25,.18)";c.shadowBlur=w*.05;c.shadowOffsetY=w*.02;rr(c,x,y,w,h,r);c.fillStyle="#1C1E1C";c.fill();c.restore();
+  const pad=w*.05,gap=w*.03,parts=RECIPE[id],iw=w-pad*2;let ox=x+pad;
+  parts.forEach(([f,fr])=>{const pw=parts.length>1?(iw-gap*(parts.length-1))*fr:iw,b={x:ox,y:y+pad,w:pw,h:h-pad*2};c.save();rr(c,b.x,b.y,b.w,b.h,r*.55);c.clip();FILL[f](c,b,R);c.restore();ox+=pw+gap});
+  c.restore();
+}
+function setup(cv){const d=Math.min(2,devicePixelRatio||1),r=cv.getBoundingClientRect();cv.width=Math.max(1,Math.round(r.width*d));cv.height=Math.max(1,Math.round(r.height*d));const c=cv.getContext("2d");c.setTransform(d,0,0,d,0,0);return[c,r.width,r.height]}
+function herbScatter(c,w,h,seed,n){const R=rng(seed);for(let i=0;i<n;i++)leaf(c,R()*w,R()*h,4+R()*5,R()*6.3,["#4E7A3A","#5F8D45","#3F6B30"][i%3])}
+function drawThumb(cv,id,scale=.8){id=String(id).split("|")[0];const[c,w,h]=setup(cv);box(c,w/2,h/2,Math.min(w*scale,h*scale*1.45),id)}
+
+/* ================= state ================= */
+let cart={};
+try{const s=JSON.parse(localStorage.getItem("weekfuel-cart")||"{}");if(s&&typeof s==="object")cart=s}catch(e){}
+function save(){try{localStorage.setItem("weekfuel-cart",JSON.stringify(cart))}catch(e){}}
+const count=()=>Object.values(cart).reduce((a,b)=>a+b,0);
+function totals(){
+  const n=count(),sub=Object.entries(cart).reduce((a,[id,q])=>a+q*priceOf(id),0);
+  const t=TIERS.find(([m])=>n>=m),r=t?t[1]:0,tot=sub*(1-r);
+  const next=[...TIERS].reverse().find(([m])=>n<m);
+  return{n,sub,r,tot,disc:sub-tot,next};
+}
+function setQty(id,q){q=Math.max(0,Math.min(60,q));if(byId(id).meal==="b"&&q>(cart[id]||0)&&bfCount()>=bfLimit())return;if(q)cart[id]=q;else delete cart[id];save();refresh()}
+
+/* ================= menu ================= */
+const grid=document.getElementById("grid"),tabs=document.getElementById("tabs");
+const match=(d,f)=>f==="alle"||(f==="protein"?d.prot>=35:f==="b"||f==="m"?d.meal===f:d.cat===f);
+tabs.innerHTML=CATS.map(([k,l],i)=>`<button role="tab" data-f="${k}" aria-selected="${i===0}">${l}<span>${DISHES.filter(d=>match(d,k)).length}</span></button>`).join("");
+grid.innerHTML=DISHES.map(x=>`<article class="dish" data-id="${x.id}">
+  <button class="img" type="button" data-detail="${x.id}" aria-label="Details zu ${x.n}"><canvas data-id="${x.id}"></canvas>${x.tag?`<span class="tag">${x.tag}</span>`:""}<span class="incart" hidden></span></button>
+  <div>
+    <div class="row"><h3>${x.n}</h3><span class="price">${eur(x.p)}</span></div>
+    <p class="d">${x.d}</p>
+    ${x.meal==="b"?`<p class="d" style="color:var(--accent);font-size:13.5px">Nur in der Formel mit Frühstück, Mittag und Abend</p>`:""}<div class="nut"><span><b>${x.kcal}</b> kcal</span><span><b>${x.prot} g</b> Protein</span><span>${x.g} g</span></div>
+    <div class="act"><button class="more" type="button" data-detail="${x.id}">Zutaten &amp; Allergene</button><span class="ctl"></span></div>
+  </div></article>`).join("");
+tabs.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;tabs.querySelectorAll("button").forEach(t=>t.setAttribute("aria-selected",t===b));grid.querySelectorAll(".dish").forEach(el=>el.hidden=!match(byId(el.dataset.id),b.dataset.f));requestAnimationFrame(drawGrid)});
+const bfCount=()=>DISHES.filter(d=>d.meal==="b").reduce((a,d)=>a+(cart[d.id]||0),0);
+const mainCount=()=>Object.entries(cart).reduce((a,[k,q])=>a+(byId(k).meal==="m"?q:0),0);
+const bfLimit=()=>Math.floor(mainCount()/2);
+function ctlHTML(id,ctx){const q=cart[id]||0,d=byId(id);
+  if(d.meal==="b"&&ctx!=="cart")return `<button class="add" type="button" data-bf>In der Formel buchen</button>`;
+  if(d.meal==="b"){const full=bfCount()>=bfLimit();return `<span class="stepper"><button type="button" data-dec="${id}" aria-label="Eine weniger">−</button><output>${q}</output><button type="button" data-inc="${id}" aria-label="Eine mehr" ${full?"disabled style=\"opacity:.35;cursor:not-allowed\"":""}>+</button></span>`}return q?`<span class="stepper"><button type="button" data-dec="${id}" aria-label="Eine weniger">−</button><output>${q}</output><button type="button" data-inc="${id}" aria-label="Eine mehr">+</button></span>`:`<button class="add" type="button" data-inc="${id}">+ Hinzufügen</button>`}
+document.addEventListener("click",e=>{
+  const inc=e.target.closest("[data-inc]"),dec=e.target.closest("[data-dec]"),det=e.target.closest("[data-detail]");
+  if(inc){setQty(inc.dataset.inc,(cart[inc.dataset.inc]||0)+1);return}
+  if(dec){setQty(dec.dataset.dec,(cart[dec.dataset.dec]||0)-1);return}
+  if(det){openDish(det.dataset.detail)}
+  if(e.target.closest("[data-bf]")){if(!dishOv.hidden)closeOv(dishOv);document.getElementById("fm3").checked=true;renderFormula();document.getElementById("formeln").scrollIntoView({behavior:"smooth"})}
+});
+document.getElementById("quickFill").addEventListener("click",()=>{cart={curry:2,chili:2,dal:2,gulasch:2,lachs:1,pasta:1};save();refresh();openCart()});
+
+/* ================= sticky bar + header ================= */
+const bar=document.getElementById("bar");
+function refresh(){
+  const t=totals();
+  document.getElementById("hdrCount").textContent=t.n;
+  grid.querySelectorAll(".dish").forEach(el=>{const id=el.dataset.id,q=cart[id]||0;el.querySelector(".ctl").innerHTML=ctlHTML(id);const b=el.querySelector(".incart");b.hidden=!q;b.textContent=q+" im Warenkorb"});
+  bar.classList.toggle("show",t.n>0&&!cartOpen);
+  document.getElementById("barMain").textContent=`${t.n} ${t.n===1?"Portion":"Portionen"} · ${eur(t.tot)}`;
+  let sub,goal;
+  if(t.n<MIN){sub=`Noch ${MIN-t.n} bis zur Mindestbestellung`;goal=MIN}
+  else if(t.next){sub=`Noch ${t.next[0]-t.n} bis −${t.next[1]*100} %`;goal=t.next[0]}
+  else{sub=`Maximaler Rabatt −15 %`;goal=t.n}
+  document.getElementById("barSub").textContent=sub;
+  document.getElementById("barProg").style.width=Math.min(100,t.n/goal*100)+"%";
+  document.getElementById("barBtn").textContent=t.n<MIN?"Warenkorb":"Weiter zur Lieferung";
+  if(cartOpen)renderCart();
+}
+
+/* ================= checkout drawer ================= */
+const cartOv=document.getElementById("cartOv");
+let cartOpen=false,step=1,lastFocus=null;
+const form={days:[],win:"",name:"",contact:"",street:"",plz:"",kind:"Privat",company:"",notes:"",agb:false};
+function openOv(ov){lastFocus=document.activeElement;ov.hidden=false;document.body.classList.add("lock");requestAnimationFrame(()=>ov.classList.add("open"))}
+function closeOv(ov){ov.classList.remove("open");document.body.classList.remove("lock");setTimeout(()=>{ov.hidden=true},250);lastFocus&&lastFocus.focus&&lastFocus.focus()}
+function openCart(s){cartOpen=true;step=s||(count()>=MIN?Math.max(step,1):1);if(step===4)step=1;renderCart();openOv(cartOv);bar.classList.remove("show");setTimeout(()=>cartOv.querySelector(".x").focus(),60)}
+function closeCart(){cartOpen=false;closeOv(cartOv);refresh()}
+document.querySelectorAll("[data-open-cart]").forEach(b=>b.addEventListener("click",()=>openCart(b.id==="barBtn"&&count()>=MIN?2:1)));
+document.getElementById("bizBtn").addEventListener("click",()=>{form.kind="Firma";if(count()<MIN){cart={curry:2,chili:2,dal:2,gulasch:2,lachs:1,pasta:1};save();refresh()}openCart(1)});
+cartOv.addEventListener("click",e=>{if(e.target===cartOv||e.target.closest("[data-close]"))closeCart()});
+addEventListener("keydown",e=>{if(e.key==="Escape"){if(!dishOv.hidden)closeOv(dishOv);else if(cartOpen)closeCart()}});
+
+function deliveryDays(){const out=[],d=new Date();d.setHours(12);d.setDate(d.getDate()+3);while(out.length<8){const w=d.getDay();if(w>0&&w<6)out.push(new Date(d));d.setDate(d.getDate()+1)}return out}
+const WD=["So","Mo","Di","Mi","Do","Fr","Sa"];
+const iso=d=>d.toISOString().slice(0,10);
+const fmt=s=>{const d=new Date(s+"T12:00");return `${WD[d.getDay()]} ${String(d.getDate()).padStart(2,"0")}.${String(d.getMonth()+1).padStart(2,"0")}.`};
+const berlin=p=>/^\d{5}$/.test(p)&&+p>=10115&&+p<=14199;
+function crumbs(){const L=["Auswahl","Lieferung","Kontakt"];document.getElementById("crumbs").innerHTML=step===4?"":L.map((l,i)=>`<span class="${i+1===step?"on":i+1<step?"done":""}">${i+1<step?"✓ ":""}${l}</span>`).join("")}
+function split(n,k){const base=Math.floor(n/k),rest=n%k;return Array.from({length:k},(_,i)=>base+(i<rest?1:0))}
+
+function renderCart(){
+  crumbs();
+  const pb=document.getElementById("pb"),pf=document.getElementById("pf"),t=totals();
+  document.getElementById("cartTitle").textContent=step===4?"Anfrage erstellt":"Warenkorb";
+  if(step===1){
+    if(!t.n){pb.innerHTML=`<div class="empty"><p>Dein Warenkorb ist noch leer.</p><button class="btn" type="button" id="toMenu">Gerichte auswählen</button><button class="more" type="button" id="qf2">oder 10 gemischte Portionen vorschlagen</button></div>`;pf.innerHTML="";
+      pb.querySelector("#toMenu").onclick=()=>{closeCart();location.hash="karte"};
+      pb.querySelector("#qf2").onclick=()=>{cart={curry:2,chili:2,dal:2,gulasch:2,lachs:1,pasta:1};save();refresh()};return}
+    const items=Object.entries(cart).map(([id,q])=>{const d=byId(id);return`<div class="citem"><canvas data-thumb="${id}"></canvas><div><div class="nm">${nameOf(id)}</div><div class="pp">${q} × ${eur(priceOf(id))}</div></div>${ctlHTML(id,"cart")}</div>`}).join("");
+    let hint="";
+    const bfBad=bfCount()>bfLimit();
+    if(bfBad)hint=`<div class="note warn"><span>Frühstück gibt es nur zusammen mit Hauptgerichten: höchstens <b>1 Frühstück pro 2 Hauptgerichte</b>. Füge Hauptgerichte hinzu oder entferne ein Frühstück.</span></div>`;
+    else if(t.n<MIN)hint=`<div class="note warn"><span>Noch <b>${MIN-t.n} ${MIN-t.n===1?"Portion":"Portionen"}</b> bis zur Mindestbestellung von ${MIN}.</span></div>`;
+    else if(t.next)hint=`<div class="note"><span>Noch <b>${t.next[0]-t.n}</b> bis <b>−${t.next[1]*100} %</b> auf die ganze Bestellung.</span></div>`;
+    else hint=`<div class="note"><span>Du bekommst den maximalen Rabatt von <b>−15 %</b>.</span></div>`;
+    pb.innerHTML=hint+items+`<div class="lines"><div><span>Zwischensumme</span><span>${eur(t.sub)}</span></div><div class="g"><span>Mengenrabatt${t.r?` (−${t.r*100} %)`:""}</span><span>${t.r?"−"+eur(t.disc):"–"}</span></div><div><span>Lieferung</span><span>inklusive</span></div></div>`;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>pb.querySelectorAll("canvas[data-thumb]").forEach(cv=>drawThumb(cv,cv.dataset.thumb,.92))));
+    pf.innerHTML=`<div class="tot"><span>Gesamt inkl. MwSt.</span><b>${eur(t.tot)}</b></div><div class="btns"><button class="btn" type="button" id="next" ${t.n<MIN||bfBad?"disabled":""}>Weiter zur Lieferung</button></div>`;
+    pf.querySelector("#next").onclick=()=>{step=2;renderCart()};
+    return;
+  }
+  if(step===2){
+    const days=deliveryDays();
+    const per=form.days.length?split(t.n,form.days.length):[];
+    pb.innerHTML=`<fieldset class="fs"><legend>An welchen Tagen sollen wir liefern?</legend><p class="hint">Wähle 1 bis 3 Tage. Bei mehreren Tagen teilen wir deine ${t.n} Portionen auf.</p>
+      <div class="chips">${days.map(d=>{const v=iso(d),on=form.days.includes(v),dis=!on&&form.days.length>=3;return`<input type="checkbox" id="day-${v}" value="${v}" ${on?"checked":""} ${dis?"disabled":""}><label for="day-${v}"><span>${WD[d.getDay()]}</span><b>${d.getDate()}.${d.getMonth()+1}.</b></label>`}).join("")}</div></fieldset>
+      ${form.days.length?`<div class="note"><span>${form.days.slice().sort().map((d,i)=>`<b>${fmt(d)}</b> ${per[i]} Portionen`).join(" · ")}</span></div>`:""}
+      <fieldset class="fs"><legend>Zeitfenster</legend><div class="chips three">${[["Vormittag","9–12 Uhr"],["Nachmittag","13–17 Uhr"],["Abend","17–20 Uhr"]].map(([l,s])=>`<input type="radio" name="win" id="w-${l}" value="${l}" ${form.win===l?"checked":""}><label for="w-${l}"><b>${l}</b><span>${s}</span></label>`).join("")}</div></fieldset>
+      <fieldset class="fs"><legend>Lieferadresse</legend><div class="fields">
+        <label class="f full">Straße und Hausnummer<input id="street" autocomplete="street-address" value="${esc(form.street)}"></label>
+        <label class="f ${form.plz&&!berlin(form.plz)?"err":""}">Postleitzahl<input id="plz" inputmode="numeric" maxlength="5" autocomplete="postal-code" value="${esc(form.plz)}">${form.plz&&!berlin(form.plz)?"<small>Wir liefern aktuell nur in Berlin.</small>":""}</label>
+        <label class="f">Ort<input value="Berlin" disabled></label>
+      </div></fieldset>`;
+    pb.querySelectorAll(".chips input[type=checkbox]").forEach(i=>i.onchange=()=>{form.days=i.checked?[...form.days,i.value]:form.days.filter(x=>x!==i.value);renderCart()});
+    pb.querySelectorAll("input[name=win]").forEach(i=>i.onchange=()=>{form.win=i.value;renderCart()});
+    const st=pb.querySelector("#street"),pz=pb.querySelector("#plz");
+    st.oninput=()=>{form.street=st.value;upd2()};pz.oninput=()=>{form.plz=pz.value.replace(/\D/g,"").slice(0,5);if(pz.value!==form.plz)pz.value=form.plz;upd2()};
+    pz.onblur=()=>renderCart();
+    pf.innerHTML=`<div class="tot"><span>${t.n} Portionen</span><b>${eur(t.tot)}</b></div><div class="btns"><button class="btn ghost" type="button" id="back">Zurück</button><button class="btn" type="button" id="next">Weiter zu den Kontaktdaten</button></div>`;
+    pf.querySelector("#back").onclick=()=>{step=1;renderCart()};
+    pf.querySelector("#next").onclick=()=>{step=3;renderCart()};
+    function upd2(){pf.querySelector("#next").disabled=!(form.days.length&&form.win&&form.street.trim()&&berlin(form.plz))}upd2();
+    return;
+  }
+  if(step===3){
+    pb.innerHTML=`<fieldset class="fs"><legend>Ich bestelle als</legend><div class="chips three" style="grid-template-columns:1fr 1fr">${["Privat","Firma"].map(k=>`<input type="radio" name="kind" id="k-${k}" value="${k}" ${form.kind===k?"checked":""}><label for="k-${k}"><b>${k==="Privat"?"Privatperson":"Firma"}</b></label>`).join("")}</div></fieldset>
+      <fieldset class="fs"><legend>Kontakt</legend><div class="fields">
+        ${form.kind==="Firma"?`<label class="f full">Firmenname<input id="company" autocomplete="organization" value="${esc(form.company)}"></label>`:""}
+        <label class="f full">Vor- und Nachname<input id="name" autocomplete="name" value="${esc(form.name)}"></label>
+        <label class="f full">E-Mail oder Telefon<input id="contact" autocomplete="email" value="${esc(form.contact)}"></label>
+        <label class="f full">Anmerkungen oder Allergien (optional)<textarea id="notes">${esc(form.notes)}</textarea></label>
+      </div></fieldset>
+      <label class="check"><input type="checkbox" id="agb" ${form.agb?"checked":""}><span>Ich habe die <a href="datenschutz.html" target="_blank" style="text-decoration:underline">Datenschutzerklärung</a> gelesen.</span></label>
+      <div class="lines"><div><span>${t.n} Portionen, ${form.days.length} ${form.days.length===1?"Liefertag":"Liefertage"}</span><span>${eur(t.tot)}</span></div><div><span>Zahlung</span><span>nach Bestätigung</span></div></div>`;
+    pb.querySelectorAll("input[name=kind]").forEach(i=>i.onchange=()=>{form.kind=i.value;renderCart()});
+    ["company","name","contact","notes"].forEach(k=>{const el=pb.querySelector("#"+k);if(el)el.oninput=()=>{form[k]=el.value;upd3()}});
+    pb.querySelector("#agb").onchange=e=>{form.agb=e.target.checked;upd3()};
+    pf.innerHTML=`<div class="tot"><span>Gesamt inkl. MwSt.</span><b>${eur(t.tot)}</b></div><div class="btns"><button class="btn ghost" type="button" id="back">Zurück</button><button class="btn" type="button" id="next">Bestellung anfragen</button></div>`;
+    pf.querySelector("#back").onclick=()=>{step=2;renderCart()};
+    pf.querySelector("#next").onclick=()=>{step=4;renderCart()};
+    function upd3(){pf.querySelector("#next").disabled=!(form.name.trim()&&form.contact.trim()&&form.agb&&(form.kind!=="Firma"||form.company.trim()))}upd3();
+    return;
+  }
+  if(step===4){
+    const per=split(t.n,form.days.length);
+    const txt=`Bestellanfrage Weekfuel\n\n${Object.entries(cart).map(([id,q])=>`${String(q).padStart(2)} × ${nameOf(id)}`).join("\n")}\n\nPortionen: ${t.n}\nSumme: ${eur(t.tot)}${t.r?` (inkl. −${t.r*100} % Rabatt)`:""}\n\nLieferung: ${form.days.slice().sort().map((d,i)=>`${fmt(d)} (${per[i]})`).join(", ")}\nZeitfenster: ${form.win}\nAdresse: ${form.street}, ${form.plz} Berlin\n\n${form.kind==="Firma"?`Firma: ${form.company}\n`:""}Name: ${form.name}\nKontakt: ${form.contact}\nAnmerkungen: ${form.notes||"–"}`;
+    pb.innerHTML=`<div class="done-box"><div class="ok"><svg width="24" height="24"><use href="#i-ok"/></svg></div><h3 style="font-size:22px;letter-spacing:-.03em">Fast geschafft</h3><p style="color:var(--muted)">Schick uns diese Zusammenfassung an <b>${MAIL}</b>. Wir bestätigen Termin und Preis innerhalb von 24 Stunden. Bezahlt wird erst danach.</p><pre id="sumTxt"></pre></div>`;
+    pb.querySelector("#sumTxt").textContent=txt;
+    pf.innerHTML=`<div class="btns"><button class="btn" type="button" id="copyS">Zusammenfassung kopieren</button></div><button class="more" type="button" id="restart" style="justify-self:center">Neue Bestellung beginnen</button>`;
+    pf.querySelector("#copyS").onclick=async e=>{try{await navigator.clipboard.writeText(txt);e.target.textContent="Kopiert"}catch(err){const s=getSelection(),r=document.createRange();r.selectNodeContents(pb.querySelector("#sumTxt"));s.removeAllRanges();s.addRange(r);e.target.textContent="Text markiert, jetzt kopieren"}};
+    pf.querySelector("#restart").onclick=()=>{cart={};save();step=1;form.days=[];refresh();closeCart()};
+  }
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+/* ================= dish modal ================= */
+const dishOv=document.getElementById("dishOv"),dm=document.getElementById("dishModal");
+function openDish(id){const d=byId(id);
+  dm.innerHTML=`<div class="mi"><canvas id="dCv"></canvas></div><div class="mt" style="position:relative">
+    <button class="x" type="button" data-close aria-label="Schließen">×</button>
+    <div><h3 id="dTitle">${d.n}</h3><p style="color:var(--muted);margin-top:6px">${d.d}</p></div>
+    <div class="ntab"><div><b>${d.kcal}</b>kcal</div><div><b>${d.prot} g</b>Eiweiß</div><div><b>${d.carb} g</b>Kohlenhydr.</div><div><b>${d.fat} g</b>Fett</div></div>
+    <dl><dt>Zutaten</dt><dd>${d.z}</dd><dt>Allergene</dt><dd>${d.a.join(", ")||"keine der 14 Hauptallergene"}</dd><dt>Portion</dt><dd>${d.g} g</dd><dt>Zubereitung</dt><dd>${d.cold?"Kalt genießen, direkt aus dem Kühlschrank":`Pfanne ${d.pan} · Ofen ${d.oven} · Mikrowelle ${d.mic}`}</dd></dl>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:6px"><span style="font-size:20px;font-weight:500">${eur(d.p)}</span><span class="ctl" id="dCtl"></span></div>
+  </div>`;
+  const upd=()=>{dm.querySelector("#dCtl").innerHTML=ctlHTML(id)};upd();
+  dm.onclick=e=>{if(e.target.closest("[data-inc],[data-dec]"))setTimeout(upd,0);if(e.target.closest("[data-close]"))closeOv(dishOv)};
+  openOv(dishOv);requestAnimationFrame(()=>{drawThumb(dm.querySelector("#dCv"),id,.82);dm.querySelector(".x").focus()});
+}
+dishOv.addEventListener("click",e=>{if(e.target===dishOv)closeOv(dishOv)});
+
+
+/* ================= formulas ================= */
+const POOLS={bal:{b:["oats","pancakes","burrito"],m:["curry","huhnbowl","chili","gulasch","lachs","dal","putenchili","pasta"]},
+             cut:{b:["pancakes"],m:["hgemuese","putenchili","hgemuese","huhnbowl"]},
+             bulk:{b:["burrito","pancakes"],m:["rindxl","gulasch","rindxl","pasta","huhnbowl"]},
+             veg:{b:["oats"],m:["chili","dal"]}};
+function fval(n){return document.querySelector(`input[name="${n}"]:checked`).value}
+const TARGETS={cut:[1500,1800,2000],bulk:[2500,3000,3500]},DEF_T={cut:1800,bulk:3000};
+let target={cut:1800,bulk:3000};
+const avg=(l,f)=>l.reduce((a,id)=>a+f(byId(id)),0)/l.length;
+function factorFor(goal,per,T){const pool=POOLS[goal],B=per===3?avg(pool.b,d=>d.kcal):0,K=avg(pool.m,d=>d.kcal);return Math.round(((T-B)/2/K)*20)/20}
+function buildFormula(){const per=+fval("fm"),days=+fval("fd"),goal=fval("fg"),pool=POOLS[goal],out={};
+  let f=1;if(TARGETS[goal]){f=Math.min(2,Math.max(.8,factorFor(goal,per,target[goal])));if(Math.abs(f-1)<.03)f=1}
+  const add=(list,n,fac)=>{for(let i=0;i<n;i++){const id=list[i%list.length]+(fac!==1?"|"+fac:"");out[id]=(out[id]||0)+1}};
+  if(per===3)add(pool.b,days,1);add(pool.m,days*2,f);return{out,days,per,f}}
+function renderTargets(){const goal=fval("fg"),per=+fval("fm"),set=document.getElementById("fKcalSet");
+  if(!TARGETS[goal]){set.hidden=true;return}set.hidden=false;
+  document.getElementById("fKcalLeg").textContent=goal==="bulk"?"Kalorienziel pro Tag (Muskelaufbau)":"Kalorienziel pro Tag (Definition)";
+  const ok=T=>{const f=factorFor(goal,per,T);return f<=2&&f>=.8};
+  if(!ok(target[goal]))target[goal]=TARGETS[goal].filter(ok).slice(-1)[0]||TARGETS[goal][0];
+  document.getElementById("fKcalChips").innerHTML=TARGETS[goal].map(T=>`<input type="radio" name="fk" id="fk${T}" value="${T}" ${T===target[goal]?"checked":""} ${ok(T)?"":"disabled"}><label for="fk${T}"><b>${goal==="bulk"?"+":"~"}${T.toLocaleString("de-DE")}</b><span>kcal</span></label>`).join("");
+  const off=TARGETS[goal].filter(T=>!ok(T));
+  document.getElementById("fKcalHint").textContent=(off.length?`Für ${off.map(T=>T.toLocaleString("de-DE")).join(" und ")} kcal wähle „Frühstück, Mittag + Abend“. `:"")+"Wir passen die Portionsgröße der Hauptgerichte an dein Ziel an.";
+}
+function renderFormula(){renderTargets();const {out,days,per,f}=buildFormula(),n=days*per;
+  const sub=Object.entries(out).reduce((a,[id,q])=>a+q*priceOf(id),0),t=TIERS.find(([m])=>n>=m),r=t?t[1]:0,tot=sub*(1-r);
+  const kcal=Object.entries(out).reduce((a,[id,q])=>a+q*kcalOf(id),0)/days,prot=Object.entries(out).reduce((a,[id,q])=>a+q*protOf(id),0)/days;
+  document.getElementById("fN").textContent=n+" Portionen";
+  document.getElementById("fSub").textContent=per===3?`${days} Frühstücke, ${days*2} Hauptgerichte`:`${days*2} Hauptgerichte`;
+  document.getElementById("fItems").innerHTML=Object.entries(out).sort((a,b)=>byId(a[0]).meal.localeCompare(byId(b[0]).meal)).map(([id,q])=>`<div><span>${q} × ${nameOf(id)}</span><span>${eur(q*priceOf(id))}</span></div>`).join("");
+  document.getElementById("fKcal").textContent="~"+Math.round(kcal/10)*10;
+  document.getElementById("fProt").textContent="~"+Math.round(prot)+" g";
+  document.getElementById("fDay").textContent=eur(tot/days);
+  document.getElementById("fDisc").textContent=r?`inkl. −${r*100} % Mengenrabatt`:"Gesamt";
+  document.getElementById("fTot").textContent=eur(tot);
+  const g=fval("fg"),gh=document.getElementById("fGoal");gh.hidden=!(g==="cut"||g==="bulk");gh.textContent=(f!==1?`Hauptgerichte in angepasster Größe (${f>1?"+":"−"}${Math.round(Math.abs(f-1)*100)} %). `:"")+"Richtwerte. Dein Bedarf hängt von Gewicht, Alltag und Training ab.";
+  document.getElementById("fNote").textContent=count()?"Ersetzt deinen aktuellen Warenkorb. Du kannst danach alles anpassen.":"Du kannst einzelne Gerichte danach tauschen.";
+}
+document.getElementById("formeln").addEventListener("change",e=>{if(e.target.name==="fk")target[fval("fg")]=+e.target.value;renderFormula()});
+document.getElementById("fAdd").addEventListener("click",()=>{cart={...buildFormula().out};save();refresh();renderFormula();openCart(1)});
+renderFormula();
+
+/* ================= faq ================= */
+document.getElementById("faqList").innerHTML=FAQ.map(([g,items])=>`<div class="fgroup"><h3>${g}</h3>${items.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join("")}</div>`).join("");
+
+/* ================= draw ================= */
+function drawGrid(){grid.querySelectorAll("canvas").forEach(cv=>{if(!cv.offsetParent)return;const[c,w,h]=setup(cv);box(c,w/2,h/2,Math.min(w*.76,h*1.08),cv.dataset.id)})}
+function draw(){
+  drawGrid();
+  {const cv=document.getElementById("heroCanvas"),[c,w,h]=setup(cv);
+   const bw=w>900?w/4.6:w>560?w/3.2:w/2.1,bh=bw*.66,gx=bw*.12,gy=bh*.2,ids=["curry","oats","huhnbowl","rindxl","pancakes","gulasch","dal","burrito","hgemuese","putenchili","pasta","lachs"],R=rng("hero");
+   herbScatter(c,w,h,"herbs",Math.round(w/28));let k=0;
+   for(let col=-1;col*(bw+gx)<w+bw;col++){const off=(col%2?bh*.55:0)-bh*.3;for(let row=-1;row*(bh+gy)+off<h+bh;row++){box(c,col*(bw+gx)+bw*.35,row*(bh+gy)+off+bh/2,bw,ids[k%ids.length],(R()-.5)*.03,"h"+k);k++}}}
+  {const cv=document.getElementById("bizCanvas"),[c,w,h]=setup(cv);herbScatter(c,w,h,"biz",14);const bw=w*.42;[["dal",.27,.26],["pasta",.73,.26],["curry",.27,.74],["gulasch",.73,.74]].forEach(([id,px,py],i)=>box(c,w*px,h*py,bw,id,0,"b"+i))}
+}
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(draw,120)});
+(document.fonts?.ready||Promise.resolve()).then(draw);draw();
+refresh();
+</script>
+
+</body>
+</html>
