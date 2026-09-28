@@ -348,6 +348,44 @@ footer a:hover{color:var(--ink)}
 .fbox .grp + .chips{margin-bottom:10px}
 .fbox .chips{clear:both}
 .fbox .hint{margin-top:10px!important}
+
+/* categories */
+.cgroups{display:grid;gap:72px}
+.chead{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:6px 20px;padding-bottom:16px;margin-bottom:28px;border-bottom:1px solid var(--ink)}
+.chead h3{font-size:24px;letter-spacing:-.03em;font-weight:500}
+.chead p{color:var(--muted);font-size:15px}
+.chead span{font-size:13px;color:var(--muted);white-space:nowrap}
+@media (max-width:700px){.chead{grid-template-columns:1fr auto}.chead p{grid-column:1/-1;grid-row:2}}
+.sside{display:grid;gap:16px;justify-items:start}
+.quizcta{background:var(--accent-soft);color:var(--ink);border:0;border-radius:12px;padding:14px 16px;font:500 15px var(--font);cursor:pointer;text-align:left}
+.quizcta span{color:var(--accent);font-weight:600}
+.quizcta:hover{filter:brightness(.97)}
+/* quiz */
+.quiz{background:var(--bg);width:min(560px,100%);max-height:calc(100% - 32px);overflow:auto;border-radius:20px;transform:translateY(12px);transition:transform .3s}
+.ov.open .quiz{transform:none}
+.qhead{display:flex;align-items:center;gap:16px;padding:18px 20px 0}
+.qprog{flex:1;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
+.qprog i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.qbody{padding:22px 28px 28px;display:grid;gap:18px}
+.qbody .qn{font-size:13px;color:var(--muted)}
+.qbody h3{font-size:26px;letter-spacing:-.03em;line-height:1.15}
+.qopts{display:grid;gap:10px}
+.qopt{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 12px;text-align:left;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:14px;padding:16px 18px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s}
+.qopt:hover{border-color:var(--ink);background:var(--soft)}
+.qopt b{font-weight:500;font-size:16.5px}
+.qopt small{grid-column:1;color:var(--muted);font-size:14px}
+.qopt::after{content:"→";grid-row:1/span 2;grid-column:2;color:var(--muted)}
+.qback{justify-self:start;background:none;border:0;color:var(--muted);font:14px var(--font);cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
+.qres{display:grid;gap:14px}
+.qres .tag{justify-self:start;background:var(--accent-soft);color:var(--accent);font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px}
+.qres .why{color:var(--muted)}
+.qstats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.qstats div{padding:12px 0;display:grid;font-size:12px;color:var(--muted)}
+.qstats b{font-size:19px;color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.qres .fine{font-size:13px;color:var(--muted)}
+.qbtns{display:grid;gap:8px}
+.qbtns .btn{width:100%}
+@media (max-width:520px){.qbody{padding:18px 20px 24px}.qbody h3{font-size:22px}}
 </style>
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 </head>
@@ -383,8 +421,8 @@ footer a:hover{color:var(--ink)}
         <div class="intro">
           <p>Frühstück, Mittag und Abend, hausgemacht. Mit Formeln für Definition und Muskelaufbau. Ab 10 Portionen. Wir kochen, portionieren und liefern in Berlin. Du wärmst nur noch auf.</p>
           <div class="ctas">
-            <a class="btn" href="#formeln">Formel wählen</a>
-            <a class="btn ghost" href="#karte">Gerichte ansehen</a>
+            <button class="btn" type="button" data-quiz>Welche Formel passt zu mir?</button>
+            <a class="btn ghost" href="#formeln">Formeln ansehen</a>
           </div>
         </div>
       </div>
@@ -413,7 +451,7 @@ footer a:hover{color:var(--ink)}
 
   <section id="formeln">
     <div class="wrap">
-      <div class="shead"><div><span class="label">Formeln</span><h2>Ganze Tage, <em>fertig geplant</em></h2></div><p>Sag uns, wie viele Mahlzeiten du am Tag brauchst. Wir stellen die Gerichte ausgewogen zusammen, du kannst danach alles im Warenkorb anpassen.</p></div>
+      <div class="shead"><div><span class="label">Formeln</span><h2>Ganze Tage, <em>fertig geplant</em></h2></div><div class="sside"><p>Sag uns, wie viele Mahlzeiten du am Tag brauchst. Wir stellen die Gerichte ausgewogen zusammen, du kannst danach alles im Warenkorb anpassen.</p><button class="quizcta" type="button" data-quiz><span>Unsicher?</span> 4 Fragen, und wir empfehlen dir die passende Formel →</button></div></div>
       <div class="fx">
         <div>
           <fieldset class="fs fbox"><legend>Dein Ziel</legend>
@@ -454,12 +492,12 @@ footer a:hover{color:var(--ink)}
 
   <section id="karte" class="soft">
     <div class="wrap">
-      <div class="shead"><div><span class="label">Wochenkarte · KW 40</span><h2>Oder wähle selbst</h2></div><p>Hauptgerichte und Extra-Protein-Gerichte für Sportler, Frühstück in der Formel. Tippe auf ein Gericht für Zutaten, Allergene und Nährwerte. Preise pro Portion vor Mengenrabatt.</p></div>
+      <div class="shead"><div><span class="label">Wochenkarte · KW 40</span><h2>Oder wähle selbst</h2></div><p>Sortiert nach Kategorien: Frühstück, Klassiker, Sport &amp; Protein und Vegan. Tippe auf ein Gericht für Zutaten, Allergene und Nährwerte. Preise pro Portion vor Mengenrabatt.</p></div>
       <div class="menubar">
         <div class="tabs" role="tablist" aria-label="Gerichte filtern" id="tabs"></div>
         <button class="quick" type="button" id="quickFill">10 gemischte Portionen vorschlagen</button>
       </div>
-      <div class="grid" id="grid"></div>
+      <div class="cgroups" id="grid"></div>
       <div class="tierline" id="preise">
         <div><b>10+</b><span>Portionen</span><span class="off">−5 %</span></div>
         <div><b>20+</b><span>Portionen</span><span class="off">−10 %</span></div>
@@ -473,7 +511,7 @@ footer a:hover{color:var(--ink)}
       <div class="story-grid">
         <div><span class="label">Über uns</span><p class="statement">Wir kochen für Berliner Büros und Events. Jetzt auch <em>für deinen Kühlschrank.</em></p></div>
         <div class="story-txt">
-          <p>Hinter Weekfuel steht ein Catering-Team aus Berlin. Wir sind es gewohnt, für viele Menschen gleichzeitig frisch zu kochen.</p>
+          <p>Weekfuel ist eine Marke von The French Buffet, einem Catering-Team aus Berlin. Wir sind es gewohnt, für viele Menschen gleichzeitig frisch zu kochen.</p>
           <p>Unter der Woche fehlt vielen die Zeit, gut zu essen. Also machen wir, was wir am besten können: ehrliche Gerichte in großen Mengen, portioniert und bereit für deine Woche.</p>
         </div>
       </div>
@@ -568,6 +606,13 @@ footer a:hover{color:var(--ink)}
   </div>
 </div>
 
+<div class="ov center" id="quizOv" hidden>
+  <div class="quiz" role="dialog" aria-modal="true" aria-labelledby="qTitle">
+    <div class="qhead"><div class="qprog"><i id="qBar"></i></div><button class="x" type="button" data-qclose aria-label="Schließen">×</button></div>
+    <div class="qbody" id="qBody"></div>
+  </div>
+</div>
+
 <div class="ov center" id="dishOv" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="dTitle" id="dishModal"></div>
 </div>
@@ -575,34 +620,38 @@ footer a:hover{color:var(--ink)}
 <script>
 /* ================= data ================= */
 const DISHES=[
-  {id:"oats",meal:"b",n:"Overnight Oats Beeren",d:"Hafer, Chia, Haferdrink, Beeren, Banane.",p:5.9,cat:"vegan",tag:"Frühstück",g:300,kcal:420,prot:14,carb:62,fat:12,cold:true,
+  {id:"oats",grp:"fr",meal:"b",n:"Overnight Oats Beeren",d:"Hafer, Chia, Haferdrink, Beeren, Banane.",p:5.9,cat:"vegan",tag:"Frühstück",g:300,kcal:420,prot:14,carb:62,fat:12,cold:true,
    z:"Haferflocken, Haferdrink, Chiasamen, Heidelbeeren, Himbeeren, Banane, Ahornsirup",a:["Hafer (Gluten)"]},
-  {id:"pancakes",meal:"b",n:"Protein-Pancakes",d:"Hafer-Quark-Pancakes mit Skyr und Heidelbeeren.",p:6.9,cat:"veggie",tag:"Frühstück",g:300,kcal:480,prot:36,carb:52,fat:12,pan:"3 Min",oven:"8 Min",mic:"1–2 Min",
+  {id:"pancakes",grp:"fr",meal:"b",n:"Protein-Pancakes",d:"Hafer-Quark-Pancakes mit Skyr und Heidelbeeren.",p:6.9,cat:"veggie",tag:"Frühstück",g:300,kcal:480,prot:36,carb:52,fat:12,pan:"3 Min",oven:"8 Min",mic:"1–2 Min",
    z:"Haferflocken, Eier, Magerquark, Banane, Backpulver, Skyr, Heidelbeeren",a:["Hafer (Gluten)","Ei","Milch"]},
-  {id:"burrito",meal:"b",n:"Frühstücks-Burrito",d:"Rührei, schwarze Bohnen, Cheddar, Salsa.",p:7.5,cat:"veggie",tag:"Frühstück",g:350,kcal:560,prot:38,carb:48,fat:22,pan:"5 Min",oven:"12 Min",mic:"2 Min",
+  {id:"burrito",grp:"fr",meal:"b",n:"Frühstücks-Burrito",d:"Rührei, schwarze Bohnen, Cheddar, Salsa.",p:7.5,cat:"veggie",tag:"Frühstück",g:350,kcal:560,prot:38,carb:48,fat:22,pan:"5 Min",oven:"12 Min",mic:"2 Min",
    z:"Weizentortilla, Eier, schwarze Bohnen, Cheddar, Paprika, Frühlingszwiebeln, Tomatensalsa",a:["Weizen (Gluten)","Ei","Milch"]},
-  {id:"huhnbowl",meal:"m",n:"Hähnchen-Süßkartoffel-Bowl",d:"Gegrillte Hähnchenbrust, Süßkartoffel, Quinoa, Brokkoli.",p:12.9,cat:"fleisch",tag:"Extra Protein",sport:true,g:500,kcal:650,prot:58,carb:60,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+  {id:"huhnbowl",grp:"sport",meal:"m",n:"Hähnchen-Süßkartoffel-Bowl",d:"Gegrillte Hähnchenbrust, Süßkartoffel, Quinoa, Brokkoli.",p:12.9,cat:"fleisch",tag:"Extra Protein",sport:true,g:500,kcal:650,prot:58,carb:60,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Hähnchenbrust, Süßkartoffel, Quinoa, Brokkoli, Joghurt-Kräuter-Dip, Paprika, Olivenöl",a:["Milch"]},
-  {id:"putenchili",meal:"m",n:"Puten-Chili con carne",d:"Mageres Putenhack, Kidneybohnen, Mais, Reis.",p:11.9,cat:"fleisch",tag:"Extra Protein",sport:true,g:500,kcal:610,prot:52,carb:64,fat:12,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+  {id:"putenchili",grp:"sport",meal:"m",n:"Puten-Chili con carne",d:"Mageres Putenhack, Kidneybohnen, Mais, Reis.",p:11.9,cat:"fleisch",tag:"Extra Protein",sport:true,g:500,kcal:610,prot:52,carb:64,fat:12,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Reis, Putenhack, Kidneybohnen, Tomaten, Mais, Paprika, Zwiebeln, Kreuzkümmel, Chili",a:["Sellerie"]},
-  {id:"hgemuese",meal:"m",n:"Hähnchen mit Ofengemüse",d:"Hähnchenbrust, Zucchini, Paprika, Brokkoli, Kräuterquark.",p:11.9,cat:"fleisch",tag:"Definition",sport:true,g:450,kcal:430,prot:50,carb:22,fat:14,pan:"5 Min",oven:"12 Min",mic:"3 Min",
+  {id:"hgemuese",grp:"sport",meal:"m",n:"Hähnchen mit Ofengemüse",d:"Hähnchenbrust, Zucchini, Paprika, Brokkoli, Kräuterquark.",p:11.9,cat:"fleisch",tag:"Definition",sport:true,g:450,kcal:430,prot:50,carb:22,fat:14,pan:"5 Min",oven:"12 Min",mic:"3 Min",
    z:"Hähnchenbrust, Zucchini, Paprika, Brokkoli, rote Zwiebeln, Magerquark, Kräuter, Olivenöl",a:["Milch"]},
-  {id:"rindxl",meal:"m",n:"Rinderhack-Bowl XL",d:"Große Portion Reis, Rinderhack, schwarze Bohnen, Avocado-Creme.",p:13.9,cat:"fleisch",tag:"Muskelaufbau",sport:true,g:600,kcal:950,prot:60,carb:98,fat:32,pan:"7 Min",oven:"18 Min",mic:"4–5 Min",
+  {id:"rindxl",grp:"sport",meal:"m",n:"Rinderhack-Bowl XL",d:"Große Portion Reis, Rinderhack, schwarze Bohnen, Avocado-Creme.",p:13.9,cat:"fleisch",tag:"Muskelaufbau",sport:true,g:600,kcal:950,prot:60,carb:98,fat:32,pan:"7 Min",oven:"18 Min",mic:"4–5 Min",
    z:"Reis, Rinderhack, schwarze Bohnen, Mais, Avocado, Limette, Frühlingszwiebeln, Sesam, Sojasauce",a:["Soja","Weizen (Gluten)","Sesam"]},
-  {id:"curry",meal:"m",n:"Hähnchen-Curry",d:"Hähnchenschenkel in Tomaten-Kokos-Sauce, Basmati.",p:10.5,cat:"fleisch",tag:"Beliebt",g:450,kcal:620,prot:38,carb:62,fat:22,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+  {id:"curry",grp:"klassik",meal:"m",n:"Hähnchen-Curry",d:"Hähnchenschenkel in Tomaten-Kokos-Sauce, Basmati.",p:10.5,cat:"fleisch",tag:"Beliebt",g:450,kcal:620,prot:38,carb:62,fat:22,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Basmatireis, Hähnchenschenkel, Tomaten, Kokosmilch, Zwiebeln, Ingwer, Knoblauch, Garam Masala, Koriander",a:["Sellerie"]},
-  {id:"chili",meal:"m",n:"Chili sin carne",d:"Schwarze Bohnen, Mais, geröstete Paprika, Reis.",p:8.5,cat:"vegan",tag:"Vegan",g:450,kcal:540,prot:20,carb:88,fat:10,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+  {id:"chili",grp:"vegan",meal:"m",n:"Chili sin carne",d:"Schwarze Bohnen, Mais, geröstete Paprika, Reis.",p:8.5,cat:"vegan",tag:"Vegan",g:450,kcal:540,prot:20,carb:88,fat:10,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Reis, schwarze Bohnen, Kidneybohnen, Tomaten, Mais, Paprika, Zwiebeln, Kreuzkümmel, Chili, Limette",a:["Sellerie"]},
-  {id:"lachs",meal:"m",n:"Teriyaki-Lachs",d:"Ofenlachs, Brokkoli, Sesam, Jasminreis.",p:14.5,cat:"fisch",g:420,kcal:610,prot:36,carb:58,fat:24,pan:"5 Min",oven:"12 Min",mic:"3 Min",
+  {id:"lachs",grp:"klassik",meal:"m",n:"Teriyaki-Lachs",d:"Ofenlachs, Brokkoli, Sesam, Jasminreis.",p:14.5,cat:"fisch",g:420,kcal:610,prot:36,carb:58,fat:24,pan:"5 Min",oven:"12 Min",mic:"3 Min",
    z:"Jasminreis, Lachsfilet, Brokkoli, Sojasauce, Mirin, Ingwer, Honig, Sesam, Frühlingszwiebeln",a:["Fisch","Soja","Weizen (Gluten)","Sesam"]},
-  {id:"dal",meal:"m",n:"Rote-Linsen-Dal",d:"Kokosmilch, Spinat, Ingwer, Limette, Basmati.",p:8.9,cat:"vegan",tag:"Vegan",g:450,kcal:520,prot:19,carb:76,fat:14,pan:"5 Min",oven:"12 Min",mic:"3 Min",
+  {id:"dal",grp:"vegan",meal:"m",n:"Rote-Linsen-Dal",d:"Kokosmilch, Spinat, Ingwer, Limette, Basmati.",p:8.9,cat:"vegan",tag:"Vegan",g:450,kcal:520,prot:19,carb:76,fat:14,pan:"5 Min",oven:"12 Min",mic:"3 Min",
    z:"Basmatireis, rote Linsen, Kokosmilch, Spinat, Tomaten, Zwiebeln, Ingwer, Kurkuma, Senfsaat, Limette",a:["Senf"]},
-  {id:"gulasch",meal:"m",n:"Rindergulasch",d:"Drei Stunden geschmort, Spätzle, Schmand.",p:12.9,cat:"fleisch",g:480,kcal:680,prot:40,carb:56,fat:30,pan:"7 Min",oven:"18 Min",mic:"4 Min",
+  {id:"gulasch",grp:"klassik",meal:"m",n:"Rindergulasch",d:"Drei Stunden geschmort, Spätzle, Schmand.",p:12.9,cat:"fleisch",g:480,kcal:680,prot:40,carb:56,fat:30,pan:"7 Min",oven:"18 Min",mic:"4 Min",
    z:"Spätzle (Weizenmehl, Eier), Rindfleisch, Zwiebeln, Paprika, Tomatenmark, Kümmel, Schmand, Petersilie",a:["Weizen (Gluten)","Ei","Milch","Sellerie"]},
-  {id:"pasta",meal:"m",n:"Pasta al forno",d:"Rigatoni, Rinderragout, Mozzarella, Basilikum.",p:10.9,cat:"fleisch",tag:"Neu",g:450,kcal:720,prot:35,carb:74,fat:28,pan:"–",oven:"18 Min",mic:"4 Min",
+  {id:"pasta",grp:"klassik",meal:"m",n:"Pasta al forno",d:"Rigatoni, Rinderragout, Mozzarella, Basilikum.",p:10.9,cat:"fleisch",tag:"Neu",g:450,kcal:720,prot:35,carb:74,fat:28,pan:"–",oven:"18 Min",mic:"4 Min",
    z:"Rigatoni (Hartweizengrieß), Rinderhack, Tomaten, Karotten, Sellerie, Mozzarella, Parmesan, Basilikum",a:["Weizen (Gluten)","Milch","Sellerie"]}
 ];
-const CATS=[["alle","Alle"],["b","Frühstück"],["m","Hauptgerichte"],["protein","Extra Protein"],["vegan","Vegan"]];
+const CATS=[["alle","Alle"],["fr","Frühstück"],["klassik","Klassiker"],["sport","Sport & Protein"],["vegan","Vegan"]];
+const GROUPS={fr:["Frühstück","Für den Start in den Tag. Nur in der Formel mit Frühstück, Mittag und Abend."],
+  klassik:["Klassiker","Hausmannskost und Lieblingsgerichte für jeden Tag."],
+  sport:["Sport & Protein","Mindestens 50 g Eiweiß pro Portion. Für Definition und Muskelaufbau."],
+  vegan:["Vegan","Rein pflanzlich und trotzdem sättigend."]};
 const TIERS=[[30,.15],[20,.10],[10,.05]];
 const MIN=10, MAIL="info@weekfuel.de";
 const FAQ=[
@@ -628,7 +677,7 @@ const FAQ=[
   ]],
   ["Für Firmen",[
     ["Wie funktioniert die Lieferung ins Büro?","Wir legen feste Liefertage fest und liefern direkt in eure Küche. Die Menge könnt ihr jede Woche anpassen."],
-    ["Bekommen wir eine Rechnung?","Ja, eine Sammelrechnung pro Monat mit ausgewiesener Mehrwertsteuer."]
+    ["Bekommen wir eine Rechnung?","Ja, eine Sammelrechnung pro Monat."]
   ]]
 ];
 const eur=v=>v.toLocaleString("de-DE",{style:"currency",currency:"EUR"});
@@ -711,17 +760,18 @@ function setQty(id,q){q=Math.max(0,Math.min(60,q));if(byId(id).meal==="b"&&q>(ca
 
 /* ================= menu ================= */
 const grid=document.getElementById("grid"),tabs=document.getElementById("tabs");
-const match=(d,f)=>f==="alle"||(f==="protein"?d.prot>=35:f==="b"||f==="m"?d.meal===f:d.cat===f);
+const match=(d,f)=>f==="alle"||d.grp===f;
 tabs.innerHTML=CATS.map(([k,l],i)=>`<button role="tab" data-f="${k}" aria-selected="${i===0}">${l}<span>${DISHES.filter(d=>match(d,k)).length}</span></button>`).join("");
-grid.innerHTML=DISHES.map(x=>`<article class="dish" data-id="${x.id}">
+const card=x=>`<article class="dish" data-id="${x.id}">
   <button class="img" type="button" data-detail="${x.id}" aria-label="Details zu ${x.n}"><canvas data-id="${x.id}"></canvas>${x.tag?`<span class="tag">${x.tag}</span>`:""}<span class="incart" hidden></span></button>
   <div>
     <div class="row"><h3>${x.n}</h3><span class="price">${eur(x.p)}</span></div>
     <p class="d">${x.d}</p>
     ${x.meal==="b"?`<p class="d" style="color:var(--accent);font-size:13.5px">Nur in der Formel mit Frühstück, Mittag und Abend</p>`:""}<div class="nut"><span><b>${x.kcal}</b> kcal</span><span><b>${x.prot} g</b> Protein</span><span>${x.g} g</span></div>
     <div class="act"><button class="more" type="button" data-detail="${x.id}">Zutaten &amp; Allergene</button><span class="ctl"></span></div>
-  </div></article>`).join("");
-tabs.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;tabs.querySelectorAll("button").forEach(t=>t.setAttribute("aria-selected",t===b));grid.querySelectorAll(".dish").forEach(el=>el.hidden=!match(byId(el.dataset.id),b.dataset.f));requestAnimationFrame(drawGrid)});
+  </div></article>`;
+grid.innerHTML=Object.entries(GROUPS).map(([g,[t,d]])=>`<div class="cgroup" data-g="${g}"><div class="chead"><h3>${t}</h3><p>${d}</p><span>${DISHES.filter(x=>x.grp===g).length} Gerichte</span></div><div class="grid">${DISHES.filter(x=>x.grp===g).map(card).join("")}</div></div>`).join("");
+tabs.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;tabs.querySelectorAll("button").forEach(t=>t.setAttribute("aria-selected",t===b));grid.querySelectorAll(".cgroup").forEach(el=>el.hidden=!(b.dataset.f==="alle"||el.dataset.g===b.dataset.f));requestAnimationFrame(drawGrid)});
 const bfCount=()=>DISHES.filter(d=>d.meal==="b").reduce((a,d)=>a+(cart[d.id]||0),0);
 const mainCount=()=>Object.entries(cart).reduce((a,[k,q])=>a+(byId(k).meal==="m"?q:0),0);
 const bfLimit=()=>Math.floor(mainCount()/2);
@@ -793,7 +843,7 @@ function renderCart(){
     else hint=`<div class="note"><span>Du bekommst den maximalen Rabatt von <b>−15 %</b>.</span></div>`;
     pb.innerHTML=hint+items+`<div class="lines"><div><span>Zwischensumme</span><span>${eur(t.sub)}</span></div><div class="g"><span>Mengenrabatt${t.r?` (−${t.r*100} %)`:""}</span><span>${t.r?"−"+eur(t.disc):"–"}</span></div><div><span>Lieferung</span><span>inklusive</span></div></div>`;
     requestAnimationFrame(()=>requestAnimationFrame(()=>pb.querySelectorAll("canvas[data-thumb]").forEach(cv=>drawThumb(cv,cv.dataset.thumb,.92))));
-    pf.innerHTML=`<div class="tot"><span>Gesamt inkl. MwSt.</span><b>${eur(t.tot)}</b></div><div class="btns"><button class="btn" type="button" id="next" ${t.n<MIN||bfBad?"disabled":""}>Weiter zur Lieferung</button></div>`;
+    pf.innerHTML=`<div class="tot"><span>Gesamt · kein USt-Ausweis (§ 19 UStG)</span><b>${eur(t.tot)}</b></div><div class="btns"><button class="btn" type="button" id="next" ${t.n<MIN||bfBad?"disabled":""}>Weiter zur Lieferung</button></div>`;
     pf.querySelector("#next").onclick=()=>{step=2;renderCart()};
     return;
   }
@@ -833,7 +883,7 @@ function renderCart(){
     pb.querySelectorAll("input[name=kind]").forEach(i=>i.onchange=()=>{form.kind=i.value;renderCart()});
     ["company","name","contact","notes"].forEach(k=>{const el=pb.querySelector("#"+k);if(el)el.oninput=()=>{form[k]=el.value;upd3()}});
     pb.querySelector("#agb").onchange=e=>{form.agb=e.target.checked;upd3()};
-    pf.innerHTML=`<div class="tot"><span>Gesamt inkl. MwSt.</span><b>${eur(t.tot)}</b></div><div class="btns"><button class="btn ghost" type="button" id="back">Zurück</button><button class="btn" type="button" id="next">Bestellung anfragen</button></div>`;
+    pf.innerHTML=`<div class="tot"><span>Gesamt · kein USt-Ausweis (§ 19 UStG)</span><b>${eur(t.tot)}</b></div><div class="btns"><button class="btn ghost" type="button" id="back">Zurück</button><button class="btn" type="button" id="next">Bestellung anfragen</button></div>`;
     pf.querySelector("#back").onclick=()=>{step=2;renderCart()};
     pf.querySelector("#next").onclick=()=>{step=4;renderCart()};
     function upd3(){pf.querySelector("#next").disabled=!(form.name.trim()&&form.contact.trim()&&form.agb&&(form.kind!=="Firma"||form.company.trim()))}upd3();
@@ -908,6 +958,54 @@ function renderFormula(){renderTargets();const {out,days,per,f}=buildFormula(),n
 document.getElementById("formeln").addEventListener("change",e=>{if(e.target.name==="fk")target[fval("fg")]=+e.target.value;renderFormula()});
 document.getElementById("fAdd").addEventListener("click",()=>{cart={...buildFormula().out};save();refresh();renderFormula();openCart(1)});
 renderFormula();
+
+
+/* ================= quiz ================= */
+const quizOv=document.getElementById("quizOv"),qBody=document.getElementById("qBody"),qBar=document.getElementById("qBar");
+let qa={},qstep=0;
+const QS=[
+ {k:"goal",q:"Was ist dein Ziel?",o:[["cut","Abnehmen oder definieren","Viel Eiweiß, weniger Kalorien"],["bulk","Muskeln aufbauen","Viel Eiweiß, mehr Kalorien"],["bal","Einfach gut und bequem essen","Abwechslungsreich, ohne Zählen"],["veg","Pflanzlich essen","Komplett vegan"]]},
+ {k:"train",q:"Wie oft trainierst du?",only:a=>a.goal==="cut"||a.goal==="bulk",o:[["1","1 bis 2 Mal pro Woche","Eher wenig Bewegung im Alltag"],["2","3 bis 4 Mal pro Woche","Regelmäßig im Gym oder beim Sport"],["3","5 Mal oder öfter","Intensives Training"]]},
+ {k:"per",q:"Welche Mahlzeiten sollen wir übernehmen?",o:[["2","Mittag und Abend","2 Mahlzeiten pro Tag"],["3","Frühstück, Mittag und Abend","3 Mahlzeiten pro Tag"]]},
+ {k:"days",q:"Für wie viele Tage?",o:[["5","Arbeitswoche","5 Tage"],["7","Ganze Woche","7 Tage"],["10","Zwei Wochen","10 Tage, auf mehrere Lieferungen verteilt"]]}
+];
+const qsteps=()=>QS.filter(x=>!x.only||x.only(qa));
+function qRender(){const st=qsteps();qBar.style.width=(qstep/st.length*100)+"%";
+  if(qstep>=st.length)return qResult();
+  const x=st[qstep];
+  qBody.innerHTML=`<span class="qn">Frage ${qstep+1} von ${st.length}</span><h3 id="qTitle">${x.q}</h3><div class="qopts">${x.o.map(([v,t,d])=>`<button class="qopt" type="button" data-v="${v}"><b>${t}</b><small>${d}</small></button>`).join("")}</div>${qstep?'<button class="qback" type="button" data-qback>Zurück</button>':""}`;
+  qBody.querySelector(".qopt").focus();
+}
+function setRadio(name,v){const el=document.querySelector(`input[name="${name}"][value="${v}"]`);if(el)el.checked=true}
+function qApply(){
+  let per=+qa.per,note="";
+  setRadio("fg",qa.goal);setRadio("fd",qa.days);
+  if(TARGETS[qa.goal]){const T=TARGETS[qa.goal][+qa.train-1];target[qa.goal]=T;
+    const f=factorFor(qa.goal,per,T);if(per===2&&(f>2||f<.8)){per=3;note="Für dein Kalorienziel empfehlen wir zusätzlich das Frühstück."}}
+  setRadio("fm",per);renderFormula();return note}
+function qResult(){qBar.style.width="100%";const note=qApply();
+  const g=qa.goal,T=target[g];
+  const name={cut:`Definition · ~${T.toLocaleString("de-DE")} kcal`,bulk:`Muskelaufbau · +${T.toLocaleString("de-DE")} kcal`,bal:"Ausgewogen",veg:"Vegan"}[g];
+  const why={cut:"Eiweißreiche Gerichte mit wenig Fett, damit du satt bleibst und deine Muskeln erhältst.",bulk:"Große, kalorienreiche Portionen mit viel Eiweiß für deinen Muskelaufbau.",bal:"Eine abwechslungsreiche Mischung aus unseren Klassikern, ohne Kalorienzählen.",veg:"Unsere pflanzlichen Gerichte, sättigend und eiweißreich."}[g];
+  const per=+fval("fm"),days=+fval("fd");
+  qBody.innerHTML=`<div class="qres"><span class="tag">Deine Empfehlung</span><h3 id="qTitle">${name}</h3>
+   <p class="why">${why} ${per===3?"Frühstück, Mittag und Abend":"Mittag und Abend"} für ${days} Tage, also ${document.getElementById("fN").textContent}.${note?" "+note:""}</p>
+   <div class="qstats"><div><b>${document.getElementById("fKcal").textContent}</b>kcal pro Tag</div><div><b>${document.getElementById("fProt").textContent}</b>Protein pro Tag</div><div><b>${document.getElementById("fDay").textContent}</b>pro Tag</div></div>
+   <p class="fine">Richtwerte. Dein genauer Bedarf hängt von Gewicht, Alltag und Training ab.</p>
+   <div class="qbtns"><button class="btn" type="button" data-qtake>Formel in den Warenkorb · ${document.getElementById("fTot").textContent}</button><button class="btn ghost" type="button" data-qedit>Formel ansehen und anpassen</button></div>
+   <button class="qback" type="button" data-qrestart>Neu starten</button></div>`;
+}
+function openQuiz(){qa={};qstep=0;qRender();openOv(quizOv)}
+document.querySelectorAll("[data-quiz]").forEach(b=>b.addEventListener("click",openQuiz));
+quizOv.addEventListener("click",e=>{
+  if(e.target===quizOv||e.target.closest("[data-qclose]")){closeOv(quizOv);return}
+  const o=e.target.closest(".qopt");if(o){qa[qsteps()[qstep].k]=o.dataset.v;qstep++;qRender();return}
+  if(e.target.closest("[data-qback]")){qstep=Math.max(0,qstep-1);qRender();return}
+  if(e.target.closest("[data-qrestart]")){qa={};qstep=0;qRender();return}
+  if(e.target.closest("[data-qedit]")){closeOv(quizOv);setTimeout(()=>document.getElementById("formeln").scrollIntoView({behavior:"smooth"}),260);return}
+  if(e.target.closest("[data-qtake]")){closeOv(quizOv);setTimeout(()=>document.getElementById("fAdd").click(),260)}
+});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!quizOv.hidden)closeOv(quizOv)});
 
 /* ================= faq ================= */
 document.getElementById("faqList").innerHTML=FAQ.map(([g,items])=>`<div class="fgroup"><h3>${g}</h3>${items.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join("")}</div>`).join("");
