@@ -391,6 +391,30 @@ footer a:hover{color:var(--ink)}
 .kcustom span:first-child{color:var(--ink);font-weight:500}
 .kcustom input{width:130px;font:500 16px var(--font);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .kcustom input:focus{outline:none;border-color:var(--ink)}
+
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.badges span{font-size:12px;font-weight:500;padding:3px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.sort{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);padding-bottom:12px}
+.sort select{font:500 14px var(--font);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:7px 12px}
+.trial{background:var(--accent);color:var(--on-accent);padding-block:72px}
+.trial .label{color:inherit;opacity:.75}
+.trial-in{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
+.trial h2{margin-top:14px}
+.trial p{opacity:.88;font-size:17px;margin-top:14px;max-width:34em}
+.trial-card{background:var(--bg);color:var(--ink);border-radius:18px;padding:26px;display:grid;gap:16px}
+.trial-price{display:grid;gap:2px}
+.trial-price s{color:var(--muted);font-size:15px}
+.trial-price b{font-size:44px;font-weight:500;letter-spacing:-.05em;line-height:1}
+.trial-price span{color:var(--muted);font-size:14px}
+.trial-card .btn{width:100%}
+.trial-card .fine{color:var(--muted);opacity:1;font-size:13px;margin:0}
+@media (max-width:860px){.trial-in{grid-template-columns:1fr;gap:28px}}
+.cmp{width:100%;border-collapse:collapse;font-size:15px;min-width:620px}
+.cmp th,.cmp td{text-align:left;padding:16px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.cmp th{font-weight:500;font-size:14px;color:var(--muted);border-bottom:1px solid var(--ink)}
+.cmp td:first-child{font-weight:500}
+.cmp .me{background:var(--accent-soft);color:var(--ink);font-weight:500}
+.cmp th.me{color:var(--accent)}
 </style>
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 </head>
@@ -427,7 +451,7 @@ footer a:hover{color:var(--ink)}
           <p>Frühstück, Mittag und Abend, hausgemacht. Mit Formeln für Definition und Muskelaufbau. Ab 10 Portionen. Wir kochen, portionieren und liefern in Berlin. Du wärmst nur noch auf.</p>
           <div class="ctas">
             <button class="btn" type="button" data-quiz>Welche Formel passt zu mir?</button>
-            <a class="btn ghost" href="#formeln">Formeln ansehen</a>
+            <button class="btn ghost" type="button" data-trial>Probierpaket −20 %</button>
           </div>
         </div>
       </div>
@@ -451,6 +475,37 @@ footer a:hover{color:var(--ink)}
         <div class="step"><span class="n">2</span><h3>Liefertage festlegen</h3><p>Alles an einem Tag oder auf bis zu drei Tage verteilt, wenn der Kühlschrank klein ist.</p></div>
         <div class="step"><span class="n">3</span><h3>Aufwärmen und essen</h3><p>Pfanne, Ofen oder Mikrowelle. Die Zeit steht auf jedem Etikett.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section class="trial" id="probierpaket">
+    <div class="wrap trial-in">
+      <div>
+        <span class="label">Für Neukunden</span>
+        <h2>Das Probierpaket: <em>alle Gerichte</em> kennenlernen</h2>
+        <p>Jedes Hauptgericht der Woche einmal, 10 Portionen, <b>20 % günstiger</b>. So findest du deine Favoriten, bevor du größer bestellst.</p>
+      </div>
+      <div class="trial-card">
+        <div class="trial-price"><s id="trialOld">–</s><b id="trialNew">–</b><span>für 10 Portionen · <span id="trialPer">–</span> pro Portion</span></div>
+        <button class="btn" type="button" data-trial>Probierpaket in den Warenkorb</button>
+        <p class="fine">Einmal pro Haushalt. Lieferung in Berlin inklusive.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="vergleich">
+    <div class="wrap">
+      <div class="shead"><div><span class="label">Warum Weekfuel</span><h2>Günstiger als bestellen, <em>schneller als kochen</em></h2></div><p>Ein ehrlicher Vergleich für eine Mahlzeit unter der Woche.</p></div>
+      <div class="tw"><table class="cmp">
+        <thead><tr><th></th><th>Lieferdienst</th><th>Selbst kochen</th><th class="me">Weekfuel</th></tr></thead>
+        <tbody>
+          <tr><td>Preis pro Mahlzeit</td><td>oft 15 € und mehr</td><td>günstig</td><td class="me">8,50 bis 14,50 €, bis −15 %</td></tr>
+          <tr><td>Zeit pro Mahlzeit</td><td>30 bis 60 Min Wartezeit</td><td>Einkauf, Kochen, Abwasch</td><td class="me">5 Minuten aufwärmen</td></tr>
+          <tr><td>Nährwerte bekannt</td><td>selten</td><td>nur wenn du rechnest</td><td class="me">auf jeder Box</td></tr>
+          <tr><td>Für Sportziele planbar</td><td>kaum</td><td>mit viel Aufwand</td><td class="me">Kalorienziel frei wählbar</td></tr>
+          <tr><td>Verpackung</td><td>Einweg</td><td>–</td><td class="me">Mehrwegboxen</td></tr>
+        </tbody>
+      </table></div>
     </div>
   </section>
 
@@ -505,7 +560,7 @@ footer a:hover{color:var(--ink)}
       <div class="shead"><div><span class="label">Wochenkarte · KW 40</span><h2>Oder wähle selbst</h2></div><p>Sortiert nach Kategorien: Frühstück, Klassiker, Sport &amp; Protein und Vegan. Tippe auf ein Gericht für Zutaten, Allergene und Nährwerte. Preise pro Portion vor Mengenrabatt.</p></div>
       <div class="menubar">
         <div class="tabs" role="tablist" aria-label="Gerichte filtern" id="tabs"></div>
-        <button class="quick" type="button" id="quickFill">10 gemischte Portionen vorschlagen</button>
+        <label class="sort" for="sortSel">Sortieren<select id="sortSel"><option value="rec">Empfohlen</option><option value="prot">Meiste Protein</option><option value="kcal">Wenigste Kalorien</option><option value="price">Günstigste zuerst</option></select></label>
       </div>
       <div class="cgroups" id="grid"></div>
       <div class="tierline" id="preise">
@@ -666,6 +721,7 @@ const TIERS=[[30,.15],[20,.10],[10,.05]];
 const MIN=10, MAIL="info@weekfuel.de";
 const FAQ=[
   ["Bestellung",[
+    ["Was ist das Probierpaket?","Jedes Hauptgericht der aktuellen Wochenkarte einmal, also 10 Portionen, mit 20 % Rabatt. Es gilt einmal pro Haushalt für die erste Bestellung."],
     ["Was ist eine Formel?","Eine fertig geplante Kombination für ganze Tage: Mittag und Abend oder Frühstück, Mittag und Abend, für 5, 7 oder 10 Tage. Du wählst dein Ziel, wir stellen die Gerichte zusammen. Im Warenkorb kannst du alles tauschen."],
     ["Kann ich Frühstück einzeln bestellen?","Nein, Frühstück gibt es nur in der Formel „Frühstück, Mittag + Abend“. Im Warenkorb kannst du die Frühstücke untereinander tauschen, höchstens eins pro zwei Hauptgerichte."],
     ["Habt ihr Gerichte für Sportler?","Ja. Unter „Extra Protein“ findest du Gerichte ab 35 g Eiweiß pro Portion. Dazu gibt es zwei Formeln: „Definition“ mit viel Eiweiß und wenig Kalorien und „Muskelaufbau“ mit großen, kalorienreichen Portionen. Du wählst dein Kalorienziel pro Tag, wir passen die Portionsgröße an. Die Nährwerte pro Tag siehst du direkt in der Formel."],
@@ -760,15 +816,18 @@ let cart={};
 try{const s=JSON.parse(localStorage.getItem("weekfuel-cart")||"{}");if(s&&typeof s==="object")cart=s}catch(e){}
 function save(){try{localStorage.setItem("weekfuel-cart",JSON.stringify(cart))}catch(e){}}
 const count=()=>Object.values(cart).reduce((a,b)=>a+b,0);
+const TRIAL=()=>DISHES.filter(d=>d.meal==="m").map(d=>d.id),TRIAL_R=.2;
+const isTrial=()=>{const ks=Object.keys(cart),tr=TRIAL();return ks.length===tr.length&&tr.every(id=>cart[id]===1)};
 function totals(){
-  const n=count(),sub=Object.entries(cart).reduce((a,[id,q])=>a+q*priceOf(id),0);
-  const t=TIERS.find(([m])=>n>=m),r=t?t[1]:0,tot=sub*(1-r);
+  const n=count(),sub=Object.entries(cart).reduce((a,[id,q])=>a+q*priceOf(id),0),trial=isTrial();
+  const t=TIERS.find(([m])=>n>=m),r=trial?TRIAL_R:(t?t[1]:0),tot=sub*(1-r);
   const next=[...TIERS].reverse().find(([m])=>n<m);
-  return{n,sub,r,tot,disc:sub-tot,next};
+  return{n,sub,r,tot,disc:sub-tot,next:trial?null:next,trial};
 }
 function setQty(id,q){q=Math.max(0,Math.min(60,q));if(byId(id).meal==="b"&&q>(cart[id]||0)&&bfCount()>=bfLimit())return;if(q)cart[id]=q;else delete cart[id];save();refresh()}
 
 /* ================= menu ================= */
+const badges=d=>[d.prot>=40&&"High Protein",d.kcal<500&&"Unter 500 kcal",d.carb<=30&&"Low Carb",d.cat==="vegan"&&"Vegan"].filter(Boolean);
 const grid=document.getElementById("grid"),tabs=document.getElementById("tabs");
 const match=(d,f)=>f==="alle"||d.grp===f;
 tabs.innerHTML=CATS.map(([k,l],i)=>`<button role="tab" data-f="${k}" aria-selected="${i===0}">${l}<span>${DISHES.filter(d=>match(d,k)).length}</span></button>`).join("");
@@ -777,7 +836,7 @@ const card=x=>`<article class="dish" data-id="${x.id}">
   <div>
     <div class="row"><h3>${x.n}</h3><span class="price">${eur(x.p)}</span></div>
     <p class="d">${x.d}</p>
-    ${x.meal==="b"?`<p class="d" style="color:var(--accent);font-size:13.5px">Nur in der Formel mit Frühstück, Mittag und Abend</p>`:""}<div class="nut"><span><b>${x.kcal}</b> kcal</span><span><b>${x.prot} g</b> Protein</span><span>${x.g} g</span></div>
+    ${x.meal==="b"?`<p class="d" style="color:var(--accent);font-size:13.5px">Nur in der Formel mit Frühstück, Mittag und Abend</p>`:""}<div class="badges">${badges(x).map(b=>`<span>${b}</span>`).join("")}</div><div class="nut"><span><b>${x.kcal}</b> kcal</span><span><b>${x.prot} g</b> Protein</span><span>${x.g} g</span></div>
     <div class="act"><button class="more" type="button" data-detail="${x.id}">Zutaten &amp; Allergene</button><span class="ctl"></span></div>
   </div></article>`;
 grid.innerHTML=Object.entries(GROUPS).map(([g,[t,d]])=>`<div class="cgroup" data-g="${g}"><div class="chead"><h3>${t}</h3><p>${d}</p><span>${DISHES.filter(x=>x.grp===g).length} Gerichte</span></div><div class="grid">${DISHES.filter(x=>x.grp===g).map(card).join("")}</div></div>`).join("");
@@ -795,7 +854,14 @@ document.addEventListener("click",e=>{
   if(det){openDish(det.dataset.detail)}
   if(e.target.closest("[data-bf]")){if(!dishOv.hidden)closeOv(dishOv);document.getElementById("fm3").checked=true;renderFormula();document.getElementById("formeln").scrollIntoView({behavior:"smooth"})}
 });
-document.getElementById("quickFill").addEventListener("click",()=>{cart={curry:2,chili:2,dal:2,gulasch:2,lachs:1,pasta:1};save();refresh();openCart()});
+document.getElementById("quickFill")?.addEventListener("click",()=>{cart={curry:2,chili:2,dal:2,gulasch:2,lachs:1,pasta:1};save();refresh();openCart()});
+
+document.getElementById("sortSel").addEventListener("change",e=>{const v=e.target.value;
+  const key={prot:d=>-d.prot,kcal:d=>d.kcal,price:d=>d.p}[v];
+  grid.querySelectorAll(".cgroup .grid").forEach(g=>{const els=[...g.children];
+    els.sort((a,b)=>key?key(byId(a.dataset.id))-key(byId(b.dataset.id)):DISHES.findIndex(d=>d.id===a.dataset.id)-DISHES.findIndex(d=>d.id===b.dataset.id));els.forEach(el=>g.appendChild(el))});
+  requestAnimationFrame(drawGrid)});
+document.querySelectorAll("[data-trial]").forEach(b=>b.addEventListener("click",()=>{cart={};TRIAL().forEach(id=>cart[id]=1);save();refresh();openCart(1)}));
 
 /* ================= sticky bar + header ================= */
 const bar=document.getElementById("bar");
@@ -849,9 +915,10 @@ function renderCart(){
     const bfBad=bfCount()>bfLimit();
     if(bfBad)hint=`<div class="note warn"><span>Frühstück gibt es nur zusammen mit Hauptgerichten: höchstens <b>1 Frühstück pro 2 Hauptgerichte</b>. Füge Hauptgerichte hinzu oder entferne ein Frühstück.</span></div>`;
     else if(t.n<MIN)hint=`<div class="note warn"><span>Noch <b>${MIN-t.n} ${MIN-t.n===1?"Portion":"Portionen"}</b> bis zur Mindestbestellung von ${MIN}.</span></div>`;
+    else if(t.trial)hint=`<div class="note"><span><b>Probierpaket:</b> jedes Hauptgericht einmal, <b>−20 %</b> auf deine erste Bestellung.</span></div>`;
     else if(t.next)hint=`<div class="note"><span>Noch <b>${t.next[0]-t.n}</b> bis <b>−${t.next[1]*100} %</b> auf die ganze Bestellung.</span></div>`;
     else hint=`<div class="note"><span>Du bekommst den maximalen Rabatt von <b>−15 %</b>.</span></div>`;
-    pb.innerHTML=hint+items+`<div class="lines"><div><span>Zwischensumme</span><span>${eur(t.sub)}</span></div><div class="g"><span>Mengenrabatt${t.r?` (−${t.r*100} %)`:""}</span><span>${t.r?"−"+eur(t.disc):"–"}</span></div><div><span>Lieferung</span><span>inklusive</span></div></div>`;
+    pb.innerHTML=hint+items+`<div class="lines"><div><span>Zwischensumme</span><span>${eur(t.sub)}</span></div><div class="g"><span>${t.trial?"Probierpaket":"Mengenrabatt"}${t.r?` (−${Math.round(t.r*100)} %)`:""}</span><span>${t.r?"−"+eur(t.disc):"–"}</span></div><div><span>Lieferung</span><span>inklusive</span></div></div>`;
     requestAnimationFrame(()=>requestAnimationFrame(()=>pb.querySelectorAll("canvas[data-thumb]").forEach(cv=>drawThumb(cv,cv.dataset.thumb,.92))));
     pf.innerHTML=`<div class="tot"><span>Gesamt · kein USt-Ausweis (§ 19 UStG)</span><b>${eur(t.tot)}</b></div><div class="btns"><button class="btn" type="button" id="next" ${t.n<MIN||bfBad?"disabled":""}>Weiter zur Lieferung</button></div>`;
     pf.querySelector("#next").onclick=()=>{step=2;renderCart()};
@@ -1031,6 +1098,7 @@ quizOv.addEventListener("click",e=>{
 });
 addEventListener("keydown",e=>{if(e.key==="Escape"&&!quizOv.hidden)closeOv(quizOv)});
 
+{const sub=TRIAL().reduce((a,id)=>a+byId(id).p,0);document.getElementById("trialOld").textContent=eur(sub);document.getElementById("trialNew").textContent=eur(sub*(1-TRIAL_R));document.getElementById("trialPer").textContent=eur(sub*(1-TRIAL_R)/TRIAL().length)}
 /* ================= faq ================= */
 document.getElementById("faqList").innerHTML=FAQ.map(([g,items])=>`<div class="fgroup"><h3>${g}</h3>${items.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join("")}</div>`).join("");
 
