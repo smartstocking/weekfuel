@@ -998,7 +998,7 @@ function box(c,cx,cy,w,id,rot=0,seed=id){
 }
 function setup(cv){const d=Math.min(2,devicePixelRatio||1),r=cv.getBoundingClientRect();cv.width=Math.max(1,Math.round(r.width*d));cv.height=Math.max(1,Math.round(r.height*d));const c=cv.getContext("2d");c.setTransform(d,0,0,d,0,0);return[c,r.width,r.height]}
 function herbScatter(c,w,h,seed,n){const R=rng(seed);for(let i=0;i<n;i++)leaf(c,R()*w,R()*h,4+R()*5,R()*6.3,["#4E7A3A","#5F8D45","#3F6B30"][i%3])}
-const PHOTOS={lachssahne:1,basquaise:1,huhnroti:1,porcriz:1,sauteporc:1,rata:1};
+const PHOTOS={lassaumon:1,lachssahne:1,basquaise:1,huhnroti:1,porcriz:1,sauteporc:1,rata:1};
 const photo=(id,alt="")=>PHOTOS[String(id).split("|")[0]]?`<img class="pic" src="photo-${String(id).split("|")[0]}.jpg" alt="${alt}" loading="lazy" decoding="async">`:"";
 function drawThumb(cv,id,scale=.8){id=String(id).split("|")[0];const[c,w,h]=setup(cv);box(c,w/2,h/2,Math.min(w*scale,h*scale*1.45),id)}
 
