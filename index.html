@@ -659,7 +659,7 @@ nav a{white-space:nowrap}
             <input type="radio" name="fd" id="fd5" value="5" checked><label for="fd5"><b>5 Tage</b><span>Arbeitswoche</span></label>
             <input type="radio" name="fd" id="fd7" value="7"><label for="fd7"><b>7 Tage</b><span>ganze Woche</span></label>
             <input type="radio" name="fd" id="fd10" value="10"><label for="fd10"><b>10 Tage</b><span>zwei Wochen</span></label>
-            <input type="radio" name="fd" id="fd20" value="20"><label for="fd20"><b>20 Tage</b><span>ein Monat</span></label>
+            <input type="radio" name="fd" id="fd30" value="30"><label for="fd30"><b>30 Tage</b><span>ein Monat</span></label>
           </div></fieldset>
         </div>
         <div class="fres" aria-live="polite">
@@ -1320,7 +1320,7 @@ const QS=[
  {k:"train",q:"Wie aktiv bist du?",only:a=>a.goal==="cut"||a.goal==="bulk",o:[["1","1 bis 2 Mal pro Woche","Eher wenig Bewegung im Alltag"],["2","3 bis 4 Mal pro Woche","Regelmäßig im Gym oder beim Sport"],["3","5 Mal oder öfter","Intensives Training"]]},
  {k:"nums",q:"Deine Zielwerte pro Tag",only:a=>a.goal==="custom",form:true},
  {k:"per",q:"Welche Mahlzeiten sollen wir übernehmen?",o:[["2","Mittag und Abend","2 Mahlzeiten pro Tag"],["3","Frühstück, Mittag und Abend","3 Mahlzeiten pro Tag"]]},
- {k:"days",q:"Für wie viele Tage?",o:[["5","Arbeitswoche","5 Tage"],["7","Ganze Woche","7 Tage"],["10","Zwei Wochen","10 Tage, auf mehrere Lieferungen verteilt"],["20","Ein Monat","20 Tage, auf mehrere Lieferungen verteilt"]]}
+ {k:"days",q:"Für wie viele Tage?",o:[["5","Arbeitswoche","5 Tage"],["7","Ganze Woche","7 Tage"],["10","Zwei Wochen","10 Tage, auf mehrere Lieferungen verteilt"],["30","Ein Monat","30 Tage, auf mehrere Lieferungen verteilt"]]}
 ];
 const qsteps=()=>QS.filter(x=>!x.only||x.only(qa));
 const qopts=x=>x.k==="goal"&&nonut?x.o.filter(o=>o[0]!=="custom"):x.o;
