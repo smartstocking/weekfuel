@@ -820,7 +820,7 @@ nav a{white-space:nowrap}
         <div class="pr"><h3>Alles hausgemacht</h3><p>Saucen, Brühen und Marinaden kommen aus unserer Küche.</p></div>
         <div class="pr"><h3>Karte im Wechsel</h3><p>Feste Lieblinge bleiben, neue Gerichte kommen regelmäßig dazu.</p></div>
         <div class="pr"><h3>Transparent</h3><p>Zutaten, Allergene und Nährwerte stehen online und auf jeder Box.</p></div>
-        <div class="pr"><h3>Faire Preise</h3><p>Frühstück ab 5,90 €, Hauptgerichte 8,50 bis 13,90 €. Wer mehr bestellt, zahlt weniger.</p></div>
+        <div class="pr"><h3>Faire Preise</h3><p>Frühstück ab 5,90 €, Hauptgerichte 7,90 bis 21,50 €. Wer mehr bestellt, zahlt weniger.</p></div>
       </div></div></details>
         <details class="mo" id="verpackung" name="mehr"><summary><b>Mehrweg statt Müll</b><small>Die Box kommt zurück. Wir spülen sie und füllen sie neu.</small></summary>
           <div class="mo-in pack">
@@ -933,31 +933,31 @@ const ALL_DISHES=[
    z:"Joghurt, Granola (Haferflocken, Honig), Erdbeeren, Himbeeren, Heidelbeeren",a:["Milch","Hafer (Gluten)","Nüsse (Spuren)"]},
   {id:"bolo",grp:"klassik",meal:"m",n:"Pasta Bolognese",d:"Spaghetti mit hausgemachtem Rinderhack-Ragout und Parmesan.",p:9.9,cat:"fleisch",tag:"Klassiker",g:450,kcal:630,prot:34,carb:78,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Spaghetti, Rinderhack, Tomaten, Zwiebeln, Karotten, Knoblauch, Olivenöl, Parmesan, Kräuter",a:["Weizen (Gluten)","Milch"]},
-  {id:"saumonepi",grp:"klassik",meal:"m",n:"Pasta mit Lachs und Spinat",d:"Pasta mit Lachs, Spinat und Sahnesauce.",p:12.5,cat:"fisch",tag:"Klassiker",g:450,kcal:620,prot:34,carb:62,fat:26,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+  {id:"saumonepi",grp:"klassik",meal:"m",n:"Pasta mit Lachs und Spinat",d:"Pasta mit Lachs, Spinat und Sahnesauce.",p:11.5,cat:"fisch",tag:"Klassiker",g:450,kcal:620,prot:34,carb:62,fat:26,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Weizenpasta, Lachs, Spinat, Sahne, Zwiebeln, Knoblauch, Zitrone, Dill",a:["Weizen (Gluten)","Fisch","Milch"]},
-  {id:"shawarma",grp:"sport",meal:"m",n:"Shawarma Bowl",d:"Gewürztes Hähnchen, Reis, Tomaten-Gurken-Salat und Tahini-Sauce.",p:11.9,cat:"fleisch",tag:"Extra Protein",g:450,kcal:620,prot:42,carb:58,fat:24,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+  {id:"shawarma",grp:"sport",meal:"m",n:"Shawarma Bowl",d:"Gewürztes Hähnchen, Reis, Tomaten-Gurken-Salat und Tahini-Sauce.",p:9.5,cat:"fleisch",tag:"Extra Protein",g:450,kcal:620,prot:42,carb:58,fat:24,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Hähnchen, Reis, Tomaten, Gurke, rote Zwiebeln, Petersilie, Tahini-Sauce (Sesam), Shawarma-Gewürze",a:["Sesam"]},
   {id:"burritobowl",grp:"sport",meal:"m",n:"Burrito Bowl",d:"Rinderhack, Reis, schwarze Bohnen, Mais, Pico de Gallo und Käse.",p:11.5,cat:"fleisch",tag:"Extra Protein",g:450,kcal:660,prot:38,carb:78,fat:22,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Rinderhack, Reis, schwarze Bohnen, Mais, Tomaten, rote Zwiebeln, Koriander, Käse, Gewürze",a:["Milch"]},
-  {id:"tomatesfarcies",grp:"klassik",meal:"m",n:"Gefüllte Tomaten mit Reis",d:"Gebackene Tomaten mit Hackfleisch gefüllt, dazu Reis.",p:10.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:540,prot:30,carb:60,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+  {id:"tomatesfarcies",grp:"klassik",meal:"m",n:"Gefüllte Tomaten mit Reis",d:"Gebackene Tomaten mit Hackfleisch gefüllt, dazu Reis.",p:9.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:540,prot:30,carb:60,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Tomaten, Rinderhack, Schweinehack, Reis, Zwiebeln, Knoblauch, Petersilie, Olivenöl",a:[]},
-  {id:"confit",grp:"klassik",meal:"m",n:"Entenconfit mit grünen Bohnen",d:"Confierte Entenkeule, grüne Bohnen und Bratkartoffeln.",p:13.9,cat:"fleisch",tag:"Klassiker",g:450,kcal:710,prot:36,carb:42,fat:44,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+  {id:"confit",grp:"klassik",meal:"m",n:"Entenconfit mit grünen Bohnen",d:"Confierte Entenkeule, grüne Bohnen und Bratkartoffeln.",p:21.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:710,prot:36,carb:42,fat:44,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Entenkeule (Confit), grüne Bohnen, Kartoffeln, Knoblauch, Thymian, Entenschmalz",a:[]},
-  {id:"couscous",grp:"klassik",meal:"m",n:"Couscous mit Fleisch und Gemüse",d:"Couscous mit geschmortem Fleisch, Karotten, Paprika und Kichererbsen.",p:10.9,cat:"fleisch",tag:"Klassiker",g:450,kcal:640,prot:36,carb:78,fat:18,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+  {id:"couscous",grp:"klassik",meal:"m",n:"Couscous mit Fleisch und Gemüse",d:"Couscous mit geschmortem Fleisch, Karotten, Paprika und Kichererbsen.",p:8.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:640,prot:36,carb:78,fat:18,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Couscous (Weizen), Fleisch (geschmort), Karotten, Paprika, Zucchini, Kichererbsen, Tomaten, Zwiebeln, Gewürze",a:["Weizen (Gluten)"]},
-  {id:"quiche",grp:"klassik",meal:"m",n:"Quiche mit Salat",d:"Hausgemachte Quiche mit Gemüse, dazu Salat mit Spinat, Rucola und Tomaten.",p:9.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:640,prot:22,carb:48,fat:40,pan:"–",oven:"15 Min",mic:"3 Min",
+  {id:"quiche",grp:"klassik",meal:"m",n:"Quiche mit Salat",d:"Hausgemachte Quiche mit Gemüse, dazu Salat mit Spinat, Rucola und Tomaten.",p:12.5,cat:"veggie",tag:"Vegetarisch",g:300,kcal:640,prot:22,carb:48,fat:40,pan:"–",oven:"15 Min",mic:"3 Min",
    z:"Mürbeteig (Weizenmehl, Butter), Eier, Sahne, Käse, Brokkoli, Karotten, Paprika, Spinat, Rucola, Kirschtomaten, Vinaigrette",a:["Weizen (Gluten)","Ei","Milch"]},
-  {id:"boeuf",grp:"klassik",meal:"m",n:"Geschmortes Rindfleisch mit Reis",d:"Zartes Rindfleisch in Sauce mit Paprika und Tomaten, dazu Reis und Pfannengemüse.",p:13.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:680,prot:40,carb:40,fat:40,pan:"6 Min",oven:"18 Min",mic:"4 Min",
+  {id:"boeuf",grp:"klassik",meal:"m",n:"Geschmortes Rindfleisch mit Reis",d:"Zartes Rindfleisch in Sauce mit Paprika und Tomaten, dazu Reis und Pfannengemüse.",p:15.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:680,prot:40,carb:40,fat:40,pan:"6 Min",oven:"18 Min",mic:"4 Min",
    z:"Rindfleisch, Paprika, Tomaten, Zwiebeln, Reis, Karotten, Pastinake, Brokkolini, Kräuter",a:["Sulfite"]},
-  {id:"echine",grp:"klassik",meal:"m",n:"Schweinenacken mit Klößen",d:"Geschmorter Schweinenacken, Kartoffelklöße und glasierte Karotten.",p:12.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:740,prot:34,carb:70,fat:36,pan:"6 Min",oven:"18 Min",mic:"4 Min",
+  {id:"echine",grp:"klassik",meal:"m",n:"Schweinenacken mit Klößen",d:"Geschmorter Schweinenacken, Kartoffelklöße und glasierte Karotten.",p:15.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:740,prot:34,carb:70,fat:36,pan:"6 Min",oven:"18 Min",mic:"4 Min",
    z:"Schweinenacken, Kartoffelklöße, Karotten, Butter, Zwiebeln, Kräuter",a:["Weizen (Gluten)","Ei","Milch"]},
-  {id:"gratin",grp:"klassik",meal:"m",n:"Gratin mit Hackbällchen und Senfsauce",d:"Kartoffelgratin mit Hackbällchen in Senfsauce.",p:10.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:680,prot:32,carb:52,fat:38,pan:"6 Min",oven:"18 Min",mic:"4 Min",
+  {id:"gratin",grp:"klassik",meal:"m",n:"Gratin mit Hackbällchen und Senfsauce",d:"Kartoffelgratin mit Hackbällchen in Senfsauce.",p:9.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:680,prot:32,carb:52,fat:38,pan:"6 Min",oven:"18 Min",mic:"4 Min",
    z:"Kartoffelgratin, Hackbällchen (Fleisch), Senfsauce, Sahne, Ei, Weizenmehl",a:["Weizen (Gluten)","Ei","Milch","Senf"]},
   {id:"gnocchipoeles",grp:"vegan",meal:"m",n:"Gnocchi mit Pfannengemüse",d:"Goldbraun gebratene Gnocchi mit Ofengemüse und Kräutersauce.",p:9.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:550,prot:16,carb:86,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Kartoffelgnocchi, Zucchini, Paprika, Kirschtomaten, rote Zwiebeln, Kräutersauce (Sahne, Petersilie), Olivenöl",a:["Weizen (Gluten)"]},
-  {id:"gnocchiparis",grp:"vegan",meal:"m",n:"Pariser Gnocchi mit Gemüse",d:"Pariser Gnocchi mit gegrilltem Gemüse.",p:10.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:580,prot:18,carb:60,fat:30,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+  {id:"gnocchiparis",grp:"vegan",meal:"m",n:"Pariser Gnocchi mit Gemüse",d:"Pariser Gnocchi mit gegrilltem Gemüse.",p:7.9,cat:"veggie",tag:"Vegetarisch",g:450,kcal:580,prot:18,carb:60,fat:30,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Pariser Gnocchi, gegrilltes Gemüse, Olivenöl, Kräuter",a:["Sulfite","Senf (Spuren)"]},
-  {id:"ravioles",grp:"vegan",meal:"m",n:"Ravioli der Saison",d:"Gefüllte Ravioli in Kräuter-Butter-Sauce.",p:10.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:560,prot:20,carb:70,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+  {id:"ravioles",grp:"vegan",meal:"m",n:"Ravioli der Saison",d:"Gefüllte Ravioli in Kräuter-Butter-Sauce.",p:11.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:560,prot:20,carb:70,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Ravioli (Weizenmehl, Eier, Füllung), Butter, Petersilie, Knoblauch",a:["Sulfite","Senf (Spuren)"]},
   {id:"carbonara",grp:"klassik",meal:"m",n:"Pasta Carbonara mit Pfannengemüse",d:"Pasta Carbonara nach französischer Art, dazu Pfannengemüse.",p:10.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:700,prot:28,carb:72,fat:32,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Weizenpasta, Speck, Eier, Sahne, Parmesan, Pfannengemüse",a:["Weizen (Gluten)","Ei","Milch"]},
