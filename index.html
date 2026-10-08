@@ -101,7 +101,7 @@ nav a:hover{color:var(--ink)}
 .ctas{display:flex;flex-wrap:wrap;gap:12px}
 @media (max-width:880px){.hero{padding-top:48px}.hero-grid{grid-template-columns:1fr;gap:24px}}
 .flatlay{margin-top:64px;position:relative;height:clamp(240px,34vw,460px);background:var(--plate);overflow:hidden}
-.flatlay canvas{position:absolute;inset:0;width:100%;height:100%}
+.flatlay{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));grid-template-rows:100%;grid-auto-rows:0;gap:3px}.flatlay img{width:100%;height:100%;object-fit:cover;display:block}@media (max-width:560px){.flatlay{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}}
 @media (max-width:880px){.flatlay{margin-top:40px}}
 .facts{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line)}
 .facts div{padding:22px 24px 24px 0;display:grid;gap:2px}
@@ -190,7 +190,7 @@ section.strip{padding-block:20px 0}
 /* business */
 .biz{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 .biz .img{aspect-ratio:1/1;background:var(--plate);position:relative;overflow:hidden}
-.biz .img canvas{position:absolute;inset:0;width:100%;height:100%}
+.biz .bizph{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px}.biz .bizph img{width:100%;height:100%;object-fit:cover;display:block;min-height:0}
 .biz .txt{display:grid;gap:22px;justify-items:start}
 .biz .txt p{color:var(--muted);font-size:17px;max-width:30em}
 .list{list-style:none;margin:0;padding:0;width:100%;border-top:1px solid var(--line)}
@@ -378,18 +378,18 @@ html{scroll-padding-top:84px}
 .cats::-webkit-scrollbar{display:none}
 .cat{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;align-items:center;align-content:start;gap:14px 12px;text-align:left;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:12px 18px 18px 12px;cursor:pointer;transition:border-color .15s,transform .15s}
 .cat:hover{border-color:var(--ink);transform:translateY(-2px)}
-.cat canvas{grid-column:1/-1;width:100%;aspect-ratio:2/1;border-radius:12px;background:var(--soft);display:block}
+.cat .tph{grid-column:1/-1;object-fit:cover;aspect-ratio:2/1;height:auto;width:100%;border-radius:12px;display:block}.cat canvas{grid-column:1/-1;width:100%;aspect-ratio:2/1;border-radius:12px;background:var(--soft);display:block}
 .cat .ct{display:grid;gap:2px;padding-left:6px}
 .cat b{font-size:19px;font-weight:500;letter-spacing:-.02em}
 .cat small{font-size:14px;color:var(--muted)}
 .cat i{font-style:normal;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:background .15s,color .15s}
 .cat:hover i{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .cats .cat{flex:0 0 auto;grid-template-columns:76px auto;grid-template-rows:auto;gap:0 12px;padding:8px 18px 8px 8px;border-radius:14px;scroll-snap-align:start;align-items:center}
-.cats .cat canvas{grid-column:1;width:76px;aspect-ratio:3/2;border-radius:9px}
+.cats .cat canvas{grid-column:1;width:76px;aspect-ratio:3/2;border-radius:9px}.cats .cat .tph{grid-column:1;width:76px;height:50px;aspect-ratio:3/2;border-radius:9px}
 .cats .cat .ct{padding:0}.cats .cat b{font-size:15.5px;white-space:nowrap}.cats .cat small,.cats .cat i{display:none}
 @media (max-width:700px){.cats{display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow:visible}
 .cats .cat{grid-template-columns:52px 1fr;gap:0 10px;padding:6px 10px 6px 6px;min-width:0}
-.cats .cat canvas{width:52px;aspect-ratio:1/1}
+.cats .cat canvas{width:52px;aspect-ratio:1/1}.cats .cat .tph{width:52px;height:52px;aspect-ratio:1/1}
 .cats .cat b{font-size:14.5px;white-space:normal;line-height:1.2}}
 .cats-l{margin-bottom:14px}
 
@@ -612,7 +612,7 @@ nav a{white-space:nowrap}
       </div>
     </div>
     <div class="wrap">
-      <div class="flatlay"><canvas id="heroCanvas" aria-label="Meal-Prep-Boxen mit den Gerichten der Woche"></canvas></div>
+      <div class="flatlay" role="img" aria-label="Gerichte der Woche"><img src="hero-confit.jpg" alt="" loading="eager" decoding="async"><img src="hero-saumonepi.jpg" alt="" loading="eager" decoding="async"><img src="hero-shawarma.jpg" alt="" loading="eager" decoding="async"><img src="hero-quiche.jpg" alt="" loading="lazy" decoding="async"><img src="hero-boeuf.jpg" alt="" loading="lazy" decoding="async"><img src="hero-tomatesfarcies.jpg" alt="" loading="lazy" decoding="async"><img src="hero-bolo.jpg" alt="" loading="lazy" decoding="async"><img src="hero-gnocchipoeles.jpg" alt="" loading="lazy" decoding="async"></div>
       <div class="facts">
         <div><b>100 % hausgemacht</b><span>Frühstück bis Abendessen</span></div>
         <div><b>Mit oder ohne Abo</b><span>Abo −10 %, jederzeit pausierbar</span></div>
@@ -627,12 +627,12 @@ nav a{white-space:nowrap}
     <div class="wrap">
       <span class="label cats-l">Schnell zu</span>
       <div class="cats" aria-label="Schnell zu">
-<button class="cat" type="button" data-jump="cat:fr"><canvas data-cat="pancakes"></canvas><span class="ct"><b>Frühstück</b><small>Porridge, Oats, Pancakes, Burrito</small></span><i aria-hidden="true">→</i></button>
-        <button class="cat" type="button" data-jump="cat:klassik"><canvas data-cat="bolo"></canvas><span class="ct"><b>Klassiker</b><small>Klassiker aus der Küche, jeden Tag</small></span><i aria-hidden="true">→</i></button>
-        <button class="cat" type="button" data-jump="cat:sport"><canvas data-cat="shawarma"></canvas><span class="ct"><b>Sport & Protein</b><small>Ab 35 g Eiweiß pro Portion</small></span><i aria-hidden="true">→</i></button>
-        <button class="cat" type="button" data-jump="cat:vegan"><canvas data-cat="couscous"></canvas><span class="ct"><b>Vegetarisch</b><small>Ohne Fleisch und Fisch</small></span><i aria-hidden="true">→</i></button>
-        <button class="cat" type="button" data-jump="goal:cut"><canvas data-cat="saumonepi"></canvas><span class="ct"><b>Definition</b><small>Formel · weniger Kalorien</small></span><i aria-hidden="true">→</i></button>
-        <button class="cat" type="button" data-jump="goal:bulk"><canvas data-cat="confit"></canvas><span class="ct"><b>Muskelaufbau</b><small>Formel · mehr Kalorien</small></span><i aria-hidden="true">→</i></button>
+<button class="cat" type="button" data-jump="cat:fr"><img class="tph" src="tile-pancakes.jpg" alt="" width="76" height="76" loading="lazy"><span class="ct"><b>Frühstück</b><small>Porridge, Oats, Pancakes, Burrito</small></span><i aria-hidden="true">→</i></button>
+        <button class="cat" type="button" data-jump="cat:klassik"><img class="tph" src="tile-bolo.jpg" alt="" width="76" height="76" loading="lazy"><span class="ct"><b>Klassiker</b><small>Klassiker aus der Küche, jeden Tag</small></span><i aria-hidden="true">→</i></button>
+        <button class="cat" type="button" data-jump="cat:sport"><img class="tph" src="tile-shawarma.jpg" alt="" width="76" height="76" loading="lazy"><span class="ct"><b>Sport & Protein</b><small>Ab 35 g Eiweiß pro Portion</small></span><i aria-hidden="true">→</i></button>
+        <button class="cat" type="button" data-jump="cat:vegan"><img class="tph" src="tile-couscous.jpg" alt="" width="76" height="76" loading="lazy"><span class="ct"><b>Vegetarisch</b><small>Ohne Fleisch und Fisch</small></span><i aria-hidden="true">→</i></button>
+        <button class="cat" type="button" data-jump="goal:cut"><img class="tph" src="tile-saumonepi.jpg" alt="" width="76" height="76" loading="lazy"><span class="ct"><b>Definition</b><small>Formel · weniger Kalorien</small></span><i aria-hidden="true">→</i></button>
+        <button class="cat" type="button" data-jump="goal:bulk"><img class="tph" src="tile-confit.jpg" alt="" width="76" height="76" loading="lazy"><span class="ct"><b>Muskelaufbau</b><small>Formel · mehr Kalorien</small></span><i aria-hidden="true">→</i></button>
       </div>
     </div>
   </section>
@@ -844,7 +844,7 @@ nav a{white-space:nowrap}
     </div></details>
         <details class="mo" id="firmen" name="mehr"><summary><b>Für Firmen</b><small>Mittagessen fürs Team, ohne Kantine. Eine Rechnung pro Monat.</small></summary>
           <div class="mo-in biz">
-      <div class="img"><canvas id="bizCanvas" aria-label="Meal-Prep-Boxen für ein Büro"></canvas></div>
+      <div class="img bizph" role="img" aria-label="Gerichte fürs Büro"><img src="hero-bolo.jpg" alt="" loading="lazy" decoding="async"><img src="hero-shawarma.jpg" alt="" loading="lazy" decoding="async"><img src="hero-tomatesfarcies.jpg" alt="" loading="lazy" decoding="async"><img src="hero-quiche.jpg" alt="" loading="lazy" decoding="async"></div>
       <div class="txt">
         <span class="label">Für Firmen</span>
         <h2>Mittagessen fürs Team, <em>ohne Kantine</em></h2>
@@ -947,20 +947,20 @@ const ALL_DISHES=[
    z:"Couscous, Karotten, Zucchini, Kichererbsen, Zwiebeln, Olivenöl, Gewürze",a:["Weizen (Gluten)"]},
   {id:"quiche",grp:"klassik",meal:"m",n:"Quiche mit Salat",d:"Hausgemachte Quiche mit Gemüse, dazu Salat mit Spinat, Rucola und Tomaten.",p:9.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:640,prot:22,carb:48,fat:40,pan:"–",oven:"15 Min",mic:"3 Min",
    z:"Mürbeteig (Weizenmehl, Butter), Eier, Sahne, Käse, Brokkoli, Karotten, Paprika, Spinat, Rucola, Kirschtomaten, Vinaigrette",a:["Weizen (Gluten)","Ei","Milch"]},
-  {id:"boeuf",grp:"klassik",meal:"m",n:"Geschmortes Rindfleisch mit Gratin",d:"Rindfleisch in Rotweinsauce, Kartoffelgratin und Pfannengemüse.",p:13.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:680,prot:40,carb:40,fat:40,pan:"6 Min",oven:"18 Min",mic:"4 Min",
-   z:"Rindfleisch, Rotwein, Kartoffelgratin, Pfannengemüse, Zwiebeln, Karotten, Kräuter",a:["Sulfite"]},
-  {id:"echine",grp:"klassik",meal:"m",n:"Schweinenacken mit Klößen",d:"Geschmorter Schweinenacken (oder Entenkeule), Klöße und glasierte Karotten.",p:12.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:740,prot:34,carb:70,fat:36,pan:"6 Min",oven:"18 Min",mic:"4 Min",
-   z:"Schweinenacken oder Entenkeule, Kartoffelklöße, Karotten, Butter, Zwiebeln, Kräuter",a:["Weizen (Gluten)","Ei","Milch"]},
+  {id:"boeuf",grp:"klassik",meal:"m",n:"Geschmortes Rindfleisch mit Reis",d:"Zartes Rindfleisch in Sauce mit Paprika und Tomaten, dazu Reis und Pfannengemüse.",p:13.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:680,prot:40,carb:40,fat:40,pan:"6 Min",oven:"18 Min",mic:"4 Min",
+   z:"Rindfleisch, Paprika, Tomaten, Zwiebeln, Reis, Karotten, Pastinake, Brokkolini, Kräuter",a:["Sulfite"]},
+  {id:"echine",grp:"klassik",meal:"m",n:"Schweinenacken mit Klößen",d:"Geschmorter Schweinenacken, Kartoffelklöße und glasierte Karotten.",p:12.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:740,prot:34,carb:70,fat:36,pan:"6 Min",oven:"18 Min",mic:"4 Min",
+   z:"Schweinenacken, Kartoffelklöße, Karotten, Butter, Zwiebeln, Kräuter",a:["Weizen (Gluten)","Ei","Milch"]},
   {id:"gratin",grp:"klassik",meal:"m",n:"Gratin mit Hackbällchen und Senfsauce",d:"Kartoffelgratin mit Hackbällchen in Senfsauce.",p:10.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:680,prot:32,carb:52,fat:38,pan:"6 Min",oven:"18 Min",mic:"4 Min",
    z:"Kartoffelgratin, Hackbällchen (Fleisch), Senfsauce, Sahne, Ei, Weizenmehl",a:["Weizen (Gluten)","Ei","Milch","Senf"]},
-  {id:"gnocchipoeles",grp:"vegan",meal:"m",n:"Gnocchi mit Pfannengemüse",d:"In der Pfanne gebratene Gnocchi mit Gemüse und Sauce des Tages.",p:9.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:550,prot:16,carb:86,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Kartoffelgnocchi, Zucchini, Paprika, Tomaten, Zwiebeln, Olivenöl, Sauce des Tages",a:["Weizen (Gluten)"]},
+  {id:"gnocchipoeles",grp:"vegan",meal:"m",n:"Gnocchi mit Pfannengemüse",d:"Goldbraun gebratene Gnocchi mit Ofengemüse und Kräutersauce.",p:9.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:550,prot:16,carb:86,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Kartoffelgnocchi, Zucchini, Paprika, Kirschtomaten, rote Zwiebeln, Kräutersauce (Sahne, Petersilie), Olivenöl",a:["Weizen (Gluten)"]},
   {id:"puttanesca",grp:"klassik",meal:"m",n:"Pasta Puttanesca",d:"Pasta mit Tomaten, Oliven, Kapern und Sardellen.",p:9.5,cat:"fisch",tag:"Klassiker",g:450,kcal:570,prot:22,carb:84,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Weizenpasta, Tomaten, Oliven, Kapern, Sardellen, Knoblauch, Chili, Olivenöl",a:["Weizen (Gluten)","Fisch"]},
   {id:"gnocchiparis",grp:"vegan",meal:"m",n:"Pariser Gnocchi mit Gemüse",d:"Pariser Gnocchi mit gegrilltem Gemüse.",p:10.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:580,prot:18,carb:60,fat:30,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Pariser Gnocchi, gegrilltes Gemüse, Olivenöl, Kräuter",a:["Sulfite","Senf (Spuren)"]},
-  {id:"ravioles",grp:"vegan",meal:"m",n:"Ravioli der Saison",d:"Ravioli mit Sauce des Tages.",p:10.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:560,prot:20,carb:70,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Ravioli, Gemüse der Saison, Sauce des Tages",a:["Sulfite","Senf (Spuren)"]},
+  {id:"ravioles",grp:"vegan",meal:"m",n:"Ravioli der Saison",d:"Gefüllte Ravioli in Kräuter-Butter-Sauce.",p:10.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:560,prot:20,carb:70,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Ravioli (Weizenmehl, Eier, Füllung), Butter, Petersilie, Knoblauch",a:["Sulfite","Senf (Spuren)"]},
   {id:"carbonara",grp:"klassik",meal:"m",n:"Pasta Carbonara mit Pfannengemüse",d:"Pasta Carbonara nach französischer Art, dazu Pfannengemüse.",p:10.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:700,prot:28,carb:72,fat:32,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Weizenpasta, Speck, Eier, Sahne, Parmesan, Pfannengemüse",a:["Weizen (Gluten)","Ei","Milch"]},
   {id:"basquaise",grp:"klassik",meal:"m",n:"Poulet basquaise",d:"Hähnchen in Paprika-Tomaten-Sauce, Reis pilaf.",p:10.5,cat:"fleisch",g:450,kcal:610,prot:28,carb:84,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
@@ -980,7 +980,7 @@ const ALL_DISHES=[
 ];
 const FIXED=["bolo","saumonepi","shawarma","burritobowl","tomatesfarcies","confit","couscous","quiche"];
 /* Wechselnde Gerichte: alle 2 Wochen bis 1 Monat 6 aus dem Pool wählen. Pool: boeuf, echine, gratin, gnocchipoeles, puttanesca, gnocchiparis, ravioles, carbonara */
-const ROT_ACTIVE=["boeuf","echine","gratin","gnocchipoeles","puttanesca","gnocchiparis","basquaise","huhnroti","lachssahne","lassaumon","porcriz","sauteporc","rata"];
+const ROT_ACTIVE=["boeuf","echine","gratin","gnocchipoeles","puttanesca","gnocchiparis","ravioles","basquaise","huhnroti","lachssahne","lassaumon","porcriz","sauteporc","rata"];
 const DISHES=ALL_DISHES.filter(d=>d.meal==="b"||FIXED.includes(d.id)||ROT_ACTIVE.includes(d.id));
 const CATS=[["alle","Alle"],["fr","Frühstück"],["klassik","Klassiker"],["sport","Sport & Protein"],["vegan","Vegetarisch"]];
 const GROUPS={fr:["Frühstück","Für den Start in den Tag. Nur in der Formel mit Frühstück, Mittag und Abend."],
@@ -1112,7 +1112,7 @@ function box(c,cx,cy,w,id,rot=0,seed=id){
 }
 function setup(cv){const d=Math.min(2,devicePixelRatio||1),r=cv.getBoundingClientRect();cv.width=Math.max(1,Math.round(r.width*d));cv.height=Math.max(1,Math.round(r.height*d));const c=cv.getContext("2d");c.setTransform(d,0,0,d,0,0);return[c,r.width,r.height]}
 function herbScatter(c,w,h,seed,n){const R=rng(seed);for(let i=0;i<n;i++)leaf(c,R()*w,R()*h,4+R()*5,R()*6.3,["#4E7A3A","#5F8D45","#3F6B30"][i%3])}
-const PHOTOS={basquaise:1,huhnroti:1,lachssahne:1,lassaumon:1,porcriz:1,sauteporc:1,rata:1,oats:1,pancakes:1,burrito:1,apfelporridge:1,chia:1,joghurt:1,bolo:1,gratin:1,confit:1,shawarma:1,saumonepi:1,quiche:1,tomatesfarcies:1};
+const PHOTOS={gnocchipoeles:1,boeuf:1,ravioles:1,echine:1,basquaise:1,huhnroti:1,lachssahne:1,lassaumon:1,porcriz:1,sauteporc:1,rata:1,oats:1,pancakes:1,burrito:1,apfelporridge:1,chia:1,joghurt:1,bolo:1,gratin:1,confit:1,shawarma:1,saumonepi:1,quiche:1,tomatesfarcies:1};
 const photo=(id,alt="")=>PHOTOS[String(id).split("|")[0]]?`<img class="pic" src="photo-${String(id).split("|")[0]}.jpg" alt="${alt}" loading="lazy" decoding="async">`:"";
 function drawThumb(cv,id,scale=.8){id=String(id).split("|")[0];const[c,w,h]=setup(cv);box(c,w/2,h/2,Math.min(w*scale,h*scale*1.45),id)}
 
@@ -1546,11 +1546,6 @@ function drawGrid(){grid.querySelectorAll("canvas").forEach(cv=>{if(!cv.offsetPa
 function draw(){
   drawGrid();
   document.querySelectorAll("canvas[data-cat]").forEach(cv=>{const[c,w,h]=setup(cv);box(c,w/2,h/2,Math.min(w*.62,h*1.3),cv.dataset.cat)});
-  {const cv=document.getElementById("heroCanvas"),[c,w,h]=setup(cv);
-   const bw=w>900?w/4.6:w>560?w/3.2:w/2.1,bh=bw*.66,gx=bw*.12,gy=bh*.2,ids=["bolo","oats","shawarma","tomatesfarcies","pancakes","confit","couscous","burrito","quiche","saumonepi","burritobowl","boeuf"],R=rng("hero");
-   herbScatter(c,w,h,"herbs",Math.round(w/28));let k=0;
-   for(let col=-1;col*(bw+gx)<w+bw;col++){const off=(col%2?bh*.55:0)-bh*.3;for(let row=-1;row*(bh+gy)+off<h+bh;row++){box(c,col*(bw+gx)+bw*.35,row*(bh+gy)+off+bh/2,bw,ids[k%ids.length],(R()-.5)*.03,"h"+k);k++}}}
-  {const cv=document.getElementById("bizCanvas");if(cv.offsetParent){const[c,w,h]=setup(cv);herbScatter(c,w,h,"biz",14);const bw=w*.42;[["couscous",.27,.26],["bolo",.73,.26],["shawarma",.27,.74],["tomatesfarcies",.73,.74]].forEach(([id,px,py],i)=>box(c,w*px,h*py,bw,id,0,"b"+i))}}
 }
 let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(draw,120)});
 (document.fonts?.ready||Promise.resolve()).then(draw);draw();
