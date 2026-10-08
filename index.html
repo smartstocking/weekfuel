@@ -722,7 +722,7 @@ nav a{white-space:nowrap}
 
   <section id="karte" class="soft">
     <div class="wrap">
-      <div class="shead"><div><span class="label" id="kwLabel">Wochenkarte · 8 feste + 6 wechselnde Gerichte</span><h2>Oder wähle selbst</h2></div><p>Sortiert nach Kategorien: Frühstück, Klassiker, Sport &amp; Protein und Vegetarisch. Zwei Wochen lang gibt es 8 feste und 6 wechselnde Gerichte. Tippe auf ein Gericht für Zutaten, Allergene und Nährwerte. Preise pro Portion vor Mengenrabatt.</p></div>
+      <div class="shead"><div><span class="label" id="kwLabel">Wochenkarte · 8 feste + 6 wechselnde Gerichte</span><h2>Oder wähle selbst</h2></div><p>Sortiert nach Kategorien: Frühstück, Klassiker, Sport &amp; Protein und Vegetarisch. Tippe auf ein Gericht für Zutaten, Allergene und Nährwerte. Preise pro Portion vor Mengenrabatt.</p></div>
       <div class="menubar">
         <div class="tabs" role="tablist" aria-label="Gerichte filtern" id="tabs"></div>
         <div class="mbr"><label class="nutsw"><input type="checkbox" class="nutcb"><span>Nährwerte ausblenden</span></label><label class="sort" for="sortSel">Sortieren<select id="sortSel"><option value="rec">Empfohlen</option><option value="prot">Meiste Protein</option><option value="kcal">Wenigste Kalorien</option><option value="price">Günstigste zuerst</option></select></label></div>
@@ -963,10 +963,24 @@ const ALL_DISHES=[
    z:"Ravioli, Gemüse der Saison, Sauce des Tages",a:["Sulfite","Senf (Spuren)"]},
   {id:"carbonara",grp:"klassik",meal:"m",n:"Pasta Carbonara mit Pfannengemüse",d:"Pasta Carbonara nach französischer Art, dazu Pfannengemüse.",p:10.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:700,prot:28,carb:72,fat:32,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Weizenpasta, Speck, Eier, Sahne, Parmesan, Pfannengemüse",a:["Weizen (Gluten)","Ei","Milch"]},
+  {id:"basquaise",grp:"klassik",meal:"m",n:"Poulet basquaise",d:"Hähnchen in Paprika-Tomaten-Sauce, Reis pilaf.",p:10.5,cat:"fleisch",g:450,kcal:610,prot:28,carb:84,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Hähnchen, Paprika, Tomaten, Zwiebeln, Knoblauch, Piment d'Espelette, Olivenöl, Reis, Brühe",a:[]},
+  {id:"huhnroti",grp:"sport",meal:"m",n:"Brathähnchen mit Reis",d:"Ofengebratenes Hähnchen, Reis, Gemüse.",p:11.9,cat:"fleisch",tag:"Extra Protein",sport:true,g:450,kcal:770,prot:50,carb:58,fat:34,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Hähnchen, Reis, Gemüse der Saison, Olivenöl, Knoblauch, Kräuter",a:[]},
+  {id:"lachssahne",grp:"klassik",meal:"m",n:"Lachs in Sahnesauce mit Reis",d:"Gebratener Lachs, Sahnesauce, Reis, grüne Bohnen.",p:12.9,cat:"fisch",g:450,kcal:640,prot:33,carb:55,fat:32,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Lachs, Reis, Grüne Bohnen, Sahne, Zwiebeln, Butter, Kräuter",a:["Fisch","Milch"]},
+  {id:"lassaumon",grp:"klassik",meal:"m",n:"Lachs-Lasagne",d:"Lasagne mit Lachs und Béchamel, grüner Salat.",p:11.9,cat:"fisch",g:450,kcal:510,prot:23,carb:38,fat:29,pan:"–",oven:"18 Min",mic:"4 Min",
+   z:"Lasagneplatten (Hartweizengrieß, Eier), Lachs, Milch, Butter, Weizenmehl, Käse, grüner Salat, Vinaigrette (Senf, Essig, Öl)",a:["Weizen (Gluten)","Ei","Fisch","Milch","Senf"]},
+  {id:"porcriz",grp:"klassik",meal:"m",n:"Schweinefilet in Senfsauce",d:"Schweinefilet, Senf-Rahmsauce, Reis pilaf, Pfannengemüse.",p:9.9,cat:"fleisch",g:450,kcal:630,prot:36,carb:78,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Schweinefilet, Senf, Sahne, Reis, Zwiebeln, Brühe, Gemüse der Saison, Olivenöl",a:["Senf","Milch"]},
+  {id:"sauteporc",grp:"klassik",meal:"m",n:"Schweinegeschnetzeltes mit Ofenkartoffeln",d:"Geschmortes Schweinefleisch in Sauce, Ofenkartoffeln, Gemüse.",p:10.5,cat:"fleisch",g:450,kcal:600,prot:34,carb:50,fat:28,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Schweinefleisch, Kartoffeln, Zwiebeln, Tomaten, Brühe, Gemüse der Saison, Olivenöl, Kräuter",a:[]},
+  {id:"rata",grp:"vegan",meal:"m",n:"Ratatouille mit Bulgur",d:"Provenzalisches Gemüse, gewürzter Bulgur.",p:8.5,cat:"vegan",tag:"Vegan",g:450,kcal:420,prot:13,carb:62,fat:12,pan:"5 Min",oven:"12 Min",mic:"3 Min",
+   z:"Bulgur (Weizen), Zucchini, Aubergine, Paprika, Tomaten, Zwiebeln, Knoblauch, Olivenöl, Kräuter der Provence",a:["Weizen (Gluten)"]}
 ];
 const FIXED=["bolo","saumonepi","shawarma","burritobowl","tomatesfarcies","confit","couscous","quiche"];
 /* Wechselnde Gerichte: alle 2 Wochen bis 1 Monat 6 aus dem Pool wählen. Pool: boeuf, echine, gratin, gnocchipoeles, puttanesca, gnocchiparis, ravioles, carbonara */
-const ROT_ACTIVE=["boeuf","echine","gratin","gnocchipoeles","puttanesca","gnocchiparis"];
+const ROT_ACTIVE=["boeuf","echine","gratin","gnocchipoeles","puttanesca","gnocchiparis","basquaise","huhnroti","lachssahne","lassaumon","porcriz","sauteporc","rata"];
 const DISHES=ALL_DISHES.filter(d=>d.meal==="b"||FIXED.includes(d.id)||ROT_ACTIVE.includes(d.id));
 const CATS=[["alle","Alle"],["fr","Frühstück"],["klassik","Klassiker"],["sport","Sport & Protein"],["vegan","Vegetarisch"]];
 const GROUPS={fr:["Frühstück","Für den Start in den Tag. Nur in der Formel mit Frühstück, Mittag und Abend."],
@@ -1087,7 +1101,7 @@ const FILL={
     scatter(c,R,b,Math.round(b.w*b.h/650),(x,y,R)=>{const s=S(b)*.03;c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-s/2,-s/2,s,s,s*.3);c.fillStyle="#EBC45A";c.fill();c.restore()});
     scatter(c,R,b,Math.round(b.w*b.h/900),(x,y,R)=>{const s=S(b)*.05;c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-s/2,-s/2,s,s*.8,s*.2);c.fillStyle=R()<.5?"#5E9A3A":"#D9482E";c.fill();c.restore()});herbs(c,R,b,5,["#46783A"])},
 };
-const RECIPE={bolo:[["pasta",1]],saumonepi:[["pastaSalmon",1]],shawarma:[["rice",.4],["chicken",.6]],burritobowl:[["rice",.4],["meatChili",.6]],tomatesfarcies:[["riceGreen",.4],["basquaise",.6]],confit:[["potatoes",.46],["roastChicken",.54]],couscous:[["bulgur",.46],["ratatouille",.54]],quiche:[["quiche",.6],["salad",.4]],boeuf:[["potatoes",.44],["beef",.56]],echine:[["potatoes",.44],["porkStew",.56]],gratin:[["potatoes",.46],["porkMustard",.54]],gnocchipoeles:[["potatoes",.44],["veggies",.56]],puttanesca:[["pasta",1]],gnocchiparis:[["potatoes",.44],["veggies",.56]],ravioles:[["pasta",1]],carbonara:[["pasta",1]],oats:[["oats",1]],pancakes:[["pancakes",1]],burrito:[["burrito",.66],["salsa",.34]],apfelporridge:[["oats",1]],chia:[["oats",1]],joghurt:[["oats",1]]};
+const RECIPE={basquaise:[["riceGreen",.4],["basquaise",.6]],huhnroti:[["rice",.38],["roastChicken",.62]],lachssahne:[["riceGreen",.4],["lasSalmon",.6]],lassaumon:[["lasSalmon",.64],["salad",.36]],porcriz:[["riceGreen",.4],["porkMustard",.6]],sauteporc:[["potatoes",.44],["porkStew",.56]],rata:[["bulgur",.42],["ratatouille",.58]],bolo:[["pasta",1]],saumonepi:[["pastaSalmon",1]],shawarma:[["rice",.4],["chicken",.6]],burritobowl:[["rice",.4],["meatChili",.6]],tomatesfarcies:[["riceGreen",.4],["basquaise",.6]],confit:[["potatoes",.46],["roastChicken",.54]],couscous:[["bulgur",.46],["ratatouille",.54]],quiche:[["quiche",.6],["salad",.4]],boeuf:[["potatoes",.44],["beef",.56]],echine:[["potatoes",.44],["porkStew",.56]],gratin:[["potatoes",.46],["porkMustard",.54]],gnocchipoeles:[["potatoes",.44],["veggies",.56]],puttanesca:[["pasta",1]],gnocchiparis:[["potatoes",.44],["veggies",.56]],ravioles:[["pasta",1]],carbonara:[["pasta",1]],oats:[["oats",1]],pancakes:[["pancakes",1]],burrito:[["burrito",.66],["salsa",.34]],apfelporridge:[["oats",1]],chia:[["oats",1]],joghurt:[["oats",1]]};
 function box(c,cx,cy,w,id,rot=0,seed=id){
   const R=rng(seed),h=w*.66,x=-w/2,y=-h/2,r=w*.07;
   c.save();c.translate(cx,cy);c.rotate(rot);
@@ -1098,7 +1112,7 @@ function box(c,cx,cy,w,id,rot=0,seed=id){
 }
 function setup(cv){const d=Math.min(2,devicePixelRatio||1),r=cv.getBoundingClientRect();cv.width=Math.max(1,Math.round(r.width*d));cv.height=Math.max(1,Math.round(r.height*d));const c=cv.getContext("2d");c.setTransform(d,0,0,d,0,0);return[c,r.width,r.height]}
 function herbScatter(c,w,h,seed,n){const R=rng(seed);for(let i=0;i<n;i++)leaf(c,R()*w,R()*h,4+R()*5,R()*6.3,["#4E7A3A","#5F8D45","#3F6B30"][i%3])}
-const PHOTOS={oats:1,pancakes:1,burrito:1,apfelporridge:1,chia:1,joghurt:1,bolo:1,gratin:1,confit:1,shawarma:1,saumonepi:1,quiche:1,tomatesfarcies:1};
+const PHOTOS={basquaise:1,huhnroti:1,lachssahne:1,lassaumon:1,porcriz:1,sauteporc:1,rata:1,oats:1,pancakes:1,burrito:1,apfelporridge:1,chia:1,joghurt:1,bolo:1,gratin:1,confit:1,shawarma:1,saumonepi:1,quiche:1,tomatesfarcies:1};
 const photo=(id,alt="")=>PHOTOS[String(id).split("|")[0]]?`<img class="pic" src="photo-${String(id).split("|")[0]}.jpg" alt="${alt}" loading="lazy" decoding="async">`:"";
 function drawThumb(cv,id,scale=.8){id=String(id).split("|")[0];const[c,w,h]=setup(cv);box(c,w/2,h/2,Math.min(w*scale,h*scale*1.45),id)}
 
@@ -1551,7 +1565,7 @@ refresh();
   ctarget.p=p;setRadio("fg","custom");renderFormula();fOpen().scrollIntoView({behavior:"smooth"})})}
 {const d=new Date();if(d.getDay()===0||d.getDay()>=5)d.setDate(d.getDate()+(d.getDay()===0?1:3));
  const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));t.setUTCDate(t.getUTCDate()+4-(t.getUTCDay()||7));
- const kw=Math.ceil(((t-new Date(Date.UTC(t.getUTCFullYear(),0,1)))/864e5+1)/7);document.getElementById("kwLabel").textContent="Wochenkarte · KW "+kw+" · 8 feste + 6 wechselnde Gerichte"}
+ const kw=Math.ceil(((t-new Date(Date.UTC(t.getUTCFullYear(),0,1)))/864e5+1)/7);document.getElementById("kwLabel").textContent="Wochenkarte · KW "+kw+""}
 try{const ld=document.createElement("script");ld.type="application/ld+json";
  ld.textContent=JSON.stringify([{"@context":"https://schema.org","@type":"FoodEstablishment","name":"Weekfuel","url":"https://weekfuel.de/","email":MAIL,"description":"Hausgemachtes Meal Prep aus Berlin, ab 10 Portionen geliefert.","servesCuisine":["Meal Prep","Hausmannskost","Französisch"],"areaServed":"Berlin","address":{"@type":"PostalAddress","streetAddress":"Chodowieckistraße 4","postalCode":"10405","addressLocality":"Berlin","addressCountry":"DE"},"parentOrganization":{"@type":"Organization","name":"The French Buffet GbR"}},
  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":FAQ.flatMap(([g,it])=>it).map(([q,a])=>({"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}}))}]);document.head.appendChild(ld)}catch(e){}
