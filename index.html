@@ -139,6 +139,7 @@ section.strip{padding-block:20px 0}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:52px 28px}
 .dish{display:grid;gap:16px;align-content:start}
 .dish .img{position:relative;aspect-ratio:5/4;background:var(--plate);overflow:hidden;border:0;padding:0;cursor:pointer;width:100%;display:block}
+.kifoto{position:absolute;left:8px;bottom:8px;z-index:2;background:rgba(0,0,0,.62);color:#fff;font-size:11px;line-height:1;padding:5px 8px;border-radius:99px;letter-spacing:.2px;pointer-events:none;backdrop-filter:blur(2px)}
 .pic{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 @media (prefers-reduced-motion:no-preference){.dish .img:hover .pic{transform:scale(1.04)}}
 .dish .img canvas{position:absolute;inset:0;width:100%;height:100%;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
@@ -879,7 +880,7 @@ nav a{white-space:nowrap}
     <div><h4>Bestellen</h4><ul><li><a href="#karte">Wochenkarte</a></li><li><a href="#preise">Preise</a></li><li><a href="#firmen">Für Firmen</a></li></ul></div>
     <div><h4>Hilfe</h4><ul><li><a href="#faq">FAQ</a></li><li><a href="#so-gehts">So geht's</a></li><li><a href="#ueber-uns">Über uns</a></li><li><a href="#verpackung">Verpackung</a></li></ul></div>
     <div><h4>Social</h4><ul><li>Instagram</li><li>TikTok</li></ul></div>
-    <div class="legal"><span>© 2026 Weekfuel, Berlin</span><span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span></div>
+    <div class="legal"><span>Hinweis: Einige Fotos sind KI-generiert und als solche gekennzeichnet, bis unsere echten Fotos fertig sind.</span><span>© 2026 Weekfuel, Berlin</span><span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span></div>
   </div>
 </footer>
 
@@ -1111,7 +1112,8 @@ function box(c,cx,cy,w,id,rot=0,seed=id){
 function setup(cv){const d=Math.min(2,devicePixelRatio||1),r=cv.getBoundingClientRect();cv.width=Math.max(1,Math.round(r.width*d));cv.height=Math.max(1,Math.round(r.height*d));const c=cv.getContext("2d");c.setTransform(d,0,0,d,0,0);return[c,r.width,r.height]}
 function herbScatter(c,w,h,seed,n){const R=rng(seed);for(let i=0;i<n;i++)leaf(c,R()*w,R()*h,4+R()*5,R()*6.3,["#4E7A3A","#5F8D45","#3F6B30"][i%3])}
 const PHOTOS={burritobowl:1,couscous:1,gnocchipoeles:1,boeuf:1,ravioles:1,echine:1,basquaise:1,huhnroti:1,lachssahne:1,lassaumon:1,porcriz:1,sauteporc:1,rata:1,oats:1,pancakes:1,burrito:1,apfelporridge:1,chia:1,joghurt:1,bolo:1,gratin:1,confit:1,shawarma:1,saumonepi:1,quiche:1,tomatesfarcies:1};
-const photo=(id,alt="")=>PHOTOS[String(id).split("|")[0]]?`<img class="pic" src="photo-${String(id).split("|")[0]}.jpg" alt="${alt}" loading="lazy" decoding="async">`:"";
+const REALPH=["bolo","gratin","confit","shawarma","saumonepi","quiche","tomatesfarcies"];
+const photo=(id,alt="")=>{const k=String(id).split("|")[0];return PHOTOS[k]?`<img class="pic" src="photo-${k}.jpg" alt="${alt}" loading="lazy" decoding="async">${REALPH.includes(k)?"":`<span class="kifoto">KI-Foto · echtes Foto folgt</span>`}`:""};
 function drawThumb(cv,id,scale=.8){id=String(id).split("|")[0];const[c,w,h]=setup(cv);box(c,w/2,h/2,Math.min(w*scale,h*scale*1.45),id)}
 
 /* ================= state ================= */
