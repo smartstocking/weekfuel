@@ -742,7 +742,7 @@ nav a{white-space:nowrap}
       <div class="know">
         <article><span class="kn">01</span><h3>Eiweiß baut und erhält Muskeln</h3><p>Protein liefert die Aminosäuren, aus denen dein Körper Muskeln, Haut, Enzyme und Immunzellen baut. Wer trainiert oder abnimmt, braucht mehr davon, damit die Muskelmasse erhalten bleibt. Außerdem sättigt Eiweiß länger als Kohlenhydrate oder Fett.</p></article>
         <article><span class="kn">02</span><h3>Gleichmäßig über den Tag verteilen</h3><p>Für die meisten Erwachsenen sind etwa 20 bis 40 g Protein pro Mahlzeit ein sinnvolles Ziel. Gleichmäßig verteilt lässt sich der Bedarf leichter decken, als wenn alles am Abend kommt. Die Menge steht bei jedem Gericht.</p></article>
-        <article><span class="kn">03</span><h3>Gemüse und Ballaststoffe</h3><p>Die DGE empfiehlt täglich etwa 400 g Gemüse, 250 g Obst und mindestens 30 g Ballaststoffe. Sie sättigen und fördern die Verdauung. Achte bei deiner Auswahl auf Gerichte mit viel Gemüse, zum Beispiel Ratatouille, Gemüsecurry oder Hähnchen mit Ofengemüse.</p></article>
+        <article><span class="kn">03</span><h3>Gemüse und Ballaststoffe</h3><p>Die DGE empfiehlt täglich etwa 400 g Gemüse, 250 g Obst und mindestens 30 g Ballaststoffe. Sie sättigen und fördern die Verdauung. Achte bei deiner Auswahl auf Gerichte mit viel Gemüse, zum Beispiel Ratatouille, Couscous mit Gemüse oder Gnocchi mit Ofengemüse.</p></article>
         <article><span class="kn">04</span><h3>Kalorien passend zum Ziel</h3><p>Zum Abnehmen reicht meist ein moderates Defizit von etwa 300 bis 500 kcal am Tag. Zu radikale Diäten kosten Muskeln und Energie. Für Muskelaufbau hilft ein leichter Überschuss. In unseren Formeln stellst du dein Kalorienziel selbst ein.</p></article>
       </div>
       <div class="pcalc">
@@ -955,8 +955,6 @@ const ALL_DISHES=[
    z:"Kartoffelgratin, Hackbällchen (Fleisch), Senfsauce, Sahne, Ei, Weizenmehl",a:["Weizen (Gluten)","Ei","Milch","Senf"]},
   {id:"gnocchipoeles",grp:"vegan",meal:"m",n:"Gnocchi mit Pfannengemüse",d:"Goldbraun gebratene Gnocchi mit Ofengemüse und Kräutersauce.",p:9.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:550,prot:16,carb:86,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Kartoffelgnocchi, Zucchini, Paprika, Kirschtomaten, rote Zwiebeln, Kräutersauce (Sahne, Petersilie), Olivenöl",a:["Weizen (Gluten)"]},
-  {id:"puttanesca",grp:"klassik",meal:"m",n:"Pasta Puttanesca",d:"Pasta mit Tomaten, Oliven, Kapern und Sardellen.",p:9.5,cat:"fisch",tag:"Klassiker",g:450,kcal:570,prot:22,carb:84,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Weizenpasta, Tomaten, Oliven, Kapern, Sardellen, Knoblauch, Chili, Olivenöl",a:["Weizen (Gluten)","Fisch"]},
   {id:"gnocchiparis",grp:"vegan",meal:"m",n:"Pariser Gnocchi mit Gemüse",d:"Pariser Gnocchi mit gegrilltem Gemüse.",p:10.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:580,prot:18,carb:60,fat:30,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Pariser Gnocchi, gegrilltes Gemüse, Olivenöl, Kräuter",a:["Sulfite","Senf (Spuren)"]},
   {id:"ravioles",grp:"vegan",meal:"m",n:"Ravioli der Saison",d:"Gefüllte Ravioli in Kräuter-Butter-Sauce.",p:10.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:560,prot:20,carb:70,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
@@ -979,8 +977,8 @@ const ALL_DISHES=[
    z:"Bulgur (Weizen), Zucchini, Aubergine, Paprika, Tomaten, Zwiebeln, Knoblauch, Olivenöl, Kräuter der Provence",a:["Weizen (Gluten)"]}
 ];
 const FIXED=["bolo","saumonepi","shawarma","burritobowl","tomatesfarcies","confit","couscous","quiche"];
-/* Wechselnde Gerichte: alle 2 Wochen bis 1 Monat 6 aus dem Pool wählen. Pool: boeuf, echine, gratin, gnocchipoeles, puttanesca, gnocchiparis, ravioles, carbonara */
-const ROT_ACTIVE=["boeuf","echine","gratin","gnocchipoeles","puttanesca","gnocchiparis","ravioles","basquaise","huhnroti","lachssahne","lassaumon","porcriz","sauteporc","rata"];
+/* Wechselnde Gerichte: alle 2 Wochen bis 1 Monat 6 aus dem Pool wählen. Pool: boeuf, echine, gratin, gnocchipoeles, gnocchiparis, ravioles, carbonara */
+const ROT_ACTIVE=["boeuf","echine","gratin","gnocchipoeles","gnocchiparis","ravioles","basquaise","huhnroti","lachssahne","lassaumon","porcriz","sauteporc","rata"];
 const DISHES=ALL_DISHES.filter(d=>d.meal==="b"||FIXED.includes(d.id)||ROT_ACTIVE.includes(d.id));
 const CATS=[["alle","Alle"],["fr","Frühstück"],["klassik","Klassiker"],["sport","Sport & Protein"],["vegan","Vegetarisch"]];
 const GROUPS={fr:["Frühstück","Für den Start in den Tag. Nur in der Formel mit Frühstück, Mittag und Abend."],
@@ -1101,7 +1099,7 @@ const FILL={
     scatter(c,R,b,Math.round(b.w*b.h/650),(x,y,R)=>{const s=S(b)*.03;c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-s/2,-s/2,s,s,s*.3);c.fillStyle="#EBC45A";c.fill();c.restore()});
     scatter(c,R,b,Math.round(b.w*b.h/900),(x,y,R)=>{const s=S(b)*.05;c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-s/2,-s/2,s,s*.8,s*.2);c.fillStyle=R()<.5?"#5E9A3A":"#D9482E";c.fill();c.restore()});herbs(c,R,b,5,["#46783A"])},
 };
-const RECIPE={basquaise:[["riceGreen",.4],["basquaise",.6]],huhnroti:[["rice",.38],["roastChicken",.62]],lachssahne:[["riceGreen",.4],["lasSalmon",.6]],lassaumon:[["lasSalmon",.64],["salad",.36]],porcriz:[["riceGreen",.4],["porkMustard",.6]],sauteporc:[["potatoes",.44],["porkStew",.56]],rata:[["bulgur",.42],["ratatouille",.58]],bolo:[["pasta",1]],saumonepi:[["pastaSalmon",1]],shawarma:[["rice",.4],["chicken",.6]],burritobowl:[["rice",.4],["meatChili",.6]],tomatesfarcies:[["riceGreen",.4],["basquaise",.6]],confit:[["potatoes",.46],["roastChicken",.54]],couscous:[["bulgur",.46],["ratatouille",.54]],quiche:[["quiche",.6],["salad",.4]],boeuf:[["potatoes",.44],["beef",.56]],echine:[["potatoes",.44],["porkStew",.56]],gratin:[["potatoes",.46],["porkMustard",.54]],gnocchipoeles:[["potatoes",.44],["veggies",.56]],puttanesca:[["pasta",1]],gnocchiparis:[["potatoes",.44],["veggies",.56]],ravioles:[["pasta",1]],carbonara:[["pasta",1]],oats:[["oats",1]],pancakes:[["pancakes",1]],burrito:[["burrito",.66],["salsa",.34]],apfelporridge:[["oats",1]],chia:[["oats",1]],joghurt:[["oats",1]]};
+const RECIPE={basquaise:[["riceGreen",.4],["basquaise",.6]],huhnroti:[["rice",.38],["roastChicken",.62]],lachssahne:[["riceGreen",.4],["lasSalmon",.6]],lassaumon:[["lasSalmon",.64],["salad",.36]],porcriz:[["riceGreen",.4],["porkMustard",.6]],sauteporc:[["potatoes",.44],["porkStew",.56]],rata:[["bulgur",.42],["ratatouille",.58]],bolo:[["pasta",1]],saumonepi:[["pastaSalmon",1]],shawarma:[["rice",.4],["chicken",.6]],burritobowl:[["rice",.4],["meatChili",.6]],tomatesfarcies:[["riceGreen",.4],["basquaise",.6]],confit:[["potatoes",.46],["roastChicken",.54]],couscous:[["bulgur",.46],["ratatouille",.54]],quiche:[["quiche",.6],["salad",.4]],boeuf:[["potatoes",.44],["beef",.56]],echine:[["potatoes",.44],["porkStew",.56]],gratin:[["potatoes",.46],["porkMustard",.54]],gnocchipoeles:[["potatoes",.44],["veggies",.56]],gnocchiparis:[["potatoes",.44],["veggies",.56]],ravioles:[["pasta",1]],carbonara:[["pasta",1]],oats:[["oats",1]],pancakes:[["pancakes",1]],burrito:[["burrito",.66],["salsa",.34]],apfelporridge:[["oats",1]],chia:[["oats",1]],joghurt:[["oats",1]]};
 function box(c,cx,cy,w,id,rot=0,seed=id){
   const R=rng(seed),h=w*.66,x=-w/2,y=-h/2,r=w*.07;
   c.save();c.translate(cx,cy);c.rotate(rot);
