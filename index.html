@@ -628,11 +628,11 @@ nav a{white-space:nowrap}
       <span class="label cats-l">Schnell zu</span>
       <div class="cats" aria-label="Schnell zu">
 <button class="cat" type="button" data-jump="cat:fr"><canvas data-cat="pancakes"></canvas><span class="ct"><b>Frühstück</b><small>Oats, Pancakes, Burrito</small></span><i aria-hidden="true">→</i></button>
-        <button class="cat" type="button" data-jump="cat:klassik"><canvas data-cat="lasbolo"></canvas><span class="ct"><b>Klassiker</b><small>Hausmannskost für jeden Tag</small></span><i aria-hidden="true">→</i></button>
-        <button class="cat" type="button" data-jump="cat:sport"><canvas data-cat="huhnroti"></canvas><span class="ct"><b>Sport & Protein</b><small>Ab 50 g Eiweiß pro Portion</small></span><i aria-hidden="true">→</i></button>
-        <button class="cat" type="button" data-jump="cat:vegan"><canvas data-cat="curryleg"></canvas><span class="ct"><b>Vegan</b><small>Rein pflanzlich und sättigend</small></span><i aria-hidden="true">→</i></button>
-        <button class="cat" type="button" data-jump="goal:cut"><canvas data-cat="hgemuese"></canvas><span class="ct"><b>Definition</b><small>Formel · weniger Kalorien</small></span><i aria-hidden="true">→</i></button>
-        <button class="cat" type="button" data-jump="goal:bulk"><canvas data-cat="rindxl"></canvas><span class="ct"><b>Muskelaufbau</b><small>Formel · mehr Kalorien</small></span><i aria-hidden="true">→</i></button>
+        <button class="cat" type="button" data-jump="cat:klassik"><canvas data-cat="bolo"></canvas><span class="ct"><b>Klassiker</b><small>Klassiker aus der Küche, jeden Tag</small></span><i aria-hidden="true">→</i></button>
+        <button class="cat" type="button" data-jump="cat:sport"><canvas data-cat="shawarma"></canvas><span class="ct"><b>Sport & Protein</b><small>Ab 35 g Eiweiß pro Portion</small></span><i aria-hidden="true">→</i></button>
+        <button class="cat" type="button" data-jump="cat:vegan"><canvas data-cat="couscous"></canvas><span class="ct"><b>Vegetarisch</b><small>Ohne Fleisch und Fisch</small></span><i aria-hidden="true">→</i></button>
+        <button class="cat" type="button" data-jump="goal:cut"><canvas data-cat="saumonepi"></canvas><span class="ct"><b>Definition</b><small>Formel · weniger Kalorien</small></span><i aria-hidden="true">→</i></button>
+        <button class="cat" type="button" data-jump="goal:bulk"><canvas data-cat="confit"></canvas><span class="ct"><b>Muskelaufbau</b><small>Formel · mehr Kalorien</small></span><i aria-hidden="true">→</i></button>
       </div>
     </div>
   </section>
@@ -647,7 +647,7 @@ nav a{white-space:nowrap}
           <fieldset class="fs fbox"><legend>Für wen und wofür?</legend>
             <div class="chips" style="--n:3">
               <input type="radio" name="fg" id="fgb" value="bal" checked><label for="fgb"><b>Ausgewogen</b><span>abwechslungsreich</span></label>
-              <input type="radio" name="fg" id="fgv" value="veg"><label for="fgv"><b>Vegan</b><span>rein pflanzlich</span></label>
+              <input type="radio" name="fg" id="fgv" value="veg"><label for="fgv"><b>Vegetarisch</b><span>ohne Fleisch und Fisch</span></label>
               <input type="radio" name="fg" id="fgf" value="fam"><label for="fgf"><b>Familie</b><span>mit Kinderportionen</span></label>
               <input type="radio" name="fg" id="fgc" value="cut"><label for="fgc"><b>Definition</b><span>viel Eiweiß, weniger kcal</span></label>
               <input type="radio" name="fg" id="fgm" value="bulk"><label for="fgm"><b>Muskelaufbau</b><span>viel Eiweiß, mehr kcal</span></label>
@@ -722,7 +722,7 @@ nav a{white-space:nowrap}
 
   <section id="karte" class="soft">
     <div class="wrap">
-      <div class="shead"><div><span class="label" id="kwLabel">Wochenkarte · KW 40</span><h2>Oder wähle selbst</h2></div><p>Sortiert nach Kategorien: Frühstück, Klassiker, Sport &amp; Protein und Vegan. Tippe auf ein Gericht für Zutaten, Allergene und Nährwerte. Preise pro Portion vor Mengenrabatt.</p></div>
+      <div class="shead"><div><span class="label" id="kwLabel">Wochenkarte · 8 feste + 6 wechselnde Gerichte</span><h2>Oder wähle selbst</h2></div><p>Sortiert nach Kategorien: Frühstück, Klassiker, Sport &amp; Protein und Vegetarisch. Zwei Wochen lang gibt es 8 feste und 6 wechselnde Gerichte. Tippe auf ein Gericht für Zutaten, Allergene und Nährwerte. Preise pro Portion vor Mengenrabatt.</p></div>
       <div class="menubar">
         <div class="tabs" role="tablist" aria-label="Gerichte filtern" id="tabs"></div>
         <div class="mbr"><label class="nutsw"><input type="checkbox" class="nutcb"><span>Nährwerte ausblenden</span></label><label class="sort" for="sortSel">Sortieren<select id="sortSel"><option value="rec">Empfohlen</option><option value="prot">Meiste Protein</option><option value="kcal">Wenigste Kalorien</option><option value="price">Günstigste zuerst</option></select></label></div>
@@ -918,55 +918,55 @@ nav a{white-space:nowrap}
 
 <script>
 /* ================= data ================= */
-const DISHES=[
+const ALL_DISHES=[
   {id:"oats",grp:"fr",meal:"b",n:"Overnight Oats Beeren",d:"Hafer, Chia, Haferdrink, Beeren, Banane.",p:5.9,cat:"vegan",tag:"Frühstück",g:300,kcal:420,prot:14,carb:62,fat:12,cold:true,
    z:"Haferflocken, Haferdrink, Chiasamen, Heidelbeeren, Himbeeren, Banane, Ahornsirup",a:["Hafer (Gluten)"]},
   {id:"pancakes",grp:"fr",meal:"b",n:"Protein-Pancakes",d:"Hafer-Quark-Pancakes mit Skyr und Heidelbeeren.",p:6.9,cat:"veggie",tag:"Frühstück",g:300,kcal:480,prot:36,carb:52,fat:12,pan:"3 Min",oven:"8 Min",mic:"1–2 Min",
    z:"Haferflocken, Eier, Magerquark, Banane, Backpulver, Skyr, Heidelbeeren",a:["Hafer (Gluten)","Ei","Milch"]},
   {id:"burrito",grp:"fr",meal:"b",n:"Frühstücks-Burrito",d:"Rührei, schwarze Bohnen, Cheddar, Salsa.",p:7.5,cat:"veggie",tag:"Frühstück",g:350,kcal:560,prot:38,carb:48,fat:22,pan:"5 Min",oven:"12 Min",mic:"2 Min",
    z:"Weizentortilla, Eier, schwarze Bohnen, Cheddar, Paprika, Frühlingszwiebeln, Tomatensalsa",a:["Weizen (Gluten)","Ei","Milch"]},
-  {id:"huhnbowl",grp:"sport",meal:"m",n:"Hähnchen-Süßkartoffel-Bowl",d:"Gegrillte Hähnchenbrust, Süßkartoffel, Quinoa, Brokkoli.",p:12.9,cat:"fleisch",tag:"Extra Protein",sport:true,g:500,kcal:650,prot:58,carb:60,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Hähnchenbrust, Süßkartoffel, Quinoa, Brokkoli, Joghurt-Kräuter-Dip, Paprika, Olivenöl",a:["Milch"]},
-  {id:"putenchili",grp:"sport",meal:"m",n:"Puten-Chili con carne",d:"Mageres Putenhack, Kidneybohnen, Mais, Reis.",p:11.9,cat:"fleisch",tag:"Extra Protein",sport:true,g:500,kcal:610,prot:52,carb:64,fat:12,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Reis, Putenhack, Kidneybohnen, Tomaten, Mais, Paprika, Zwiebeln, Kreuzkümmel, Chili",a:["Sellerie"]},
-  {id:"hgemuese",grp:"sport",meal:"m",n:"Hähnchen mit Ofengemüse",d:"Hähnchenbrust, Zucchini, Paprika, Brokkoli, Kräuterquark.",p:11.9,cat:"fleisch",tag:"Definition",sport:true,g:450,kcal:430,prot:50,carb:22,fat:14,pan:"5 Min",oven:"12 Min",mic:"3 Min",
-   z:"Hähnchenbrust, Zucchini, Paprika, Brokkoli, rote Zwiebeln, Magerquark, Kräuter, Olivenöl",a:["Milch"]},
-  {id:"rindxl",grp:"sport",meal:"m",n:"Rinderhack-Power-Bowl",d:"Große Portion Reis, Rinderhack, schwarze Bohnen, Avocado-Creme.",p:13.9,cat:"fleisch",tag:"Muskelaufbau",sport:true,g:600,kcal:950,prot:60,carb:98,fat:32,pan:"7 Min",oven:"18 Min",mic:"4–5 Min",
-   z:"Reis, Rinderhack, schwarze Bohnen, Mais, Avocado, Limette, Frühlingszwiebeln, Sesam, Sojasauce",a:["Soja","Weizen (Gluten)","Sesam"]},
-  {id:"huhnroti",grp:"sport",meal:"m",n:"Brathähnchen mit Reis",d:"Ofengebratenes Hähnchen, Reis, Gemüse.",p:11.9,cat:"fleisch",tag:"Extra Protein",sport:true,g:450,kcal:770,prot:50,carb:58,fat:34,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Hähnchen, Reis, Gemüse der Saison, Olivenöl, Knoblauch, Kräuter",a:[]},
-  {id:"lachssahne",grp:"klassik",meal:"m",n:"Lachs in Sahnesauce mit Reis",d:"Gebratener Lachs, Sahnesauce, Reis, grüne Bohnen.",p:12.9,cat:"fisch",g:450,kcal:640,prot:33,carb:55,fat:32,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Lachs, Reis, Grüne Bohnen, Sahne, Zwiebeln, Butter, Kräuter",a:["Fisch","Milch"]},
-  {id:"lasbolo",grp:"klassik",meal:"m",n:"Lasagne Bolognese",d:"Rinderhack-Ragout, Béchamel, Parmesan.",p:10.9,cat:"fleisch",g:450,kcal:700,prot:36,carb:60,fat:34,pan:"–",oven:"18 Min",mic:"4 Min",
-   z:"Lasagneplatten (Hartweizengrieß, Eier), Rinderhack, Tomaten, Zwiebeln, Karotten, Sellerie, Milch, Butter, Weizenmehl, Parmesan",a:["Weizen (Gluten)","Ei","Milch","Sellerie"]},
-  {id:"lassaumon",grp:"klassik",meal:"m",n:"Lachs-Lasagne",d:"Lasagne mit Lachs und Béchamel, grüner Salat.",p:11.9,cat:"fisch",g:450,kcal:510,prot:23,carb:38,fat:29,pan:"–",oven:"18 Min",mic:"4 Min",
-   z:"Lasagneplatten (Hartweizengrieß, Eier), Lachs, Milch, Butter, Weizenmehl, Käse, grüner Salat, Vinaigrette (Senf, Essig, Öl)",a:["Weizen (Gluten)","Ei","Fisch","Milch","Senf"]},
-  {id:"basquaise",grp:"klassik",meal:"m",n:"Poulet basquaise",d:"Hähnchen in Paprika-Tomaten-Sauce, Reis pilaf.",p:10.5,cat:"fleisch",g:450,kcal:610,prot:28,carb:84,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Hähnchen, Paprika, Tomaten, Zwiebeln, Knoblauch, Piment d'Espelette, Olivenöl, Reis, Brühe",a:[]},
-  {id:"porcriz",grp:"klassik",meal:"m",n:"Schweinefilet in Senfsauce",d:"Schweinefilet, Senf-Rahmsauce, Reis pilaf, Pfannengemüse.",p:9.9,cat:"fleisch",g:450,kcal:630,prot:36,carb:78,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Schweinefilet, Senf, Sahne, Reis, Zwiebeln, Brühe, Gemüse der Saison, Olivenöl",a:["Senf","Milch"]},
-  {id:"sauteporc",grp:"klassik",meal:"m",n:"Schweinegeschnetzeltes mit Ofenkartoffeln",d:"Geschmortes Schweinefleisch in Sauce, Ofenkartoffeln, Gemüse.",p:10.5,cat:"fleisch",g:450,kcal:600,prot:34,carb:50,fat:28,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Schweinefleisch, Kartoffeln, Zwiebeln, Tomaten, Brühe, Gemüse der Saison, Olivenöl, Kräuter",a:[]},
-  {id:"quiche",grp:"klassik",meal:"m",n:"Quiche mit Ofenkartoffeln",d:"Hausgemachte Quiche, Ofenkartoffeln, grüner Salat.",p:9.5,cat:"veggie",g:450,kcal:720,prot:20,carb:80,fat:35,pan:"–",oven:"10 Min",mic:"2 Min",
-   z:"Mürbeteig (Weizenmehl, Butter), Eier, Sahne, Milch, Käse, Kartoffeln, grüner Salat, Vinaigrette (Senf, Essig, Öl)",a:["Weizen (Gluten)","Ei","Milch","Senf"]},
-  {id:"rata",grp:"vegan",meal:"m",n:"Ratatouille mit Bulgur",d:"Provenzalisches Gemüse, gewürzter Bulgur.",p:8.5,cat:"vegan",tag:"Vegan",g:450,kcal:420,prot:13,carb:62,fat:12,pan:"5 Min",oven:"12 Min",mic:"3 Min",
-   z:"Bulgur (Weizen), Zucchini, Aubergine, Paprika, Tomaten, Zwiebeln, Knoblauch, Olivenöl, Kräuter der Provence",a:["Weizen (Gluten)"]},
-  {id:"curryleg",grp:"vegan",meal:"m",n:"Gemüsecurry",d:"Gemüse in Kokos-Curry-Sauce, Reis.",p:8.9,cat:"vegan",tag:"Vegan",g:450,kcal:560,prot:18,carb:86,fat:16,pan:"5 Min",oven:"12 Min",mic:"3 Min",
-   z:"Reis, Gemüse der Saison, Kokosmilch, Currypaste, Zwiebeln, Knoblauch, Ingwer",a:[]},
-  {id:"lachspasta",grp:"klassik",meal:"m",n:"Lachs-Pasta mit Spinat",d:"Vollkornnudeln, Lachs, Spinat, Zitronen-Dill-Sauce mit Skyr.",p:12.9,cat:"fisch",tag:"Klassiker",g:450,kcal:620,prot:36,carb:62,fat:24,pan:"5 Min",oven:"12 Min",mic:"3 Min",
-   z:"Vollkornnudeln, Lachs, Spinat, Skyr, Zitrone, Dill, Knoblauch, Parmesan, Olivenöl",a:["Weizen (Gluten)","Fisch","Milch"]},
-  {id:"bistrosteak",grp:"klassik",meal:"m",n:"Bistro-Steak mit Süßkartoffel",d:"Rinderhacksteak, Pfeffersauce, Ofen-Süßkartoffeln, grüne Bohnen.",p:12.9,cat:"fleisch",tag:"Klassiker",g:450,kcal:640,prot:46,carb:48,fat:28,pan:"6 Min",oven:"15 Min",mic:"3 Min",
-   z:"Rinderhack, Süßkartoffeln, grüne Bohnen, Zwiebeln, Pfeffer, Skyr, Senf, Olivenöl",a:["Milch","Senf"]},
-  {id:"teriyaki",grp:"klassik",meal:"m",n:"Teriyaki-Hähnchen mit Reis",d:"Hähnchen in Teriyaki-Sauce, Reis, Brokkoli, Sesam.",p:10.9,cat:"fleisch",tag:"Klassiker",g:450,kcal:560,prot:42,carb:66,fat:12,pan:"5 Min",oven:"12 Min",mic:"3 Min",
-   z:"Hähnchenbrust, Reis, Brokkoli, Karotten, Sojasauce, Honig, Ingwer, Knoblauch, Sesam",a:["Soja","Weizen (Gluten)","Sesam"]},
-  {id:"chilisc",grp:"vegan",meal:"m",n:"Chili sin Carne",d:"Bohnen, Mais, Paprika und Tomaten, dazu Reis.",p:8.9,cat:"vegan",tag:"Vegan",g:450,kcal:520,prot:20,carb:84,fat:9,pan:"5 Min",oven:"12 Min",mic:"3 Min",
-   z:"Reis, Kidneybohnen, schwarze Bohnen, Mais, Paprika, Tomaten, Zwiebeln, Paprikapulver, Kreuzkümmel, Limette",a:[]}
+  {id:"bolo",grp:"klassik",meal:"m",n:"Pasta Bolognese",d:"Spaghetti mit hausgemachtem Rinderhack-Ragout und Parmesan.",p:9.9,cat:"fleisch",tag:"Klassiker",g:450,kcal:630,prot:34,carb:78,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Spaghetti, Rinderhack, Tomaten, Zwiebeln, Karotten, Knoblauch, Olivenöl, Parmesan, Kräuter",a:["Weizen (Gluten)","Milch"]},
+  {id:"saumonepi",grp:"klassik",meal:"m",n:"Pasta mit Lachs und Spinat",d:"Pasta mit Lachs, Spinat und Sahnesauce.",p:12.5,cat:"fisch",tag:"Klassiker",g:450,kcal:620,prot:34,carb:62,fat:26,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Weizenpasta, Lachs, Spinat, Sahne, Zwiebeln, Knoblauch, Zitrone, Dill",a:["Weizen (Gluten)","Fisch","Milch"]},
+  {id:"shawarma",grp:"sport",meal:"m",n:"Shawarma Bowl",d:"Gewürztes Hähnchen, Reis, Tomaten-Gurken-Salat und Tahini-Sauce.",p:11.9,cat:"fleisch",tag:"Extra Protein",g:450,kcal:620,prot:42,carb:58,fat:24,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Hähnchen, Reis, Tomaten, Gurke, rote Zwiebeln, Petersilie, Tahini-Sauce (Sesam), Shawarma-Gewürze",a:["Sesam"]},
+  {id:"burritobowl",grp:"sport",meal:"m",n:"Burrito Bowl",d:"Rinderhack, Reis, schwarze Bohnen, Mais, Salsa und Käse.",p:11.5,cat:"fleisch",tag:"Extra Protein",g:450,kcal:660,prot:38,carb:78,fat:22,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Rinderhack, Reis, schwarze Bohnen, Mais, Tomaten, Zwiebeln, Cheddar, Weizentortilla, Gewürze",a:["Weizen (Gluten)","Milch"]},
+  {id:"tomatesfarcies",grp:"klassik",meal:"m",n:"Gefüllte Tomaten mit Reis",d:"Gebackene Tomaten mit Hackfleisch gefüllt, dazu Reis.",p:10.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:540,prot:30,carb:60,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Tomaten, Rinderhack, Schweinehack, Reis, Zwiebeln, Knoblauch, Petersilie, Olivenöl",a:[]},
+  {id:"confit",grp:"klassik",meal:"m",n:"Entenconfit mit grünen Bohnen",d:"Confierte Entenkeule, grüne Bohnen und Bratkartoffeln.",p:13.9,cat:"fleisch",tag:"Klassiker",g:450,kcal:710,prot:36,carb:42,fat:44,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Entenkeule (Confit), grüne Bohnen, Kartoffeln, Knoblauch, Thymian, Entenschmalz",a:[]},
+  {id:"couscous",grp:"vegan",meal:"m",n:"Couscous mit Gemüse",d:"Couscous mit Gemüse und Kichererbsen.",p:8.9,cat:"veggie",tag:"Vegetarisch",g:450,kcal:560,prot:18,carb:90,fat:14,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Couscous, Karotten, Zucchini, Kichererbsen, Zwiebeln, Olivenöl, Gewürze",a:["Weizen (Gluten)"]},
+  {id:"quiche",grp:"klassik",meal:"m",n:"Quiche mit Salat",d:"Hausgemachte Quiche mit Gemüse, dazu Salat mit Spinat, Rucola und Tomaten.",p:9.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:640,prot:22,carb:48,fat:40,pan:"–",oven:"15 Min",mic:"3 Min",
+   z:"Mürbeteig (Weizenmehl, Butter), Eier, Sahne, Käse, Brokkoli, Karotten, Paprika, Spinat, Rucola, Kirschtomaten, Vinaigrette",a:["Weizen (Gluten)","Ei","Milch"]},
+  {id:"boeuf",grp:"klassik",meal:"m",n:"Geschmortes Rindfleisch mit Gratin",d:"Rindfleisch in Rotweinsauce, Kartoffelgratin und Pfannengemüse.",p:13.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:680,prot:40,carb:40,fat:40,pan:"6 Min",oven:"18 Min",mic:"4 Min",
+   z:"Rindfleisch, Rotwein, Kartoffelgratin, Pfannengemüse, Zwiebeln, Karotten, Kräuter",a:["Sulfite"]},
+  {id:"echine",grp:"klassik",meal:"m",n:"Schweinenacken mit Klößen",d:"Geschmorter Schweinenacken (oder Entenkeule), Klöße und glasierte Karotten.",p:12.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:740,prot:34,carb:70,fat:36,pan:"6 Min",oven:"18 Min",mic:"4 Min",
+   z:"Schweinenacken oder Entenkeule, Kartoffelklöße, Karotten, Butter, Zwiebeln, Kräuter",a:["Weizen (Gluten)","Ei","Milch"]},
+  {id:"gratin",grp:"klassik",meal:"m",n:"Gratin mit Hackbällchen und Senfsauce",d:"Kartoffelgratin mit Hackbällchen in Senfsauce.",p:10.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:680,prot:32,carb:52,fat:38,pan:"6 Min",oven:"18 Min",mic:"4 Min",
+   z:"Kartoffelgratin, Hackbällchen (Fleisch), Senfsauce, Sahne, Ei, Weizenmehl",a:["Weizen (Gluten)","Ei","Milch","Senf"]},
+  {id:"gnocchipoeles",grp:"vegan",meal:"m",n:"Gnocchi mit Pfannengemüse",d:"In der Pfanne gebratene Gnocchi mit Gemüse und Sauce des Tages.",p:9.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:550,prot:16,carb:86,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Kartoffelgnocchi, Zucchini, Paprika, Tomaten, Zwiebeln, Olivenöl, Sauce des Tages",a:["Weizen (Gluten)"]},
+  {id:"puttanesca",grp:"klassik",meal:"m",n:"Pasta Puttanesca",d:"Pasta mit Tomaten, Oliven, Kapern und Sardellen.",p:9.5,cat:"fisch",tag:"Klassiker",g:450,kcal:570,prot:22,carb:84,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Weizenpasta, Tomaten, Oliven, Kapern, Sardellen, Knoblauch, Chili, Olivenöl",a:["Weizen (Gluten)","Fisch"]},
+  {id:"gnocchiparis",grp:"vegan",meal:"m",n:"Pariser Gnocchi mit Gemüse",d:"Pariser Gnocchi mit gegrilltem Gemüse.",p:10.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:580,prot:18,carb:60,fat:30,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Pariser Gnocchi, gegrilltes Gemüse, Olivenöl, Kräuter",a:["Sulfite","Senf (Spuren)"]},
+  {id:"ravioles",grp:"vegan",meal:"m",n:"Ravioli der Saison",d:"Ravioli mit Sauce des Tages.",p:10.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:560,prot:20,carb:70,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Ravioli, Gemüse der Saison, Sauce des Tages",a:["Sulfite","Senf (Spuren)"]},
+  {id:"carbonara",grp:"klassik",meal:"m",n:"Pasta Carbonara mit Pfannengemüse",d:"Pasta Carbonara nach französischer Art, dazu Pfannengemüse.",p:10.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:700,prot:28,carb:72,fat:32,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Weizenpasta, Speck, Eier, Sahne, Parmesan, Pfannengemüse",a:["Weizen (Gluten)","Ei","Milch"]},
 ];
-const CATS=[["alle","Alle"],["fr","Frühstück"],["klassik","Klassiker"],["sport","Sport & Protein"],["vegan","Vegan"]];
+const FIXED=["bolo","saumonepi","shawarma","burritobowl","tomatesfarcies","confit","couscous","quiche"];
+/* Wechselnde Gerichte: alle 2 Wochen bis 1 Monat 6 aus dem Pool wählen. Pool: boeuf, echine, gratin, gnocchipoeles, puttanesca, gnocchiparis, ravioles, carbonara */
+const ROT_ACTIVE=["boeuf","echine","gratin","gnocchipoeles","puttanesca","gnocchiparis"];
+const DISHES=ALL_DISHES.filter(d=>d.meal==="b"||FIXED.includes(d.id)||ROT_ACTIVE.includes(d.id));
+const CATS=[["alle","Alle"],["fr","Frühstück"],["klassik","Klassiker"],["sport","Sport & Protein"],["vegan","Vegetarisch"]];
 const GROUPS={fr:["Frühstück","Für den Start in den Tag. Nur in der Formel mit Frühstück, Mittag und Abend."],
-  klassik:["Klassiker","Hausmannskost und Lieblingsgerichte für jeden Tag."],
-  sport:["Sport & Protein","Mindestens 50 g Eiweiß pro Portion. Für Definition und Muskelaufbau."],
-  vegan:["Vegan","Rein pflanzlich und trotzdem sättigend."]};
+  klassik:["Klassiker","Klassiker und Lieblingsgerichte aus der Küche, jeden Tag."],
+  sport:["Sport & Protein","Viel Eiweiß, mindestens 35 g pro Portion. Für Definition und Muskelaufbau."],
+  vegan:["Vegetarisch","Ohne Fleisch und Fisch, aber sättigend."]};
 const TIERS=[[30,.15],[20,.10],[10,.05]];
 const MIN=10, MAIL="info@weekfuel.de";
 const FORM_URL="https://formspree.io/f/xgavgbjo";/* Formspree-Endpunkt, z. B. https://formspree.io/f/xxxxxxxx */
@@ -976,7 +976,7 @@ const FAQ=[
     ["Was ist das Probierpaket?","10 verschiedene Hauptgerichte der aktuellen Wochenkarte, je eine Portion, mit 50 % Rabatt. Es gilt einmal pro Haushalt für die erste Bestellung."],
     ["Was ist eine Formel?","Eine fertig geplante Kombination für ganze Tage: Mittag und Abend oder Frühstück, Mittag und Abend, für 1 bis 4 Wochen oder eine frei gewählte Zahl von Tagen. Du wählst dein Ziel, wir stellen die Gerichte zusammen. Im Warenkorb kannst du alles tauschen."],
     ["Kann ich Frühstück einzeln bestellen?","Nein, Frühstück gibt es nur in der Formel „Frühstück, Mittag + Abend“. Im Warenkorb kannst du die Frühstücke untereinander tauschen, höchstens eins pro zwei Hauptgerichte."],
-    ["Habt ihr Gerichte für Sportler?","Ja. Unter „Extra Protein“ findest du Gerichte ab 50 g Eiweiß pro Portion. Dazu gibt es zwei Formeln: „Definition“ mit viel Eiweiß und wenig Kalorien und „Muskelaufbau“ mit großen, kalorienreichen Portionen. Du wählst dein Kalorienziel pro Tag, wir passen die Portionsgröße an. Die Nährwerte pro Tag siehst du direkt in der Formel."],
+    ["Habt ihr Gerichte für Sportler?","Ja. Unter „Extra Protein“ findest du Gerichte ab 35 g Eiweiß pro Portion. Dazu gibt es zwei Formeln: „Definition“ mit viel Eiweiß und wenig Kalorien und „Muskelaufbau“ mit großen, kalorienreichen Portionen. Du wählst dein Kalorienziel pro Tag, wir passen die Portionsgröße an. Die Nährwerte pro Tag siehst du direkt in der Formel."],
     ["Wie viele Portionen muss ich bestellen?","Mindestens 10. Du kannst sie frei aus der Wochenkarte mischen. Ab 20 Portionen gibt es 10 %, ab 30 Portionen 15 % Rabatt, automatisch im Warenkorb."],
     ["Muss ich ein Abo abschließen?","Nein. Du kannst jederzeit einmalig bestellen. Wenn du regelmäßig bestellen willst, wähle im Warenkorb ein Abo (jede Woche oder alle 2 Wochen) und spare zusätzlich 10 %."],
     ["Wie pausiere oder kündige ich mein Abo?","Jederzeit mit einer kurzen E-Mail an info@weekfuel.de, spätestens 4 Tage vor der nächsten Lieferung. Es gibt keine Mindestlaufzeit."],
@@ -1081,7 +1081,7 @@ const FILL={
     scatter(c,R,b,Math.round(b.w*b.h/650),(x,y,R)=>{const s=S(b)*.03;c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-s/2,-s/2,s,s,s*.3);c.fillStyle="#EBC45A";c.fill();c.restore()});
     scatter(c,R,b,Math.round(b.w*b.h/900),(x,y,R)=>{const s=S(b)*.05;c.save();c.translate(x,y);c.rotate(R()*6.3);rr(c,-s/2,-s/2,s,s*.8,s*.2);c.fillStyle=R()<.5?"#5E9A3A":"#D9482E";c.fill();c.restore()});herbs(c,R,b,5,["#46783A"])},
 };
-const RECIPE={lachspasta:[["pastaSalmon",1]],bistrosteak:[["steak",.58],["sweetPot",.42]],teriyaki:[["rice",.38],["teriyaki",.62]],chilisc:[["rice",.38],["beanChili",.62]],lachssahne:[["riceGreen",.4],["lasSalmon",.6]],huhnroti:[["rice",.38],["roastChicken",.62]],lasbolo:[["lasagna",1]],lassaumon:[["lasSalmon",.64],["salad",.36]],basquaise:[["riceGreen",.4],["basquaise",.6]],porcriz:[["riceGreen",.4],["porkMustard",.6]],sauteporc:[["potatoes",.44],["porkStew",.56]],quiche:[["quiche",.6],["potatoes",.4]],rata:[["bulgur",.42],["ratatouille",.58]],curryleg:[["rice",.4],["vegCurry",.6]],curry:[["rice",.42],["curry",.58]],chili:[["rice",.4],["chili",.6]],lachs:[["salmon",1]],dal:[["riceGreen",.38],["dal",.62]],gulasch:[["spaetzle",.42],["gulasch",.58]],pasta:[["pasta",1]],oats:[["oats",1]],pancakes:[["pancakes",1]],burrito:[["burrito",.66],["salsa",.34]],huhnbowl:[["quinoa",.42],["chicken",.58]],putenchili:[["rice",.4],["meatChili",.6]],hgemuese:[["veggies",.45],["chicken",.55]],rindxl:[["rice",.45],["beef",.55]]};
+const RECIPE={bolo:[["pasta",1]],saumonepi:[["pastaSalmon",1]],shawarma:[["rice",.4],["chicken",.6]],burritobowl:[["rice",.4],["meatChili",.6]],tomatesfarcies:[["riceGreen",.4],["basquaise",.6]],confit:[["potatoes",.46],["roastChicken",.54]],couscous:[["bulgur",.46],["ratatouille",.54]],quiche:[["quiche",.6],["salad",.4]],boeuf:[["potatoes",.44],["beef",.56]],echine:[["potatoes",.44],["porkStew",.56]],gratin:[["potatoes",.46],["porkMustard",.54]],gnocchipoeles:[["potatoes",.44],["veggies",.56]],puttanesca:[["pasta",1]],gnocchiparis:[["potatoes",.44],["veggies",.56]],ravioles:[["pasta",1]],carbonara:[["pasta",1]],oats:[["oats",1]],pancakes:[["pancakes",1]],burrito:[["burrito",.66],["salsa",.34]]};
 function box(c,cx,cy,w,id,rot=0,seed=id){
   const R=rng(seed),h=w*.66,x=-w/2,y=-h/2,r=w*.07;
   c.save();c.translate(cx,cy);c.rotate(rot);
@@ -1092,13 +1092,13 @@ function box(c,cx,cy,w,id,rot=0,seed=id){
 }
 function setup(cv){const d=Math.min(2,devicePixelRatio||1),r=cv.getBoundingClientRect();cv.width=Math.max(1,Math.round(r.width*d));cv.height=Math.max(1,Math.round(r.height*d));const c=cv.getContext("2d");c.setTransform(d,0,0,d,0,0);return[c,r.width,r.height]}
 function herbScatter(c,w,h,seed,n){const R=rng(seed);for(let i=0;i<n;i++)leaf(c,R()*w,R()*h,4+R()*5,R()*6.3,["#4E7A3A","#5F8D45","#3F6B30"][i%3])}
-const PHOTOS={lassaumon:1,lachssahne:1,basquaise:1,huhnroti:1,porcriz:1,sauteporc:1,rata:1};
+const PHOTOS={bolo:1,gratin:1,confit:1,shawarma:1,saumonepi:1,quiche:1,tomatesfarcies:1};
 const photo=(id,alt="")=>PHOTOS[String(id).split("|")[0]]?`<img class="pic" src="photo-${String(id).split("|")[0]}.jpg" alt="${alt}" loading="lazy" decoding="async">`:"";
 function drawThumb(cv,id,scale=.8){id=String(id).split("|")[0];const[c,w,h]=setup(cv);box(c,w/2,h/2,Math.min(w*scale,h*scale*1.45),id)}
 
 /* ================= state ================= */
 let cart={};
-try{const s=JSON.parse(localStorage.getItem("weekfuel-cart")||"{}");if(s&&typeof s==="object")cart=s}catch(e){}
+try{const s=JSON.parse(localStorage.getItem("weekfuel-cart")||"{}");if(s&&typeof s==="object")cart=s;Object.keys(cart).forEach(k=>{if(!byId(k))delete cart[k]})}catch(e){}
 function save(){try{localStorage.setItem("weekfuel-cart",JSON.stringify(cart))}catch(e){}}
 let meta=null;try{meta=JSON.parse(localStorage.getItem("weekfuel-meta")||"null")}catch(e){}
 function saveMeta(){try{localStorage.setItem("weekfuel-meta",JSON.stringify(meta))}catch(e){}}
@@ -1113,7 +1113,7 @@ let abo="0";try{abo=localStorage.getItem("weekfuel-abo")||"0"}catch(e){}
 const FEE=4.9,FREE_FROM=80;
 const ABO_R=.10,ABO_TXT={"0":"Einmalige Bestellung","1":"Abo: jede Woche","2":"Abo: alle 2 Wochen"};
 function setAbo(v){abo=v;try{localStorage.setItem("weekfuel-abo",v)}catch(e){};refresh();if(typeof renderFormula==="function")renderFormula();}
-const TRIAL=()=>["huhnroti","lasbolo","lassaumon","basquaise","porcriz","sauteporc","quiche","rata","curryleg","hgemuese"],TRIAL_R=.5;
+const TRIAL=()=>["bolo","saumonepi","shawarma","burritobowl","tomatesfarcies","confit","couscous","quiche","boeuf","gnocchipoeles"],TRIAL_R=.5;
 const isTrial=()=>{const ks=Object.keys(cart),tr=TRIAL();return ks.length===tr.length&&tr.every(id=>cart[id]===1)};
 const weeksOf=t=>Math.max(1,(meta&&meta.cfg&&meta.cfg.wks)||(t.n>24?Math.ceil(t.n/24):1));
 const feeOf=(t,k)=>t.tot/Math.max(1,k)>=FREE_FROM?0:Math.round(k*FEE*100)/100;
@@ -1126,7 +1126,7 @@ function totals(){
 function setQty(id,q){q=Math.max(0,Math.min(60,q));if(byId(id).meal==="b"&&q>(cart[id]||0)&&bfCount()>=bfLimit())return;if(q)cart[id]=q;else delete cart[id];save();refresh()}
 
 /* ================= menu ================= */
-const badges=d=>[d.prot>=40&&"High Protein",d.kcal<500&&"Unter 500 kcal",d.carb<=30&&"Low Carb",d.cat==="vegan"&&"Vegan"].filter(Boolean);
+const badges=d=>[d.prot>=40&&"High Protein",d.kcal<500&&"Unter 500 kcal",d.carb<=30&&"Low Carb",d.cat==="veggie"&&"Vegetarisch",d.cat==="vegan"&&"Vegan"].filter(Boolean);
 const grid=document.getElementById("grid"),tabs=document.getElementById("tabs");
 const match=(d,f)=>f==="alle"||d.grp===f;
 tabs.innerHTML=CATS.map(([k,l],i)=>`<button role="tab" data-f="${k}" aria-selected="${i===0}">${l}<span>${DISHES.filter(d=>match(d,k)).length}</span></button>`).join("");
@@ -1154,7 +1154,7 @@ document.addEventListener("click",e=>{
   if(det){openDish(det.dataset.detail)}
   if(e.target.closest("[data-bf]")){if(!dishOv.hidden)closeOv(dishOv);document.getElementById("fm3").checked=true;renderFormula();fOpen().scrollIntoView({behavior:"smooth"})}
 });
-document.getElementById("quickFill")?.addEventListener("click",()=>{replaceCart({basquaise:2,huhnroti:2,curryleg:2,lasbolo:2,porcriz:1,rata:1},null);openCart()});
+document.getElementById("quickFill")?.addEventListener("click",()=>{replaceCart({bolo:2,shawarma:2,couscous:2,tomatesfarcies:2,quiche:1,saumonepi:1},null);openCart()});
 
 document.getElementById("sortSel").addEventListener("change",e=>{const v=e.target.value;
   const key={prot:d=>-d.prot,kcal:d=>d.kcal,price:d=>d.p}[v];
@@ -1194,10 +1194,10 @@ function openCart(s){cartOpen=true;step=s||(count()>=MIN?Math.max(step,1):1);if(
 function closeCart(){cartOpen=false;closeOv(cartOv);refresh()}
 document.querySelectorAll("[data-open-cart]").forEach(b=>b.addEventListener("click",()=>openCart(b.id==="barBtn"&&count()>=MIN?2:1)));
 cartOv.addEventListener("input",()=>setTimeout(saveForm,0));cartOv.addEventListener("change",()=>setTimeout(saveForm,0));
-document.getElementById("bizBtn").addEventListener("click",()=>{form.kind="Firma";if(count()<MIN){cart={basquaise:2,huhnroti:2,curryleg:2,lasbolo:2,porcriz:1,rata:1};save();refresh()}openCart(1)});
+document.getElementById("bizBtn").addEventListener("click",()=>{form.kind="Firma";if(count()<MIN){cart={bolo:2,shawarma:2,couscous:2,tomatesfarcies:2,quiche:1,saumonepi:1};save();refresh()}openCart(1)});
 cartOv.addEventListener("click",e=>{if(e.target===cartOv||e.target.closest("[data-close]"))closeCart();
   if(e.target.closest("[data-fedit]")&&meta){closeCart();restoreCfg(meta.cfg);fOpen().scrollIntoView({behavior:"smooth"});setTimeout(()=>document.getElementById("fPlanner").scrollIntoView({behavior:"smooth"}),50)}
-  if(e.target.closest("[data-fill]")){const t=totals(),goal=MIN;let need=goal-t.n,ids=Object.keys(cart).filter(k=>byId(k).meal==="m"),i=0;if(!ids.length)ids=["basquaise","huhnroti","curryleg","lasbolo","porcriz","rata"];while(need>0){const k=ids[i++%ids.length];cart[k]=(cart[k]||0)+1;need--}save();refresh()}});
+  if(e.target.closest("[data-fill]")){const t=totals(),goal=MIN;let need=goal-t.n,ids=Object.keys(cart).filter(k=>byId(k).meal==="m"),i=0;if(!ids.length)ids=["bolo","shawarma","couscous","tomatesfarcies","quiche","saumonepi"];while(need>0){const k=ids[i++%ids.length];cart[k]=(cart[k]||0)+1;need--}save();refresh()}});
 cartOv.addEventListener("change",e=>{const sw=e.target.closest("[data-swap]");if(!sw||!sw.value)return;const id=sw.dataset.swap,q=cart[id],suf=id.includes("|")?"|"+id.split("|")[1]:"",nid=sw.value+suf;delete cart[id];cart[nid]=(cart[nid]||0)+q;save();refresh()});
 addEventListener("keydown",e=>{if(e.key==="Escape"){if(!dishOv.hidden)closeOv(dishOv);else if(cartOpen)closeCart()}});
 
@@ -1218,7 +1218,7 @@ function renderCart(){
   if(step===1){
     if(!t.n){pb.innerHTML=`<div class="empty"><p>Dein Warenkorb ist noch leer.</p><button class="btn" type="button" id="toMenu">Gerichte auswählen</button><button class="more" type="button" id="qf2">oder 10 gemischte Portionen vorschlagen</button></div>`;pf.innerHTML="";
       pb.querySelector("#toMenu").onclick=()=>{closeCart();location.hash="karte"};
-      pb.querySelector("#qf2").onclick=()=>{cart={basquaise:2,huhnroti:2,curryleg:2,lasbolo:2,porcriz:1,rata:1};save();refresh()};return}
+      pb.querySelector("#qf2").onclick=()=>{cart={bolo:2,shawarma:2,couscous:2,tomatesfarcies:2,quiche:1,saumonepi:1};save();refresh()};return}
     const swapOpts=d=>DISHES.filter(x=>x.meal===d.meal&&x.id!==d.id).map(x=>`<option value="${x.id}">${x.n}</option>`).join("");
     const banner=meta&&meta.sig===sig(cart)?`<div class="note"><span><span>Deine Formel:</span> <b>${meta.t}</b></span><button class="more" type="button" data-fedit>Formel ändern</button></div>`:"";
     const items=banner+Object.entries(cart).map(([id,q])=>{const d=byId(id);return`<div class="citem">${PHOTOS[String(id).split("|")[0]]?`<img class="th" src="photo-${String(id).split("|")[0]}.jpg" alt="">`:`<canvas data-thumb="${id}"></canvas>`}<div><div class="nm">${nameOf(id)}</div><div class="pp">${q} × ${eur(priceOf(id))}</div><select class="swap" data-swap="${id}" aria-label="Gericht tauschen"><option value="">Gericht tauschen</option>${swapOpts(d)}</select></div>${ctlHTML(id,"cart")}</div>`}).join("");
@@ -1323,15 +1323,16 @@ dishOv.addEventListener("click",e=>{if(e.target===dishOv)closeOv(dishOv)});
 
 
 /* ================= formulas ================= */
-const POOLS={bal:{b:["oats","pancakes","burrito"],m:["basquaise","lachspasta","huhnroti","bistrosteak","lasbolo","curryleg","teriyaki","porcriz","sauteporc","lassaumon","chilisc","lachssahne","rata","quiche"]},
-             cut:{b:["pancakes"],m:["hgemuese","putenchili","hgemuese","huhnbowl","teriyaki"]},
-             bulk:{b:["burrito","pancakes"],m:["rindxl","lasbolo","rindxl","huhnroti","huhnbowl","bistrosteak"]},
-             veg:{b:["oats"],m:["rata","curryleg","chilisc"]}};
+const MAINS=()=>DISHES.filter(d=>d.meal==="m").map(d=>d.id);
+const POOLS={bal:{b:["oats","pancakes","burrito"],m:MAINS()},
+             cut:{b:["pancakes"],m:["shawarma","tomatesfarcies","burritobowl","saumonepi"]},
+             bulk:{b:["burrito","pancakes"],m:["confit","bolo","burritobowl","shawarma","tomatesfarcies"]},
+             veg:{b:["oats"],m:DISHES.filter(d=>d.meal==="m"&&(d.cat==="veggie"||d.cat==="vegan")).map(d=>d.id)}};
 function fval(n){return document.querySelector(`input[name="${n}"]:checked`).value}
 const TARGETS={cut:[1200,1500,1800,2000],bulk:[2500,3000,4000,5000]},LIMITS={cut:[1200,3000],bulk:[2000,6000]};
 const SIZEBASE=(goal,per)=>{const pl=POOLS[goal],[lo,hi]=LIMITS[goal],B=per===3?avg(pl.b,d=>d.kcal):0,K=avg(pl.m,d=>d.kcal),n=goal==="bulk"?4:3;
   return [["M",1],["L",1.25],["XL",1.5]].map(([a,f])=>[a,Math.min(hi,Math.max(lo,Math.round((B+n*K*f)/50)*50))])};
-let fam={a:2,k:2};const FAMB=["oats","pancakes","burrito"],FAMLIST=["lasbolo","quiche","basquaise","lassaumon","sauteporc","curryleg","lachssahne","huhnroti","lachspasta","teriyaki"];
+let fam={a:2,k:2};const FAMB=["oats","pancakes","burrito"],FAMLIST=["bolo","quiche","tomatesfarcies","saumonepi","couscous","gratin"].filter(i=>byId(i));
 const isT=g=>g==="cut"||g==="bulk"||g==="custom";
 let ctarget={k:2200,p:140};
 function customPool(){const d=ctarget.p/ctarget.k;let best=null;
@@ -1411,7 +1412,7 @@ function tryWk(d){const wd=+fval("fwd"),old=wk,old2=skip;wk=Math.max(1,Math.min(
 document.getElementById("wkMinus").addEventListener("click",()=>tryWk(-1));document.getElementById("wkPlus").addEventListener("click",()=>tryWk(1));
 document.getElementById("skMinus").addEventListener("click",()=>tryAdj(skip-1));document.getElementById("skPlus").addEventListener("click",()=>tryAdj(skip+1));
 document.getElementById("fAbo").addEventListener("change",e=>setAbo(e.target.checked?"1":"0"));
-const FNAME={bal:"Ausgewogen",veg:"Vegan",cut:"Definition",bulk:"Muskelaufbau",custom:"Eigene Werte",fam:"Familien-Abo"};
+const FNAME={bal:"Ausgewogen",veg:"Vegetarisch",cut:"Definition",bulk:"Muskelaufbau",custom:"Eigene Werte",fam:"Familien-Abo"};
 function snapCfg(){const dd=DAYS();return{wks:dd>7?(fval("fmode")==="w"?wk:Math.ceil(dd/7)):1,fg:fval("fg"),fm:fval("fm"),ff:fval("ff"),fam:{...fam},fz:String(psize),target:{...target},ctarget:{...ctarget},days:DAYS()}}
 function restoreCfg(c){setRadio("fg",c.fg);setRadio("fm",c.fm);if(c.ff)setRadio("ff",c.ff);fam={...c.fam};psize=+c.fz;setRadio("fz",c.fz);target={...c.target};ctarget={...c.ctarget};setDaysPlanner(c.days);renderFormula()}
 document.getElementById("fAdd").addEventListener("click",()=>{const o={...buildFormula().out};replaceCart(o,{t:FNAME[fval("fg")]||"Eigene Formel",cfg:snapCfg()});renderFormula();openCart(1)});
@@ -1440,7 +1441,7 @@ function updPNote(){{const n=document.getElementById("pNote");if(n)n.hidden=!cou
 const quizOv=document.getElementById("quizOv"),qBody=document.getElementById("qBody"),qBar=document.getElementById("qBar");
 let qa={},qstep=0;
 const QS=[
- {k:"goal",q:"Was ist dein Ziel?",o:[["custom","Ich kenne meine Zahlen","Kalorien und Protein selbst festlegen"],["cut","Abnehmen oder Definition","Viel Eiweiß, weniger Kalorien"],["bulk","Muskeln aufbauen","Viel Eiweiß, mehr Kalorien"],["bal","Einfach gut und bequem essen","Abwechslungsreich, ohne Zählen"],["veg","Pflanzlich essen","Komplett vegan"]]},
+ {k:"goal",q:"Was ist dein Ziel?",o:[["custom","Ich kenne meine Zahlen","Kalorien und Protein selbst festlegen"],["cut","Abnehmen oder Definition","Viel Eiweiß, weniger Kalorien"],["bulk","Muskeln aufbauen","Viel Eiweiß, mehr Kalorien"],["bal","Einfach gut und bequem essen","Abwechslungsreich, ohne Zählen"],["veg","Ohne Fleisch essen","Vegetarisch, ohne Fleisch und Fisch"]]},
  {k:"hunger",q:"Wie groß ist dein Hunger?",only:a=>a.goal==="bal"||a.goal==="veg",o:[["1","Normal","Standardportion, Größe M"],["1.25","Groß","Etwas mehr auf dem Teller, Größe L"],["1.5","Sehr groß","Richtig satt werden, Größe XL"]]},
  {k:"train",q:"Wie aktiv bist du?",only:a=>a.goal==="cut"||a.goal==="bulk",o:[["1","1 bis 2 Mal pro Woche","Eher wenig Bewegung im Alltag"],["2","3 bis 4 Mal pro Woche","Regelmäßig im Gym oder beim Sport"],["3","5 Mal oder öfter","Intensives Training"]]},
  {k:"nums",q:"Deine Zielwerte pro Tag",only:a=>a.goal==="custom",form:true},
@@ -1526,10 +1527,10 @@ function draw(){
   drawGrid();
   document.querySelectorAll("canvas[data-cat]").forEach(cv=>{const[c,w,h]=setup(cv);box(c,w/2,h/2,Math.min(w*.62,h*1.3),cv.dataset.cat)});
   {const cv=document.getElementById("heroCanvas"),[c,w,h]=setup(cv);
-   const bw=w>900?w/4.6:w>560?w/3.2:w/2.1,bh=bw*.66,gx=bw*.12,gy=bh*.2,ids=["basquaise","oats","huhnroti","lasbolo","pancakes","sauteporc","rata","burrito","curryleg","porcriz","quiche","lassaumon"],R=rng("hero");
+   const bw=w>900?w/4.6:w>560?w/3.2:w/2.1,bh=bw*.66,gx=bw*.12,gy=bh*.2,ids=["bolo","oats","shawarma","tomatesfarcies","pancakes","confit","couscous","burrito","quiche","saumonepi","burritobowl","boeuf"],R=rng("hero");
    herbScatter(c,w,h,"herbs",Math.round(w/28));let k=0;
    for(let col=-1;col*(bw+gx)<w+bw;col++){const off=(col%2?bh*.55:0)-bh*.3;for(let row=-1;row*(bh+gy)+off<h+bh;row++){box(c,col*(bw+gx)+bw*.35,row*(bh+gy)+off+bh/2,bw,ids[k%ids.length],(R()-.5)*.03,"h"+k);k++}}}
-  {const cv=document.getElementById("bizCanvas");if(cv.offsetParent){const[c,w,h]=setup(cv);herbScatter(c,w,h,"biz",14);const bw=w*.42;[["curryleg",.27,.26],["lasbolo",.73,.26],["basquaise",.27,.74],["sauteporc",.73,.74]].forEach(([id,px,py],i)=>box(c,w*px,h*py,bw,id,0,"b"+i))}}
+  {const cv=document.getElementById("bizCanvas");if(cv.offsetParent){const[c,w,h]=setup(cv);herbScatter(c,w,h,"biz",14);const bw=w*.42;[["couscous",.27,.26],["bolo",.73,.26],["shawarma",.27,.74],["tomatesfarcies",.73,.74]].forEach(([id,px,py],i)=>box(c,w*px,h*py,bw,id,0,"b"+i))}}
 }
 let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(draw,120)});
 (document.fonts?.ready||Promise.resolve()).then(draw);draw();
@@ -1544,7 +1545,7 @@ refresh();
   ctarget.p=p;setRadio("fg","custom");renderFormula();fOpen().scrollIntoView({behavior:"smooth"})})}
 {const d=new Date();if(d.getDay()===0||d.getDay()>=5)d.setDate(d.getDate()+(d.getDay()===0?1:3));
  const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));t.setUTCDate(t.getUTCDate()+4-(t.getUTCDay()||7));
- const kw=Math.ceil(((t-new Date(Date.UTC(t.getUTCFullYear(),0,1)))/864e5+1)/7);document.getElementById("kwLabel").textContent="Wochenkarte · KW "+kw}
+ const kw=Math.ceil(((t-new Date(Date.UTC(t.getUTCFullYear(),0,1)))/864e5+1)/7);document.getElementById("kwLabel").textContent="Wochenkarte · KW "+kw+" · 8 feste + 6 wechselnde Gerichte"}
 try{const ld=document.createElement("script");ld.type="application/ld+json";
  ld.textContent=JSON.stringify([{"@context":"https://schema.org","@type":"FoodEstablishment","name":"Weekfuel","url":"https://weekfuel.de/","email":MAIL,"description":"Hausgemachtes Meal Prep aus Berlin, ab 10 Portionen geliefert.","servesCuisine":["Meal Prep","Hausmannskost","Französisch"],"areaServed":"Berlin","address":{"@type":"PostalAddress","streetAddress":"Chodowieckistraße 4","postalCode":"10405","addressLocality":"Berlin","addressCountry":"DE"},"parentOrganization":{"@type":"Organization","name":"The French Buffet GbR"}},
  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":FAQ.flatMap(([g,it])=>it).map(([q,a])=>({"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}}))}]);document.head.appendChild(ld)}catch(e){}
