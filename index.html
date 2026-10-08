@@ -937,14 +937,14 @@ const ALL_DISHES=[
    z:"Weizenpasta, Lachs, Spinat, Sahne, Zwiebeln, Knoblauch, Zitrone, Dill",a:["Weizen (Gluten)","Fisch","Milch"]},
   {id:"shawarma",grp:"sport",meal:"m",n:"Shawarma Bowl",d:"Gewürztes Hähnchen, Reis, Tomaten-Gurken-Salat und Tahini-Sauce.",p:11.9,cat:"fleisch",tag:"Extra Protein",g:450,kcal:620,prot:42,carb:58,fat:24,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Hähnchen, Reis, Tomaten, Gurke, rote Zwiebeln, Petersilie, Tahini-Sauce (Sesam), Shawarma-Gewürze",a:["Sesam"]},
-  {id:"burritobowl",grp:"sport",meal:"m",n:"Burrito Bowl",d:"Rinderhack, Reis, schwarze Bohnen, Mais, Salsa und Käse.",p:11.5,cat:"fleisch",tag:"Extra Protein",g:450,kcal:660,prot:38,carb:78,fat:22,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Rinderhack, Reis, schwarze Bohnen, Mais, Tomaten, Zwiebeln, Cheddar, Weizentortilla, Gewürze",a:["Weizen (Gluten)","Milch"]},
+  {id:"burritobowl",grp:"sport",meal:"m",n:"Burrito Bowl",d:"Rinderhack, Reis, schwarze Bohnen, Mais, Pico de Gallo und Käse.",p:11.5,cat:"fleisch",tag:"Extra Protein",g:450,kcal:660,prot:38,carb:78,fat:22,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Rinderhack, Reis, schwarze Bohnen, Mais, Tomaten, rote Zwiebeln, Koriander, Käse, Gewürze",a:["Milch"]},
   {id:"tomatesfarcies",grp:"klassik",meal:"m",n:"Gefüllte Tomaten mit Reis",d:"Gebackene Tomaten mit Hackfleisch gefüllt, dazu Reis.",p:10.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:540,prot:30,carb:60,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Tomaten, Rinderhack, Schweinehack, Reis, Zwiebeln, Knoblauch, Petersilie, Olivenöl",a:[]},
   {id:"confit",grp:"klassik",meal:"m",n:"Entenconfit mit grünen Bohnen",d:"Confierte Entenkeule, grüne Bohnen und Bratkartoffeln.",p:13.9,cat:"fleisch",tag:"Klassiker",g:450,kcal:710,prot:36,carb:42,fat:44,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Entenkeule (Confit), grüne Bohnen, Kartoffeln, Knoblauch, Thymian, Entenschmalz",a:[]},
-  {id:"couscous",grp:"vegan",meal:"m",n:"Couscous mit Gemüse",d:"Couscous mit Gemüse und Kichererbsen.",p:8.9,cat:"veggie",tag:"Vegetarisch",g:450,kcal:560,prot:18,carb:90,fat:14,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Couscous, Karotten, Zucchini, Kichererbsen, Zwiebeln, Olivenöl, Gewürze",a:["Weizen (Gluten)"]},
+  {id:"couscous",grp:"klassik",meal:"m",n:"Couscous mit Fleisch und Gemüse",d:"Couscous mit geschmortem Fleisch, Karotten, Paprika und Kichererbsen.",p:10.9,cat:"fleisch",tag:"Klassiker",g:450,kcal:640,prot:36,carb:78,fat:18,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Couscous (Weizen), Fleisch (geschmort), Karotten, Paprika, Zucchini, Kichererbsen, Tomaten, Zwiebeln, Gewürze",a:["Weizen (Gluten)"]},
   {id:"quiche",grp:"klassik",meal:"m",n:"Quiche mit Salat",d:"Hausgemachte Quiche mit Gemüse, dazu Salat mit Spinat, Rucola und Tomaten.",p:9.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:640,prot:22,carb:48,fat:40,pan:"–",oven:"15 Min",mic:"3 Min",
    z:"Mürbeteig (Weizenmehl, Butter), Eier, Sahne, Käse, Brokkoli, Karotten, Paprika, Spinat, Rucola, Kirschtomaten, Vinaigrette",a:["Weizen (Gluten)","Ei","Milch"]},
   {id:"boeuf",grp:"klassik",meal:"m",n:"Geschmortes Rindfleisch mit Reis",d:"Zartes Rindfleisch in Sauce mit Paprika und Tomaten, dazu Reis und Pfannengemüse.",p:13.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:680,prot:40,carb:40,fat:40,pan:"6 Min",oven:"18 Min",mic:"4 Min",
@@ -1110,7 +1110,7 @@ function box(c,cx,cy,w,id,rot=0,seed=id){
 }
 function setup(cv){const d=Math.min(2,devicePixelRatio||1),r=cv.getBoundingClientRect();cv.width=Math.max(1,Math.round(r.width*d));cv.height=Math.max(1,Math.round(r.height*d));const c=cv.getContext("2d");c.setTransform(d,0,0,d,0,0);return[c,r.width,r.height]}
 function herbScatter(c,w,h,seed,n){const R=rng(seed);for(let i=0;i<n;i++)leaf(c,R()*w,R()*h,4+R()*5,R()*6.3,["#4E7A3A","#5F8D45","#3F6B30"][i%3])}
-const PHOTOS={gnocchipoeles:1,boeuf:1,ravioles:1,echine:1,basquaise:1,huhnroti:1,lachssahne:1,lassaumon:1,porcriz:1,sauteporc:1,rata:1,oats:1,pancakes:1,burrito:1,apfelporridge:1,chia:1,joghurt:1,bolo:1,gratin:1,confit:1,shawarma:1,saumonepi:1,quiche:1,tomatesfarcies:1};
+const PHOTOS={burritobowl:1,couscous:1,gnocchipoeles:1,boeuf:1,ravioles:1,echine:1,basquaise:1,huhnroti:1,lachssahne:1,lassaumon:1,porcriz:1,sauteporc:1,rata:1,oats:1,pancakes:1,burrito:1,apfelporridge:1,chia:1,joghurt:1,bolo:1,gratin:1,confit:1,shawarma:1,saumonepi:1,quiche:1,tomatesfarcies:1};
 const photo=(id,alt="")=>PHOTOS[String(id).split("|")[0]]?`<img class="pic" src="photo-${String(id).split("|")[0]}.jpg" alt="${alt}" loading="lazy" decoding="async">`:"";
 function drawThumb(cv,id,scale=.8){id=String(id).split("|")[0];const[c,w,h]=setup(cv);box(c,w/2,h/2,Math.min(w*scale,h*scale*1.45),id)}
 
