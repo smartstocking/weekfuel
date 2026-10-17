@@ -722,7 +722,7 @@ nav a{white-space:nowrap}
 
   <section id="karte" class="soft">
     <div class="wrap">
-      <div class="shead"><div><span class="label" id="kwLabel">Wochenkarte · 8 feste + 6 wechselnde Gerichte</span><h2>Oder wähle selbst</h2></div><p>Sortiert nach Kategorien: Frühstück, Klassiker, Sport &amp; Protein und Vegetarisch. Tippe auf ein Gericht für Zutaten, Allergene und Nährwerte. Preise pro Portion vor Mengenrabatt.</p></div>
+      <div class="shead"><div><span class="label" id="kwLabel">Wochenkarte · 8 feste + 6 wechselnde Gerichte</span><h2>Oder wähle selbst</h2></div><p>Sortiert nach Kategorien: Frühstück, Klassiker, Sport &amp; Protein und Vegetarisch. Tippe auf ein Gericht für Zutaten, Allergene und Nährwerte. Preise pro Portion vor Mengenrabatt. Auf Anfrage gibt es die Gerichte auch vegetarisch, Rind- und Geflügelgerichte auch mit Halal-Fleisch.</p></div>
       <div class="menubar">
         <div class="tabs" role="tablist" aria-label="Gerichte filtern" id="tabs"></div>
         <div class="mbr"><label class="nutsw"><input type="checkbox" class="nutcb"><span>Nährwerte ausblenden</span></label><label class="sort" for="sortSel">Sortieren<select id="sortSel"><option value="rec">Empfohlen</option><option value="prot">Meiste Protein</option><option value="kcal">Wenigste Kalorien</option><option value="price">Günstigste zuerst</option></select></label></div>
@@ -1348,9 +1348,10 @@ const POOLS={bal:{b:["oats","pancakes","burrito","apfelporridge","chia","joghurt
              cut:{b:["pancakes"],m:["shawarma","tomatesfarcies","burritobowl","saumonepi"]},
              bulk:{b:["burrito","pancakes"],m:["confit","bolo","burritobowl","shawarma","tomatesfarcies"]},
              veg:{b:["oats"],m:DISHES.filter(d=>d.meal==="m"&&(d.cat==="veggie"||d.cat==="vegan")).map(d=>d.id)}};
+let halal=false;const NOHALAL=/Schwein|Speck|Hackbällchen|Fleisch/;const poolOf=g=>{const p=POOLS[g];return halal?{b:p.b,m:p.m.filter(id=>{const d=byId(id);return !(d&&d.cat==="fleisch"&&NOHALAL.test(d.z))})}:p};
 function fval(n){return document.querySelector(`input[name="${n}"]:checked`).value}
 const TARGETS={cut:[1200,1500,1800,2000],bulk:[2500,3000,4000,5000]},LIMITS={cut:[1200,3000],bulk:[2000,6000]};
-const SIZEBASE=(goal,per)=>{const pl=POOLS[goal],[lo,hi]=LIMITS[goal],B=per===3?avg(pl.b,d=>d.kcal):0,K=avg(pl.m,d=>d.kcal),n=goal==="bulk"?4:3;
+const SIZEBASE=(goal,per)=>{const pl=poolOf(goal),[lo,hi]=LIMITS[goal],B=per===3?avg(pl.b,d=>d.kcal):0,K=avg(pl.m,d=>d.kcal),n=goal==="bulk"?4:3;
   return [["M",1],["L",1.25],["XL",1.5]].map(([a,f])=>[a,Math.min(hi,Math.max(lo,Math.round((B+n*K*f)/50)*50))])};
 let fam={a:2,k:2};const FAMB=["oats","pancakes","burrito"],FAMLIST=["bolo","quiche","tomatesfarcies","saumonepi","couscous","gratin"].filter(i=>byId(i));
 const isT=g=>g==="cut"||g==="bulk"||g==="custom";
@@ -1361,7 +1362,7 @@ function customPool(){const d=ctarget.p/ctarget.k;let best=null;
 let target={cut:2000,bulk:3000},psize=1;
 const SIZES=[.75,1,1.25,1.5],SIZE_NAME={.75:"S",1:"M",1.25:"L",1.5:"XL"};
 const avg=(l,f)=>l.reduce((a,id)=>a+f(byId(id)),0)/l.length;
-function plan(goal,per,T){const pool=POOLS[goal],B=per===3?avg(pool.b,d=>d.kcal):0,K=avg(pool.m,d=>d.kcal);
+function plan(goal,per,T){const pool=poolOf(goal),B=per===3?avg(pool.b,d=>d.kcal):0,K=avg(pool.m,d=>d.kcal);
   let best=null;for(let m=2;m<=6;m++)for(const f of SIZES){const k=B+m*K*f,e=Math.abs(k-T)+(m-2)*25;if(!best||e<best.e)best={m,f,k,e}}
   const raw=(T-B)/(2*K);
   return{m:best.m,f:best.f,kcal:Math.round(best.k/10)*10,low:raw<.7,high:T-B>6*K*1.62}}
@@ -1372,7 +1373,7 @@ const DAYS=()=>daysOv!==null?daysOv:Math.max(1,BASE()-skip);
 function buildFormula(){const per=+fval("fm"),days=DAYS(),goal=fval("fg");
   if(goal==="fam"){const mm=+fval("ff"),o={};let j=0;for(let d=0;d<days;d++)for(let q=0;q<mm;q++){const id=(mm===3&&q===0)?FAMB[d%FAMB.length]:FAMLIST[j++%FAMLIST.length];o[id]=(o[id]||0)+fam.a;if(fam.k)o[id+"|c"]=(o[id+"|c"]||0)+fam.k}
     return{out:o,days,per:2,f:1,m:mm,fam:true}}
-  const pg=goal==="custom"?customPool():goal,pool=POOLS[pg],out={};
+  const pg=goal==="custom"?customPool():goal,pool=poolOf(pg),out={};
   let f=psize,m=2;if(isT(goal)){const P=plan(pg,per,goal==="custom"?ctarget.k:target[goal]);f=P.f;m=P.m}
   const add=(list,n,fac)=>{for(let i=0;i<n;i++){const id=list[i%list.length]+(fac!==1?"|"+fac:"");out[id]=(out[id]||0)+1}};
   if(per===3)add(pool.b,days,1);add(pool.m,days*m,f);return{out,days,per,f,m}}
@@ -1465,6 +1466,7 @@ const QS=[
  {k:"hunger",q:"Wie groß ist dein Hunger?",only:a=>a.goal==="bal"||a.goal==="veg",o:[["1","Normal","Standardportion, Größe M"],["1.25","Groß","Etwas mehr auf dem Teller, Größe L"],["1.5","Sehr groß","Richtig satt werden, Größe XL"]]},
  {k:"train",q:"Wie aktiv bist du?",only:a=>a.goal==="cut"||a.goal==="bulk",o:[["1","1 bis 2 Mal pro Woche","Eher wenig Bewegung im Alltag"],["2","3 bis 4 Mal pro Woche","Regelmäßig im Gym oder beim Sport"],["3","5 Mal oder öfter","Intensives Training"]]},
  {k:"nums",q:"Deine Zielwerte pro Tag",only:a=>a.goal==="custom",form:true},
+ {k:"halal",q:"Welches Fleisch möchtest du?",only:a=>a.goal!=="veg",o:[["0","Normal","Alle Gerichte der Wochenkarte"],["1","Halal","Rind und Geflügel mit Halal-Fleisch, ohne Schweinefleisch"]]},
  {k:"per",q:"Welche Mahlzeiten sollen wir übernehmen?",o:[["2","Mittag und Abend","2 Mahlzeiten pro Tag"],["3","Frühstück, Mittag und Abend","3 Mahlzeiten pro Tag"]]},
  {k:"days",q:"Für wie viele Tage?",o:[["5","Arbeitswoche","5 Tage"],["7","Ganze Woche","7 Tage"],["10","Zwei Wochen","10 Tage, auf mehrere Lieferungen verteilt"],["20","Arbeitsmonat","20 Tage, auf mehrere Lieferungen verteilt"],["30","Ein Monat","30 Tage, auf mehrere Lieferungen verteilt"],["31","Langer Monat","31 Tage, auf mehrere Lieferungen verteilt"]]}
 ];
@@ -1473,13 +1475,13 @@ const qopts=x=>x.k==="goal"&&nonut?x.o.filter(o=>o[0]!=="custom"):x.o;
 function qRender(){const st=qsteps();qBar.style.width=(qstep/st.length*100)+"%";
   if(qstep>=st.length)return qResult();
   const x=st[qstep];
-  if(x.form){qBody.innerHTML=`<span class="qn">Frage ${qstep+1} von 4</span><h3 id="qTitle">${x.q}</h3><p style="color:var(--muted);font-size:15px;margin:0">Du bestimmst, wie viele Kalorien und wie viel Protein du pro Tag möchtest. Wir stellen die Gerichte passend zusammen.</p><div class="qform"><div class="kcustom"><label for="qK"><span>Kalorien</span></label><input type="number" id="qK" inputmode="numeric" step="50" min="1200" max="6000" value="${ctarget.k}"><span>kcal pro Tag</span></div><div class="kcustom"><label for="qP"><span>Protein</span></label><input type="number" id="qP" inputmode="numeric" step="5" min="40" max="350" value="${ctarget.p}"><span>g pro Tag</span></div><p class="hint" id="qErr" style="color:var(--warn);margin:0" hidden>Bitte 1.200 bis 6.000 kcal und 40 bis 350 g Protein eingeben.</p></div><button class="btn" type="button" data-qnums style="margin-top:14px">Weiter</button><button class="qback" type="button" data-qback>Zurück</button>`;qBody.querySelector("#qK").focus();return}
-  qBody.innerHTML=`<span class="qn">Frage ${qstep+1} von 4</span><h3 id="qTitle">${x.q}</h3><div class="qopts">${qopts(x).map(([v,t,d])=>`<button class="qopt" type="button" data-v="${v}"><b>${t}</b><small>${d}</small></button>`).join("")}</div>${qstep?'<button class="qback" type="button" data-qback>Zurück</button>':""}`;
+  if(x.form){qBody.innerHTML=`<span class="qn">Frage ${qstep+1} von ${qa.goal?st.length:st.length+1}</span><h3 id="qTitle">${x.q}</h3><p style="color:var(--muted);font-size:15px;margin:0">Du bestimmst, wie viele Kalorien und wie viel Protein du pro Tag möchtest. Wir stellen die Gerichte passend zusammen.</p><div class="qform"><div class="kcustom"><label for="qK"><span>Kalorien</span></label><input type="number" id="qK" inputmode="numeric" step="50" min="1200" max="6000" value="${ctarget.k}"><span>kcal pro Tag</span></div><div class="kcustom"><label for="qP"><span>Protein</span></label><input type="number" id="qP" inputmode="numeric" step="5" min="40" max="350" value="${ctarget.p}"><span>g pro Tag</span></div><p class="hint" id="qErr" style="color:var(--warn);margin:0" hidden>Bitte 1.200 bis 6.000 kcal und 40 bis 350 g Protein eingeben.</p></div><button class="btn" type="button" data-qnums style="margin-top:14px">Weiter</button><button class="qback" type="button" data-qback>Zurück</button>`;qBody.querySelector("#qK").focus();return}
+  qBody.innerHTML=`<span class="qn">Frage ${qstep+1} von ${qa.goal?st.length:st.length+1}</span><h3 id="qTitle">${x.q}</h3><div class="qopts">${qopts(x).map(([v,t,d])=>`<button class="qopt" type="button" data-v="${v}"><b>${t}</b><small>${d}</small></button>`).join("")}</div>${qstep?'<button class="qback" type="button" data-qback>Zurück</button>':""}`;
   qBody.querySelector(".qopt").focus();
 }
 function setRadio(name,v){const el=document.querySelector(`input[name="${name}"][value="${v}"]`);if(el)el.checked=true}
 function qApply(){
-  let per=+qa.per,note="";
+  let per=+qa.per,note="";halal=qa.halal==="1";if(halal&&!/halal/i.test(form.notes||"")){form.notes=(form.notes?form.notes+"\n":"")+"Halal-Fleisch gewünscht";const ta=document.getElementById("notes");if(ta)ta.value=form.notes}
   setRadio("fg",qa.goal);setRadio("fmode","t");skip=0;setRadio("fd",qa.days);if(qa.hunger){psize=+qa.hunger;setRadio("fz",qa.hunger)}
   if(qa.goal==="custom"){setRadio("fg","custom");ctarget={k:+qa.nk,p:+qa.np}}
   if(TARGETS[qa.goal]){const T=({cut:[1500,1800,2000],bulk:[2800,3200,3800]})[qa.goal][+qa.train-1];target[qa.goal]=T;
@@ -1491,7 +1493,7 @@ function qResult(){qBar.style.width="100%";const note=qApply();
   const why={cut:"Eiweißreiche, kalorienarme Gerichte, damit du abnimmst, satt bleibst und deine Muskeln erhältst. Den Kalorienwert kannst du danach frei anpassen.",bulk:"Große, kalorienreiche Portionen mit viel Eiweiß für deinen Muskelaufbau. Den Kalorienwert kannst du danach frei anpassen.",bal:"Eine abwechslungsreiche Mischung aus unseren Klassikern, ohne Kalorienzählen.",veg:"Unsere pflanzlichen Gerichte, sättigend und eiweißreich.",custom:"Wir stellen die Gerichte so zusammen, dass sie deinen Zielwerten möglichst nahekommen. Die tatsächlichen Werte siehst du unten, anpassen kannst du sie jederzeit."}[g];
   const per=+fval("fm"),days=DAYS();
   qBody.innerHTML=`<div class="qres"><span class="tag">Deine Empfehlung</span><h3 id="qTitle">${name}</h3>
-   <p class="why">${why} ${per===3?"Frühstück, Mittag und Abend":"Mittag und Abend"} für ${days} Tage, also ${document.getElementById("fN").textContent}.${note?" "+note:""}</p>
+   <p class="why">${why} ${per===3?"Frühstück, Mittag und Abend":"Mittag und Abend"} für ${days} Tage, also ${document.getElementById("fN").textContent}.${note?" "+note:""}${halal?" Halal: Wir verwenden Rind und Geflügel mit Halal-Fleisch und lassen Gerichte mit Schweinefleisch weg. Das vermerken wir in deiner Bestellung.":""}</p>
    <div class="qstats"><div><b>${document.getElementById("fKcal").textContent}</b>kcal pro Tag</div><div><b>${document.getElementById("fProt").textContent}</b>Protein pro Tag</div><div><b>${document.getElementById("fDay").textContent}</b>pro Tag</div></div>
    <p class="fine">Richtwerte. Dein genauer Bedarf hängt von Gewicht, Alltag und Training ab.</p>
    <div class="qbtns"><button class="btn" type="button" data-qtake>Formel in den Warenkorb · ${document.getElementById("fTot").textContent}</button><button class="btn ghost" type="button" data-qedit>Formel ansehen und anpassen</button></div>
