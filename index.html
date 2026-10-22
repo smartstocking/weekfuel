@@ -795,7 +795,7 @@ nav a{white-space:nowrap}
         <tbody>
           <tr><td>Preis pro Mahlzeit</td><td>oft 15 € und mehr</td><td>günstig</td><td class="me">8,50 bis 13,90 €, bis −15 %</td></tr>
           <tr><td>Zeit pro Mahlzeit</td><td>30 bis 60 Min Wartezeit</td><td>Einkauf, Kochen, Abwasch</td><td class="me">5 Minuten aufwärmen</td></tr>
-          <tr><td>Nährwerte bekannt</td><td>selten</td><td>nur wenn du rechnest</td><td class="me">auf jeder Box</td></tr>
+          <tr><td>Nährwerte bekannt</td><td>selten</td><td>nur wenn du rechnest</td><td class="me">auf jeder Schale</td></tr>
           <tr><td>Für Sportziele planbar</td><td>kaum</td><td>mit viel Aufwand</td><td class="me">Kalorienziel frei wählbar</td></tr>
         </tbody>
       </table></div></div>
@@ -818,7 +818,7 @@ nav a{white-space:nowrap}
       <div class="principles">
         <div class="pr"><h3>Alles hausgemacht</h3><p>Saucen, Brühen und Marinaden kommen aus unserer Küche.</p></div>
         <div class="pr"><h3>Karte im Wechsel</h3><p>Feste Lieblinge bleiben, neue Gerichte kommen regelmäßig dazu.</p></div>
-        <div class="pr"><h3>Transparent</h3><p>Zutaten, Allergene und Nährwerte stehen online und auf jeder Box.</p></div>
+        <div class="pr"><h3>Transparent</h3><p>Zutaten, Allergene und Nährwerte stehen online und auf jeder Schale.</p></div>
         <div class="pr"><h3>Faire Preise</h3><p>Frühstück ab 5,90 €, Hauptgerichte 7,90 bis 21,50 €. Wer mehr bestellt, zahlt weniger.</p></div>
       </div></div></details>
         <details class="mo" id="verpackung" name="mehr"><summary><b>Verpackung</b><small>Frisch verpackt in Schalen mit Deckel. Nichts muss zurückgegeben werden.</small></summary>
@@ -1009,7 +1009,7 @@ const FAQ=[
   ]],
   ["Essen",[
     ["Was passiert mit den leeren Schalen?","Nichts. Du musst die Schalen nicht zurückgeben und zahlst kein Pfand. Nach dem Essen gehört die leere Schale in den Gelben Sack."],
-    ["Wie lange sind die Gerichte haltbar?","Gekühlt vier Tage ab Lieferung, eingefroren bis zu drei Monate (außer Overnight Oats). Das Verbrauchsdatum steht auf jeder Box."],
+    ["Wie lange sind die Gerichte haltbar?","Gekühlt vier Tage ab Lieferung, eingefroren bis zu drei Monate (außer Overnight Oats). Das Verbrauchsdatum steht auf jeder Schale."],
     ["Kann ich die Gerichte einfrieren?","Ja, alle warmen Gerichte lassen sich einfrieren und halten so bis zu drei Monate. Am besten am Liefertag einfrieren, über Nacht im Kühlschrank auftauen und innerhalb von 24 Stunden essen. Nicht erneut einfrieren. Overnight Oats sind nicht zum Einfrieren geeignet."],
     ["Wo finde ich Zutaten, Allergene und Nährwerte?","Tippe auf ein Gericht in der Wochenkarte. Die Angaben stehen außerdem auf jedem Etikett."],
     ["Gibt es die Gerichte auch vegetarisch?","Ja, alle Gerichte bekommst du auf Anfrage auch vegetarisch. Schreib uns bei der Bestellung einfach unter „Anmerkungen“ Bescheid oder an info@weekfuel.de, spätestens 4 Tage vor der Lieferung."],
@@ -1017,7 +1017,7 @@ const FAQ=[
     ["Wie genau sind die Nährwerte?","Die Angaben sind aus den Rezepturen berechnete Richtwerte pro Portion. Durch Zutaten und Zubereitung können sie leicht abweichen."],
     ["Was ist mit Allergien?","Bei jedem Gericht stehen die enthaltenen Hauptallergene. Wir kochen in einer Küche, in der alle 14 Hauptallergene verarbeitet werden, Spuren können deshalb nicht ausgeschlossen werden. Bei schweren Allergien sprich uns bitte vor der Bestellung an."],
     ["Wie viel Eiweiß brauche ich?","Als grober Richtwert gelten 0,8 g pro kg Körpergewicht im Alltag und etwa 1,2 bis 2,0 g bei regelmäßigem Training. Mit dem Eiweiß-Rechner weiter oben bekommst du eine Schätzung."],
-    ["Wie wärme ich die Gerichte auf?","Overnight Oats isst du kalt. Alles andere in der Pfanne mit einem Schuss Wasser (5 bis 7 Min), im Ofen bei 180 °C (12 bis 18 Min) oder in der Mikrowelle bei 800 Watt (3 bis 4 Min)."]
+    ["Wie wärme ich die Gerichte auf?","Overnight Oats isst du kalt. Alles andere in der Mikrowelle bei 800 Watt (3 bis 4 Min), direkt in der Schale mit leicht geöffnetem Deckel. Alternativ den Inhalt in eine Pfanne mit einem Schuss Wasser (5 bis 7 Min) oder in ein ofenfestes Gefäß bei 180 °C (12 bis 18 Min) umfüllen. Die Schalen selbst sind nicht für Pfanne oder Backofen geeignet."]
   ]],
   ["Für Firmen",[
     ["Wie funktioniert die Lieferung ins Büro?","Wir legen feste Liefertage fest und liefern direkt in eure Küche. Die Menge könnt ihr jede Woche anpassen."],
@@ -1330,7 +1330,7 @@ function openDish(id){const d=byId(id);
     <button class="x" type="button" data-close aria-label="Schließen">×</button>
     <div><h3 id="dTitle">${d.n}</h3><p style="color:var(--muted);margin-top:6px">${d.d}</p></div>
     <div class="ntab"><div><b>${d.kcal}</b>kcal</div><div><b>${d.prot} g</b>Eiweiß</div><div><b>${d.carb} g</b>Kohlenhydr.</div><div><b>${d.fat} g</b>Fett</div></div>
-    <dl><dt>Zutaten</dt><dd>${d.z}</dd><dt>Allergene</dt><dd>${d.a.join(", ")||"keine der 14 Hauptallergene"}</dd><dt>Portion</dt><dd>${d.g} g</dd><dt>Haltbarkeit</dt><dd>${d.cold?"4 Tage gekühlt, nicht zum Einfrieren geeignet":"4 Tage gekühlt, einfrierbar bis 3 Monate"}</dd><dt>Zubereitung</dt><dd>${d.cold?"Kalt genießen, direkt aus dem Kühlschrank":`Pfanne ${d.pan} · Ofen ${d.oven} · Mikrowelle ${d.mic}`}</dd>${d.cat!=="veggie"?"<dt>Vegetarisch</dt><dd>Auf Anfrage möglich, Hinweis bei der Bestellung unter „Anmerkungen“</dd>":""}${d.cat==="fleisch"&&!/Schwein|Speck|Hackbällchen|Fleisch/.test(d.z)?"<dt>Halal</dt><dd>Auf Anfrage mit Halal-Fleisch, Hinweis bei der Bestellung unter „Anmerkungen“</dd>":""}</dl>
+    <dl><dt>Zutaten</dt><dd>${d.z}</dd><dt>Allergene</dt><dd>${d.a.join(", ")||"keine der 14 Hauptallergene"}</dd><dt>Portion</dt><dd>${d.g} g</dd><dt>Haltbarkeit</dt><dd>${d.cold?"4 Tage gekühlt, nicht zum Einfrieren geeignet":"4 Tage gekühlt, einfrierbar bis 3 Monate"}</dd><dt>Zubereitung</dt><dd>${d.cold?"Kalt genießen, direkt aus dem Kühlschrank":`Mikrowelle ${d.mic}, direkt in der Schale. Für Pfanne (${d.pan}) oder Ofen (${d.oven}) den Inhalt vorher umfüllen.`}</dd>${d.cat!=="veggie"?"<dt>Vegetarisch</dt><dd>Auf Anfrage möglich, Hinweis bei der Bestellung unter „Anmerkungen“</dd>":""}${d.cat==="fleisch"&&!/Schwein|Speck|Hackbällchen|Fleisch/.test(d.z)?"<dt>Halal</dt><dd>Auf Anfrage mit Halal-Fleisch, Hinweis bei der Bestellung unter „Anmerkungen“</dd>":""}</dl>
     <p class="finenote">Spuren anderer Allergene können nicht ausgeschlossen werden. Nährwerte sind berechnete Richtwerte.</p>
     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:6px"><span style="font-size:20px;font-weight:500">${eur(d.p)}</span><span class="ctl" id="dCtl"></span></div>
   </div>`;
