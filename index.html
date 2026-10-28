@@ -1013,11 +1013,17 @@ const ALL_DISHES=[
   {id:"sauteporc",grp:"klassik",meal:"m",n:"Schweinegeschnetzeltes mit Ofenkartoffeln",d:"Geschmortes Schweinefleisch in Sauce, Ofenkartoffeln, Gemüse.",p:10.5,cat:"fleisch",g:450,kcal:600,prot:34,carb:50,fat:28,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Schweinefleisch, Kartoffeln, Zwiebeln, Tomaten, Brühe, Gemüse der Saison, Olivenöl, Kräuter",a:[]},
   {id:"rata",grp:"vegan",meal:"m",n:"Ratatouille mit Bulgur",d:"Provenzalisches Gemüse, gewürzter Bulgur.",p:8.5,cat:"vegan",tag:"Vegan",g:450,kcal:420,prot:13,carb:62,fat:12,pan:"5 Min",oven:"12 Min",mic:"3 Min",
-   z:"Bulgur (Weizen), Zucchini, Aubergine, Paprika, Tomaten, Zwiebeln, Knoblauch, Olivenöl, Kräuter der Provence",a:["Weizen (Gluten)"]}
+   z:"Bulgur (Weizen), Zucchini, Aubergine, Paprika, Tomaten, Zwiebeln, Knoblauch, Olivenöl, Kräuter der Provence",a:["Weizen (Gluten)"]},
+  {id:"lasagneb",grp:"klassik",meal:"m",n:"Lasagne Bolognese",d:"Lasagne mit Rinderhack-Ragout und Béchamel, goldbraun überbacken.",p:10.5,cat:"fleisch",g:450,kcal:640,prot:34,carb:52,fat:30,pan:"–",oven:"18 Min",mic:"4 Min",
+   z:"Lasagneplatten (Hartweizengrieß, Eier), Rinderhack, Tomaten, Zwiebeln, Karotten, Sellerie, Knoblauch, Olivenöl, Béchamel (Milch, Butter, Weizenmehl), Käse, Kräuter",a:["Weizen (Gluten)","Ei","Milch","Sellerie"]},
+  {id:"chilicorn",grp:"sport",meal:"m",n:"Chili con Carne Bowl",d:"Würziges Chili mit Rinderhack, Bohnen und Mais auf Reis, mit Joghurt-Kräuter-Sauce.",p:10.5,cat:"fleisch",tag:"Extra Protein",g:450,kcal:620,prot:36,carb:72,fat:18,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Rinderhack, Kidneybohnen, Mais, Tomaten, Paprika, Zwiebeln, Knoblauch, Reis, Joghurt, Kräuter, Gewürze",a:["Milch"]},
+  {id:"macchicken",grp:"sport",meal:"m",n:"Mac and Cheese mit Hähnchen",d:"Makkaroni in cremiger Käsesauce mit gegrilltem Hähnchen.",p:10.5,cat:"fleisch",tag:"Extra Protein",g:450,kcal:720,prot:40,carb:78,fat:28,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
+   z:"Makkaroni (Weizen), Hähnchen, Käse, Milch, Sahne, Butter, Weizenmehl",a:["Weizen (Gluten)","Milch"]}
 ];
 const FIXED=["bolo","shawarma","burritobowl","tomatesfarcies","confit","couscous","quiche"];
 /* Wechselnde Gerichte: alle 2 Wochen bis 1 Monat 6 aus dem Pool wählen. Pool: boeuf, echine, gratin, gnocchipoeles, gnocchiparis, ravioles, carbonara */
-const ROT_ACTIVE=["boeuf","echine","gratin","gnocchipoeles","gnocchiparis","ravioles","basquaise","huhnroti","lachssahne","lassaumon","porcriz","sauteporc","rata"];
+const ROT_ACTIVE=["boeuf","echine","gratin","gnocchipoeles","gnocchiparis","ravioles","basquaise","huhnroti","lachssahne","lassaumon","porcriz","sauteporc","rata","lasagneb","chilicorn","macchicken"];
 const DISHES=ALL_DISHES.filter(d=>d.meal==="b"||FIXED.includes(d.id)||ROT_ACTIVE.includes(d.id));
 const CATS=[["alle","Alle"],["fr","Frühstück"],["klassik","Klassiker"],["sport","Sport & Protein"],["vegan","Vegetarisch"]];
 const GROUPS={fr:["Frühstück","Für den Start in den Tag. Nur in der Formel mit Frühstück, Mittag und Abend."],
@@ -1151,7 +1157,7 @@ function box(c,cx,cy,w,id,rot=0,seed=id){
 }
 function setup(cv){const d=Math.min(2,devicePixelRatio||1),r=cv.getBoundingClientRect();cv.width=Math.max(1,Math.round(r.width*d));cv.height=Math.max(1,Math.round(r.height*d));const c=cv.getContext("2d");c.setTransform(d,0,0,d,0,0);return[c,r.width,r.height]}
 function herbScatter(c,w,h,seed,n){const R=rng(seed);for(let i=0;i<n;i++)leaf(c,R()*w,R()*h,4+R()*5,R()*6.3,["#4E7A3A","#5F8D45","#3F6B30"][i%3])}
-const PHOTOS={burritobowl:1,couscous:1,gnocchipoeles:1,boeuf:1,ravioles:1,echine:1,basquaise:1,huhnroti:1,lachssahne:1,lassaumon:1,porcriz:1,sauteporc:1,rata:1,oats:1,pancakes:1,burrito:1,apfelporridge:1,chia:1,joghurt:1,bolo:1,gratin:1,confit:1,shawarma:1,quiche:1,tomatesfarcies:1};
+const PHOTOS={lasagneb:1,chilicorn:1,macchicken:1,burritobowl:1,couscous:1,gnocchipoeles:1,boeuf:1,ravioles:1,echine:1,basquaise:1,huhnroti:1,lachssahne:1,lassaumon:1,porcriz:1,sauteporc:1,rata:1,oats:1,pancakes:1,burrito:1,apfelporridge:1,chia:1,joghurt:1,bolo:1,gratin:1,confit:1,shawarma:1,quiche:1,tomatesfarcies:1};
 const photo=(id,alt="")=>PHOTOS[String(id).split("|")[0]]?`<img class="pic" src="photo-${String(id).split("|")[0]}.jpg" alt="${alt}" loading="lazy" decoding="async">`:"";
 function drawThumb(cv,id,scale=.8){id=String(id).split("|")[0];const[c,w,h]=setup(cv);box(c,w/2,h/2,Math.min(w*scale,h*scale*1.45),id)}
 
