@@ -534,6 +534,10 @@ fieldset.fs{min-width:0}.fbox{box-sizing:border-box;max-width:100%;width:100%}.q
 @media (max-width:560px){.presets{gap:10px}.pcard{padding:14px;gap:10px}.pcard h3{font-size:16px}.pcard .pp b{font-size:21px}.pcard .btn{padding:12px 10px;font-size:14px}}
 .sort{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);padding-bottom:12px}
 .sort select{font:500 14px var(--font);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:7px 12px}
+.wl{padding-block:64px}.wl-in{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}.wl h2{margin-top:14px}.wl p{color:var(--muted);font-size:17px;margin-top:12px;max-width:34em}
+.wl-card{border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;gap:14px;background:var(--bg)}.wl-card input[type=email],.wl-card input[type=text]{font:400 16px var(--font);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--line);padding:10px 0;width:100%;outline:0}.wl-card input:focus{border-bottom-color:var(--ink)}
+.wl-card .chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.45}.wl-card .chk input{margin-top:3px;flex:none}.wl-hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}.wl-msg{font-size:14px;min-height:1.3em}.wl-msg.ok{color:var(--accent)}.wl-msg.err{color:#b3261e}
+@media (max-width:760px){.wl-in{grid-template-columns:1fr;gap:24px}}
 .trial{background:var(--accent);color:var(--on-accent);padding-block:72px}
 .trial .label{color:inherit;opacity:.75}
 .trial-in{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
@@ -865,6 +869,36 @@ nav a{white-space:nowrap}
       </div>
     </div>
   </section>
+
+  <section id="warteliste" class="wl">
+    <div class="wrap wl-in">
+      <div>
+        <span class="label">Warteliste</span>
+        <h2>Starte mit uns, <em>bevor es voll ist</em></h2>
+        <p>Wir kochen in kleinen Mengen, damit alles frisch bleibt. Trag dich ein und du erfährst als Erstes, wann neue Plätze frei sind, und bekommst das Probierpaket zum Startpreis.</p>
+      </div>
+      <form class="wl-card" id="wlForm" novalidate>
+        <input type="text" name="_gotcha" class="wl-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label for="wlMail" class="label">Deine E-Mail-Adresse</label>
+        <input type="email" id="wlMail" name="email" placeholder="name@beispiel.de" autocomplete="email" required>
+        <label class="chk"><input type="checkbox" id="wlOk" required><span>Ich möchte per E-Mail über freie Plätze und Angebote informiert werden. Die Einwilligung kann ich jederzeit widerrufen. Mehr in der <a href="datenschutz.html" target="_blank" style="text-decoration:underline">Datenschutzerklärung</a>.</span></label>
+        <button class="btn" type="submit" id="wlBtn">Auf die Warteliste</button>
+        <div class="wl-msg" id="wlMsg" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+  <script>
+  (function(){var f=document.getElementById('wlForm');if(!f)return;var m=document.getElementById('wlMsg'),b=document.getElementById('wlBtn');
+  f.addEventListener('submit',function(e){e.preventDefault();var em=document.getElementById('wlMail').value.trim(),ok=document.getElementById('wlOk').checked;m.className='wl-msg';
+  if(f.elements._gotcha.value){return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){m.textContent='Bitte gib eine gültige E-Mail-Adresse ein.';m.className='wl-msg err';return}
+  if(!ok){m.textContent='Bitte stimme der Information per E-Mail zu.';m.className='wl-msg err';return}
+  b.disabled=true;m.textContent='Wird gesendet…';
+  fetch('https://formspree.io/f/xgavgbjo',{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({_subject:'Weekfuel Warteliste',typ:'Warteliste',email:em,einwilligung:'ja'})})
+  .then(function(r){if(!r.ok)throw 0;m.textContent='Danke! Du stehst auf der Warteliste. Wir melden uns bei dir.';m.className='wl-msg ok';f.reset()})
+  .catch(function(){m.textContent='Das hat leider nicht geklappt. Schreib uns bitte kurz an info@weekfuel.de.';m.className='wl-msg err'})
+  .finally(function(){b.disabled=false})})})();
+  </script>
 
   <section id="faq" class="soft">
     <div class="wrap faq-wrap">
