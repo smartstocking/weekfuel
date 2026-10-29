@@ -100,8 +100,8 @@ nav a:hover{color:var(--ink)}
 .hero .intro p{font-size:18px;color:var(--muted)}
 .ctas{display:flex;flex-wrap:wrap;gap:12px}
 @media (max-width:880px){.hero{padding-top:48px}.hero-grid{grid-template-columns:1fr;gap:24px}}
-.flatlay{margin-top:64px;position:relative;height:clamp(240px,34vw,460px);background:var(--plate);overflow:hidden}
-.flatlay{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));grid-template-rows:100%;grid-auto-rows:0;gap:3px}.flatlay img{width:100%;height:100%;object-fit:cover;display:block}@media (max-width:560px){.flatlay{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}}
+.flatlay{margin-top:64px;position:relative;height:clamp(240px,26vw,380px);background:var(--plate);overflow:hidden}
+.flatlay{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:100%;grid-auto-rows:0;gap:3px}.flatlay img{width:100%;height:100%;object-fit:cover;display:block}@media (max-width:700px){.flatlay{grid-template-columns:repeat(2,1fr);height:clamp(220px,62vw,300px)}}
 @media (max-width:880px){.flatlay{margin-top:40px}}
 .facts{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line)}
 .facts div{padding:22px 24px 24px 0;display:grid;gap:2px}
@@ -620,7 +620,7 @@ nav a{white-space:nowrap}
       </div>
     </div>
     <div class="wrap">
-      <div class="flatlay" role="img" aria-label="Gerichte der Woche"><img src="hero-shawarma.jpg" alt="" loading="eager" decoding="async"><img src="hero-quiche.jpg" alt="" loading="lazy" decoding="async"><img src="hero-bolo.jpg" alt="" loading="lazy" decoding="async"><img src="hero-gnocchipoeles.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="flatlay" role="img" aria-label="Gerichte der Woche"><img src="photo-huhnroti.jpg" alt="" loading="eager" decoding="async" fetchpriority="high"><img src="photo-ravioles.jpg" alt="" loading="eager" decoding="async"><img src="photo-lachssahne.jpg" alt="" loading="lazy" decoding="async"><img src="photo-echine.jpg" alt="" loading="lazy" decoding="async"></div>
       <div class="facts">
         <div><b>100 % hausgemacht</b><span>Frühstück bis Abendessen</span></div>
         <div><b>Mit oder ohne Abo</b><span>Abo −10 %, jederzeit pausierbar</span></div>
