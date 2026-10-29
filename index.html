@@ -344,6 +344,7 @@ footer a:hover{color:var(--ink)}
 @media (max-width:960px){.fx{grid-template-columns:1fr;gap:32px}.fres{position:static}}
 @media (max-width:700px){.fx .chips.g4{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.fx .chips label{padding:12px 6px}.fx .chips label b{font-size:14px}}
+@media (max-width:520px){.chips>*{overflow-wrap:normal}.fx .chips label b{font-size:13px;hyphens:auto}.fx .chips label{padding:12px 4px}}
 
 /* packaging */
 .pack{display:grid;grid-template-columns:1fr 1.25fr;gap:64px;align-items:start}
@@ -800,7 +801,7 @@ nav a{white-space:nowrap}
       <div class="tw"><div class="cmpwrap"><table class="cmp">
         <thead><tr><th></th><th>Lieferdienst</th><th>Selbst kochen</th><th class="me">Weekfuel</th></tr></thead>
         <tbody>
-          <tr><td>Preis pro Mahlzeit</td><td>oft 15 € und mehr</td><td>günstig</td><td class="me">8,50 bis 13,90 €, bis −15 %</td></tr>
+          <tr><td>Preis pro Mahlzeit</td><td>oft 15 € und mehr</td><td>günstig</td><td class="me">7,90 bis 15,50 €, bis −15 %</td></tr>
           <tr><td>Zeit pro Mahlzeit</td><td>30 bis 60 Min Wartezeit</td><td>Einkauf, Kochen, Abwasch</td><td class="me">5 Minuten aufwärmen</td></tr>
           <tr><td>Nährwerte bekannt</td><td>selten</td><td>nur wenn du rechnest</td><td class="me">auf jeder Schale</td></tr>
           <tr><td>Für Sportziele planbar</td><td>kaum</td><td>mit viel Aufwand</td><td class="me">Kalorienziel frei wählbar</td></tr>
@@ -918,7 +919,7 @@ nav a{white-space:nowrap}
     <div class="about"><div class="logo"><i aria-hidden="true"></i>weekfuel</div><p>Fuel your week. Hausgemachtes Meal Prep aus Berlin, frisch gekocht, portioniert und geliefert.</p></div>
     <div><h4>Bestellen</h4><ul><li><a href="#karte">Wochenkarte</a></li><li><a href="#preise">Preise</a></li><li><a href="#firmen">Für Firmen</a></li></ul></div>
     <div><h4>Hilfe</h4><ul><li><a href="#faq">FAQ</a></li><li><a href="#so-gehts">So geht's</a></li><li><a href="#ueber-uns">Über uns</a></li><li><a href="#verpackung">Verpackung</a></li></ul></div>
-    <div><h4>Social</h4><ul><li>Instagram</li><li>TikTok</li></ul></div>
+    <div><h4>Social</h4><ul><li><a href="https://www.instagram.com/weekfuel" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.tiktok.com/@weekfuel" target="_blank" rel="noopener">TikTok</a></li></ul></div>
     <div class="legal"><span>© 2026 Weekfuel, Berlin</span><span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span></div>
   </div>
 </footer>
@@ -994,11 +995,11 @@ const ALL_DISHES=[
   {id:"gratin",grp:"klassik",meal:"m",n:"Gratin mit Hackbällchen und Senfsauce",d:"Kartoffelgratin mit Hackbällchen in Senfsauce.",p:9.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:680,prot:32,carb:52,fat:38,pan:"6 Min",oven:"18 Min",mic:"4 Min",
    z:"Kartoffelgratin, Hackbällchen (Fleisch), Senfsauce, Sahne, Ei, Weizenmehl",a:["Weizen (Gluten)","Ei","Milch","Senf"]},
   {id:"gnocchipoeles",grp:"vegan",meal:"m",n:"Gnocchi mit Pfannengemüse",d:"Goldbraun gebratene Gnocchi mit Ofengemüse und Kräutersauce.",p:9.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:550,prot:16,carb:86,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Kartoffelgnocchi, Zucchini, Paprika, Kirschtomaten, rote Zwiebeln, Kräutersauce (Sahne, Petersilie), Olivenöl",a:["Weizen (Gluten)"]},
+   z:"Kartoffelgnocchi, Zucchini, Paprika, Kirschtomaten, rote Zwiebeln, Kräutersauce (Sahne, Petersilie), Olivenöl",a:["Weizen (Gluten)","Milch"]},
   {id:"gnocchiparis",grp:"vegan",meal:"m",n:"Pariser Gnocchi mit Gemüse",d:"Pariser Gnocchi mit gegrilltem Gemüse.",p:7.9,cat:"veggie",tag:"Vegetarisch",g:450,kcal:580,prot:18,carb:60,fat:30,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Pariser Gnocchi, gegrilltes Gemüse, Olivenöl, Kräuter",a:["Sulfite","Senf (Spuren)"]},
+   z:"Pariser Gnocchi (Weizenmehl, Eier, Butter), gegrilltes Gemüse, Olivenöl, Kräuter",a:["Weizen (Gluten)","Ei","Milch","Sulfite","Senf (Spuren)"]},
   {id:"ravioles",grp:"vegan",meal:"m",n:"Ravioli der Saison",d:"Gefüllte Ravioli in Kräuter-Butter-Sauce.",p:11.5,cat:"veggie",tag:"Vegetarisch",g:450,kcal:560,prot:20,carb:70,fat:20,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
-   z:"Ravioli (Weizenmehl, Eier, Füllung), Butter, Petersilie, Knoblauch",a:["Sulfite","Senf (Spuren)"]},
+   z:"Ravioli (Weizenmehl, Eier, Füllung), Butter, Petersilie, Knoblauch",a:["Weizen (Gluten)","Ei","Milch","Sulfite","Senf (Spuren)"]},
   {id:"carbonara",grp:"klassik",meal:"m",n:"Pasta Carbonara mit Pfannengemüse",d:"Pasta Carbonara nach französischer Art, dazu Pfannengemüse.",p:10.5,cat:"fleisch",tag:"Klassiker",g:450,kcal:700,prot:28,carb:72,fat:32,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
    z:"Weizenpasta, Speck, Eier, Sahne, Parmesan, Pfannengemüse",a:["Weizen (Gluten)","Ei","Milch"]},
   {id:"basquaise",grp:"klassik",meal:"m",n:"Poulet basquaise",d:"Hähnchen in Paprika-Tomaten-Sauce, Reis pilaf.",p:10.5,cat:"fleisch",g:450,kcal:610,prot:28,carb:84,fat:16,pan:"6 Min",oven:"15 Min",mic:"3–4 Min",
@@ -1041,7 +1042,7 @@ const FAQ=[
     ["Was ist eine Formel?","Eine fertig geplante Kombination für ganze Tage: Mittag und Abend oder Frühstück, Mittag und Abend, für 1 bis 4 Wochen oder eine frei gewählte Zahl von Tagen. Du wählst dein Ziel, wir stellen die Gerichte zusammen. Im Warenkorb kannst du alles tauschen."],
     ["Kann ich Frühstück einzeln bestellen?","Nein, Frühstück gibt es nur in der Formel „Frühstück, Mittag + Abend“. Im Warenkorb kannst du die Frühstücke untereinander tauschen, höchstens eins pro zwei Hauptgerichte."],
     ["Habt ihr Gerichte für Sportler?","Ja. Unter „Extra Protein“ findest du Gerichte ab 35 g Eiweiß pro Portion. Dazu gibt es zwei Formeln: „Definition“ mit viel Eiweiß und wenig Kalorien und „Muskelaufbau“ mit großen, kalorienreichen Portionen. Du wählst dein Kalorienziel pro Tag, wir passen die Portionsgröße an. Die Nährwerte pro Tag siehst du direkt in der Formel."],
-    ["Wie viele Portionen muss ich bestellen?","Mindestens 10. Du kannst sie frei aus der Wochenkarte mischen. Ab 20 Portionen gibt es 10 %, ab 30 Portionen 15 % Rabatt, automatisch im Warenkorb."],
+    ["Wie viele Portionen muss ich bestellen?","Mindestens 10. Du kannst sie frei aus der Wochenkarte mischen. Ab 10 Portionen gibt es 5 %, ab 20 Portionen 10 %, ab 30 Portionen 15 % Rabatt, automatisch im Warenkorb."],
     ["Muss ich ein Abo abschließen?","Nein. Du kannst jederzeit einmalig bestellen. Wenn du regelmäßig bestellen willst, wähle im Warenkorb ein Abo (jede Woche oder alle 2 Wochen) und spare zusätzlich 10 %."],
     ["Wie pausiere oder kündige ich mein Abo?","Jederzeit mit einer kurzen E-Mail an info@weekfuel.de, spätestens 4 Tage vor der nächsten Lieferung. Es gibt keine Mindestlaufzeit."],
     ["Wie bezahle ich?","Nach unserer Bestätigung per Überweisung oder PayPal. Firmen erhalten eine Rechnung."],
@@ -1060,7 +1061,7 @@ const FAQ=[
     ["Kann ich die Gerichte einfrieren?","Ja, alle warmen Gerichte lassen sich einfrieren und halten so bis zu drei Monate. Am besten am Liefertag einfrieren, über Nacht im Kühlschrank auftauen und innerhalb von 24 Stunden essen. Nicht erneut einfrieren. Overnight Oats sind nicht zum Einfrieren geeignet."],
     ["Wo finde ich Zutaten, Allergene und Nährwerte?","Tippe auf ein Gericht in der Wochenkarte. Die Angaben stehen außerdem auf jedem Etikett."],
     ["Gibt es die Gerichte auch vegetarisch?","Ja, alle Gerichte bekommst du auf Anfrage auch vegetarisch. Schreib uns bei der Bestellung einfach unter „Anmerkungen“ Bescheid oder an info@weekfuel.de, spätestens 4 Tage vor der Lieferung."],
-    ["Gibt es Halal-Fleisch?","Ja. Bei Gerichten mit Rind, Hähnchen oder Ente bekommst du auf Anfrage Halal-Fleisch von unserem Halal-Metzger. Schreib uns bei der Bestellung unter „Anmerkungen“ Bescheid oder an info@weekfuel.de, spätestens 4 Tage vor der Lieferung. Halal-Gerichte werden getrennt von Schweinefleisch zubereitet: mit eigenen Töpfen, Pfannen und Utensilien und getrennter Lagerung. Gerichte mit Schweinefleisch gibt es nicht als Halal-Variante. Bei Couscous und Gratin fragst du einfach nach."],
+    ["Gibt es Halal-Fleisch?","Ja. Bei Gerichten mit Rind oder Hähnchen bekommst du auf Anfrage Halal-Fleisch von unserem Halal-Metzger. Schreib uns bei der Bestellung unter „Anmerkungen“ Bescheid oder an info@weekfuel.de, spätestens 4 Tage vor der Lieferung. Halal-Gerichte werden getrennt von Schweinefleisch zubereitet: mit eigenen Töpfen, Pfannen und Utensilien und getrennter Lagerung. Gerichte mit Schweinefleisch gibt es nicht als Halal-Variante. Bei Couscous und Gratin fragst du einfach nach."],
     ["Wie genau sind die Nährwerte?","Die Angaben sind aus den Rezepturen berechnete Richtwerte pro Portion. Durch Zutaten und Zubereitung können sie leicht abweichen."],
     ["Was ist mit Allergien?","Bei jedem Gericht stehen die enthaltenen Hauptallergene. Wir kochen in einer Küche, in der alle 14 Hauptallergene verarbeitet werden, Spuren können deshalb nicht ausgeschlossen werden. Bei schweren Allergien sprich uns bitte vor der Bestellung an."],
     ["Wie viel Eiweiß brauche ich?","Als grober Richtwert gelten 0,8 g pro kg Körpergewicht im Alltag und etwa 1,2 bis 2,0 g bei regelmäßigem Training. Mit dem Eiweiß-Rechner weiter oben bekommst du eine Schätzung."],
